@@ -15,6 +15,30 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    GSMRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: GSMScreen(),
+      );
+    },
+    EfficiencyTransportRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EfficiencyTransportScreen(),
+      );
+    },
+    AnalyseLogisticsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AnalyseLogisticsScreen(),
+      );
+    },
+    TransportRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: TransportScreen(),
+      );
+    },
     SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -27,7 +51,69 @@ abstract class _$AppRouter extends RootStackRouter {
         child: AuthScreen(),
       );
     },
+    ChooseTreatmentRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ChooseTreatmentScreen(),
+      );
+    },
   };
+}
+
+/// generated route for
+/// [GSMScreen]
+class GSMRoute extends PageRouteInfo<void> {
+  const GSMRoute({List<PageRouteInfo>? children})
+      : super(
+          GSMRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GSMRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EfficiencyTransportScreen]
+class EfficiencyTransportRoute extends PageRouteInfo<void> {
+  const EfficiencyTransportRoute({List<PageRouteInfo>? children})
+      : super(
+          EfficiencyTransportRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EfficiencyTransportRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AnalyseLogisticsScreen]
+class AnalyseLogisticsRoute extends PageRouteInfo<void> {
+  const AnalyseLogisticsRoute({List<PageRouteInfo>? children})
+      : super(
+          AnalyseLogisticsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AnalyseLogisticsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TransportScreen]
+class TransportRoute extends PageRouteInfo<void> {
+  const TransportRoute({List<PageRouteInfo>? children})
+      : super(
+          TransportRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TransportRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -54,6 +140,20 @@ class AuthRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AuthRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ChooseTreatmentScreen]
+class ChooseTreatmentRoute extends PageRouteInfo<void> {
+  const ChooseTreatmentRoute({List<PageRouteInfo>? children})
+      : super(
+          ChooseTreatmentRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ChooseTreatmentRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

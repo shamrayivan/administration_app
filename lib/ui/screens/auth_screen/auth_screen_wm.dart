@@ -5,6 +5,7 @@ import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/net/dio/dio_manager.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
 import 'package:administration_app/ui/res/urls.dart';
+import 'package:administration_app/ui/router.dart';
 import 'package:flutter/cupertino.dart' hide Action;
 import 'package:relation/relation.dart';
 
@@ -17,6 +18,7 @@ class AuthScreenWm extends WidgetModelStandard {
   final _authManager = getIt<AuthManager>();
   final _storageManager = getIt<StorageManager>();
   final _dioManager = getIt<DioManager>();
+  final _appRouter = getIt<AppRouter>();
 
   final onEnter = Action<void>();
   final showObscure = Action<void>();
@@ -54,6 +56,7 @@ class AuthScreenWm extends WidgetModelStandard {
         String? savePassword = await _storageManager.getString(key: 'password');
         String? baseUrl = await _storageManager.getString(key: 'baseUrl');
         print('${saveLogin}' + ' ' + '${savePassword}' + ' ' +'${baseUrl}');
+        _appRouter.replaceNamed(RouteScreen.chooseTreatment);
       });
     });
   }
