@@ -1,13 +1,8 @@
 import 'package:administration_app/ui/common/widgets/adaptive_scroll_view.dart';
 import 'package:administration_app/ui/common/widgets/chart/chart.dart';
-import 'package:administration_app/ui/common/widgets/svg_default.dart';
-import 'package:administration_app/ui/res/assets.dart';
-import 'package:administration_app/ui/res/const_colors.dart';
-import 'package:administration_app/ui/screens/gsm_screen/gsm_screen_wm.dart';
-import 'package:administration_app/ui/screens/splash_screen/splash_screen_wm.dart';
+import 'package:administration_app/ui/common/widgets/circular_progress_bar.dart';
+import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen_shimmer.dart';
 import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen_wm.dart';
-import 'package:administration_app/ui/screens/transport_screen/efficiency_transport_screen/efficiency_transport_screen_wm.dart';
-import 'package:administration_app/ui/screens/transport_screen/transport_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:mwwm/mwwm.dart';
@@ -28,20 +23,47 @@ class _AnalyseLogisticsScreenState extends WidgetState<AnalyseLogisticsScreenWM>
   @override
   Widget build(BuildContext context) {
     return AdaptiveScrollView(
-      child: Column(
-        children: [
-          _ToggleButton(
-            selectedToggle: wm.selectedToggle, toggleWidgets: wm.toggleWidgets, onChangeToggle: wm.onChangeToggle,
-          ),
-          Chart(title: 'По заказам')
-        ],
-      ),
+      child: EntityStateBuilder(
+          streamedState: wm.analysisLogisticManager.analisysLogistic,
+          loadingChild: AnalyseLogisticsShimmer(),
+          builder: (context, analisysLogistic) {
+            return Container(
+              height: MediaQuery.of(context).size.height / 100,
+              child: StreamedStateBuilderNS(
+                  streamedStateNS: wm.currentToggle,
+                  builder: (context, currentToggle) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        _ToggleButton(
+                          selectedToggle: wm.selectedToggle,
+                          toggleWidgets: wm.toggleWidgets,
+                          onChangeToggle: wm.onChangeToggle,
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            child: Chart(
+                              title: currentToggle == 0 ? 'По заказам' : currentToggle == 1 ? 'По путевым листам' : 'По заданиям',
+                              datasource: analisysLogistic ?? [],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+            );
+          }),
     );
   }
 }
 
 class _ToggleButton extends StatelessWidget {
-  const _ToggleButton({Key? key, required this.selectedToggle, required this.toggleWidgets, required this.onChangeToggle}) : super(key: key);
+  const _ToggleButton(
+      {Key? key,
+      required this.selectedToggle,
+      required this.toggleWidgets,
+      required this.onChangeToggle})
+      : super(key: key);
 
   final StreamedStateNS<List<bool>> selectedToggle;
   final List<Widget> toggleWidgets;
@@ -50,24 +72,23 @@ class _ToggleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamedStateBuilderNS(
-      streamedStateNS: selectedToggle,
-      builder: (context, selectedToggle) {
-        return ToggleButtons(
-          onPressed: (index){
-            onChangeToggle.accept(index);
-          },
-            borderRadius: const BorderRadius.all(Radius.circular(8)),
-            selectedBorderColor: Colors.black,
-            selectedColor: Colors.amberAccent,
-            fillColor: Colors.black,
-            color: Colors.black,
-            constraints: const BoxConstraints(
-              minHeight: 30.0,
-              minWidth: 80.0,
-            ),
-            isSelected: selectedToggle,
-            children: toggleWidgets);
-      }
-    );
+        streamedStateNS: selectedToggle,
+        builder: (context, selectedToggle) {
+          return ToggleButtons(
+              onPressed: (index) {
+                onChangeToggle.accept(index);
+              },
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              selectedBorderColor: Colors.black,
+              selectedColor: Colors.amberAccent,
+              fillColor: Colors.black,
+              color: Colors.black,
+              constraints: const BoxConstraints(
+                minHeight: 30.0,
+                minWidth: 80.0,
+              ),
+              isSelected: selectedToggle,
+              children: toggleWidgets);
+        });
   }
 }

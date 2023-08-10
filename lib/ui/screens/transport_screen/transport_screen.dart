@@ -32,14 +32,17 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
             'транспорт'.toUpperCase(),
             style: TextStyle(color: mainColor),
           ),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12.0),
-              child: Column(
-                children: [
-                  Icon(Icons.filter_list_alt),
-                  Text('фильтр'),
-                ],
+          actions: [
+            GestureDetector(
+              onTap: wm.onFilter,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12.0),
+                child: Column(
+                  children: [
+                    Icon(Icons.filter_list_alt),
+                    Text('фильтр'),
+                  ],
+                ),
               ),
             )
           ],

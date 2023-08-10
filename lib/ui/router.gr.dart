@@ -57,6 +57,24 @@ abstract class _$AppRouter extends RootStackRouter {
         child: ChooseTreatmentScreen(),
       );
     },
+    WaybillFilterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WaybillFilterScreen(),
+      );
+    },
+    TaskFilterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: TaskFilterScreen(),
+      );
+    },
+    OrderFilterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: OrderFilterScreen(),
+      );
+    },
   };
 }
 
@@ -154,6 +172,48 @@ class ChooseTreatmentRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ChooseTreatmentRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WaybillFilterScreen]
+class WaybillFilterRoute extends PageRouteInfo<void> {
+  const WaybillFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          WaybillFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WaybillFilterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TaskFilterScreen]
+class TaskFilterRoute extends PageRouteInfo<void> {
+  const TaskFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          TaskFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TaskFilterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OrderFilterScreen]
+class OrderFilterRoute extends PageRouteInfo<void> {
+  const OrderFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          OrderFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OrderFilterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

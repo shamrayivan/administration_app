@@ -4,6 +4,9 @@ import 'package:administration_app/ui/screens/gsm_screen/gsm_screen.dart';
 import 'package:administration_app/ui/screens/splash_screen/splash_screen.dart';
 import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen.dart';
 import 'package:administration_app/ui/screens/transport_screen/efficiency_transport_screen/efficiency_transport_screen.dart';
+import 'package:administration_app/ui/screens/transport_screen/filter_screen/order_filter_screen/order_filter_screen.dart';
+import 'package:administration_app/ui/screens/transport_screen/filter_screen/task_filter_screen/task_filter_screen.dart';
+import 'package:administration_app/ui/screens/transport_screen/filter_screen/waybill_filter_screen/waybill_filter_screen.dart';
 import 'package:administration_app/ui/screens/transport_screen/transport_screen.dart';
 import 'package:auto_route/auto_route.dart';
 
@@ -20,6 +23,9 @@ abstract class RouteScreen {
 
 
   static const gsm = '/gsm';
+  static const filterOrderAnalysisLogistics = '/filterOrderAnalysisLogistics';
+  static const filterWaybillAnalysisLogistics = '/filterWaybillAnalysisLogistics';
+  static const filterTaskAnalysisLogistics = '/filterTaskAnalysisLogistics';
 }
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
@@ -39,5 +45,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: EfficiencyTransportRoute.page, path: RouteScreen.efficiencyTransport),
       ],
     ),
+    AutoRoute(page: OrderFilterRoute.page, path: RouteScreen.filterOrderAnalysisLogistics),
+    AutoRoute(page: WaybillFilterRoute.page, path: RouteScreen.filterWaybillAnalysisLogistics),
+    AutoRoute(page: TaskFilterRoute.page, path: RouteScreen.filterTaskAnalysisLogistics),
       ];
 }

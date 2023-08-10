@@ -1,3 +1,4 @@
+import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
 import 'package:administration_app/interactor/auth/auth_manager.dart';
 import 'package:administration_app/interactor/storage/storage_manager.dart';
 import 'package:administration_app/net/dio/dio_manager.dart';
@@ -32,6 +33,7 @@ class DI {
       ..registerSingleton<DioManager>(DioManager())
       ..registerSingleton<StorageManager>(StorageManager())
       ..registerSingleton<AuthManager>(AuthManager())
+      ..registerSingleton<AnalysisLogisticManager>(AnalysisLogisticManager())
     ;
   }
 }
