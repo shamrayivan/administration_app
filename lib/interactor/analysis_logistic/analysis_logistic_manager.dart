@@ -10,14 +10,20 @@ class AnalysisLogisticManager {
   final _interactor = AnalysisLogisticInteractor();
 
   final typeOfVehicle = EntityStreamedState<List<TypeOfVehicle>>();
-  final analisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
   final vehicles = EntityStreamedState<List<Vehicles>>();
   final currentToggle = StreamedStateNS<int>(0);
+
+  final typesOfVehicleStreamedState = StreamedState<List<TypeOfVehicle>>();
+
+  final orderAnalisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
+  final waybillAnalisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
+  final taskAnalisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
 
 
   Future<void> getTypeOfVehicle() async {
     typeOfVehicle.loading();
     final res = await _interactor.getTypeOfVehicle();
+    typesOfVehicleStreamedState.accept(res);
     typeOfVehicle.content(res);
   }
 
@@ -28,9 +34,18 @@ class AnalysisLogisticManager {
   }
 
   Future<void> getAnalysisLogistic({required int modeID, required List<Map<String, dynamic>> data}) async {
-    analisysLogistic.loading();
+    switch (modeID) {
+      case 1: orderAnalisysLogistic.loading();
+      case 2: waybillAnalisysLogistic.loading();
+      case 3: taskAnalisysLogistic.loading();
+    }
     final analisysLogisticLocal = await _interactor.getAnalysisLogistic(modeID: modeID, data: data);
-    analisysLogistic.content(analisysLogisticLocal);
+
+    switch (modeID) {
+      case 1: orderAnalisysLogistic.content(analisysLogisticLocal);
+      case 2: waybillAnalisysLogistic.content(analisysLogisticLocal);
+      case 3: taskAnalisysLogistic.content(analisysLogisticLocal);
+    }
   }
 
 

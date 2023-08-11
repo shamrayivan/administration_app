@@ -30,26 +30,32 @@ class AnalyseLogisticsScreenWM extends WidgetModelStandard {
   _callNewAnalysisLogisticData({required int modeID}) {
     switch (modeID) {
       case 1:
-        final data = <Map<String, dynamic>>[];
-        analysisLogisticManager.typeOfVehicle.data?.forEach((element) {
-          data.add({'Наименование': element.type});
-        });
-        doFutureHandleError(
-            analysisLogisticManager.getAnalysisLogistic(modeID: modeID, data: data));
+        if(analysisLogisticManager.orderAnalisysLogistic.data == null) {
+          final data = <Map<String, dynamic>>[];
+          analysisLogisticManager.typeOfVehicle.data?.forEach((element) {
+            data.add({'Наименование': element.type});
+          });
+          doFutureHandleError(
+              analysisLogisticManager.getAnalysisLogistic(modeID: modeID, data: data));
+        }
       case 2:
-        final data = <Map<String, dynamic>>[];
-        analysisLogisticManager.vehicles.data?.forEach((element) {
-          if (!element.itsGroup) data.add({'Наименование': element.vehicleName});
-        });
-        doFutureHandleError(
-            analysisLogisticManager.getAnalysisLogistic(modeID: modeID, data: data));
+        if(analysisLogisticManager.waybillAnalisysLogistic.data == null) {
+          final data = <Map<String, dynamic>>[];
+          analysisLogisticManager.vehicles.data?.forEach((element) {
+            if (!element.itsGroup) data.add({'Наименование': element.vehicleName});
+          });
+          doFutureHandleError(
+              analysisLogisticManager.getAnalysisLogistic(modeID: modeID, data: data));
+        }
       case 3:
-        final data = <Map<String, dynamic>>[];
-        analysisLogisticManager.vehicles.data?.forEach((element) {
-          if (!element.itsGroup) data.add({'Наименование': element.vehicleName});
-        });
-        doFutureHandleError(
-            analysisLogisticManager.getAnalysisLogistic(modeID: modeID, data: data));
+        if(analysisLogisticManager.taskAnalisysLogistic.data == null) {
+          final data = <Map<String, dynamic>>[];
+          analysisLogisticManager.vehicles.data?.forEach((element) {
+            if (!element.itsGroup) data.add({'Наименование': element.vehicleName});
+          });
+          doFutureHandleError(
+              analysisLogisticManager.getAnalysisLogistic(modeID: modeID, data: data));
+        }
     }
   }
 }

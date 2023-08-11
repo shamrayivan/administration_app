@@ -17,6 +17,7 @@ class AnalysisLogistic {
   @JsonKey(name: 'ТекущийГод')
   final int currentYear;
 
+
   AnalysisLogistic._({
     required this.lastMonth,
     required this.lastYear,

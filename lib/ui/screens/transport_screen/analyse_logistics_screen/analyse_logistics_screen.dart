@@ -23,36 +23,37 @@ class _AnalyseLogisticsScreenState extends WidgetState<AnalyseLogisticsScreenWM>
   @override
   Widget build(BuildContext context) {
     return AdaptiveScrollView(
-      child: EntityStateBuilder(
-          streamedState: wm.analysisLogisticManager.analisysLogistic,
-          loadingChild: AnalyseLogisticsShimmer(),
-          builder: (context, analisysLogistic) {
-            return Container(
-              height: MediaQuery.of(context).size.height / 100,
-              child: StreamedStateBuilderNS(
-                  streamedStateNS: wm.currentToggle,
-                  builder: (context, currentToggle) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        _ToggleButton(
-                          selectedToggle: wm.selectedToggle,
-                          toggleWidgets: wm.toggleWidgets,
-                          onChangeToggle: wm.onChangeToggle,
-                        ),
-                        Expanded(
-                          child: SizedBox(
-                            child: Chart(
-                              title: currentToggle == 0 ? 'По заказам' : currentToggle == 1 ? 'По путевым листам' : 'По заданиям',
-                              datasource: analisysLogistic ?? [],
-                            ),
+      child: StreamedStateBuilderNS(
+        streamedStateNS: wm.currentToggle,
+        builder: (context, currentToggle) {
+          return EntityStateBuilder(
+              streamedState: currentToggle == 0 ? wm.analysisLogisticManager.orderAnalisysLogistic : currentToggle == 1 ? wm.analysisLogisticManager.waybillAnalisysLogistic : wm.analysisLogisticManager.taskAnalisysLogistic,
+              loadingChild: AnalyseLogisticsShimmer(),
+              builder: (context, analisysLogistic) {
+                return Container(
+                  height: MediaQuery.of(context).size.height / 100,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      _ToggleButton(
+                        selectedToggle: wm.selectedToggle,
+                        toggleWidgets: wm.toggleWidgets,
+                        onChangeToggle: wm.onChangeToggle,
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          child: Chart(
+                            title: currentToggle == 0 ? 'По заказам' : currentToggle == 1 ? 'По путевым листам' : 'По заданиям',
+                            datasource: analisysLogistic ?? [],
                           ),
                         ),
-                      ],
-                    );
-                  }),
-            );
-          }),
+                      ),
+                    ],
+                  ),
+                );
+              });
+        }
+      ),
     );
   }
 }

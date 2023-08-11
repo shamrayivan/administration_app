@@ -7,7 +7,7 @@ part of 'type_of_vehicle.dart';
 // **************************************************************************
 
 TypeOfVehicle _$TypeOfVehicleFromJson(Map<String, dynamic> json) =>
-    TypeOfVehicle._(
+    TypeOfVehicle(
       itsGroup: json['ЭтоГруппа'] as bool,
       type: json['ЭлементНаименование'] as String,
       parentType: json['РодительНаименование'] as String,

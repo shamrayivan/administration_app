@@ -4,12 +4,14 @@ import 'package:administration_app/interactor/storage/storage_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
 import 'package:administration_app/ui/router.dart';
+import 'package:relation/relation.dart';
 
 class SplashScreenWm extends WidgetModelStandard {
 
   final _appRouter = getIt<AppRouter>();
   final _storageManager = getIt<StorageManager>();
   final _analysisLogisticManager = getIt<AnalysisLogisticManager>();
+  final errorState = StreamedStateNS<bool>(false);
 
   @override
   void onInit()async{
@@ -21,11 +23,15 @@ class SplashScreenWm extends WidgetModelStandard {
       _appRouter.replaceNamed(RouteScreen.auth);
     }
     else {
-      doFutureHandleError(_analysisLogisticManager.getVehicle());
+      doFutureHandleError(_analysisLogisticManager.getVehicle(), onError: (e,s){
+        errorState.accept(true);
+      });
       doFutureHandleError(_analysisLogisticManager.getTypeOfVehicle(), onValue: (_){
+        errorState.accept(false);
         _appRouter.replaceNamed(RouteScreen.chooseTreatment);
       }, onError: (e,s){
         showSnackBarError(error: 'Ошибка получения транспортных средств');
+        errorState.accept(true);
       });
     }
   }
