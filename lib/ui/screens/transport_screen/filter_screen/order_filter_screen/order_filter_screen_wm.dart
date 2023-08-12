@@ -3,12 +3,11 @@ import 'package:administration_app/interactor/analysis_logistic/analysis_logisti
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
 import 'package:administration_app/ui/router.dart';
-import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
 
 class OrderFilterScreenWM extends WidgetModelStandard {
   final analysisLogisticManager = getIt<AnalysisLogisticManager>();
-  final typesOfVehicleStreamedState = getIt<AnalysisLogisticManager>().typesOfVehicleStreamedState;
+  final typesOfVehicleStreamedState = getIt<AnalysisLogisticManager>().typesOfVehicleOrdersStreamedState;
 
   final _appRouter = getIt<AppRouter>();
 
@@ -60,6 +59,8 @@ class OrderFilterScreenWM extends WidgetModelStandard {
         if (element.type == value?.type) {
           element.selected = !value!.selected;
         }
+      });
+      typesOfVehicleStreamedState.value?.forEach((element) {
         if (element.parentType == value?.type) {
           element.selected = value!.selected;
         }

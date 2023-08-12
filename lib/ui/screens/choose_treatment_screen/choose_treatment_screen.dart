@@ -1,11 +1,8 @@
-import 'package:administration_app/ui/common/widgets/custom_text_input.dart';
-import 'package:administration_app/ui/screens/auth_screen/auth_screen_wm.dart';
 import 'package:administration_app/ui/screens/choose_treatment_screen/choose_treatment_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:relation/relation.dart';
 
 @RoutePage()
 class ChooseTreatmentScreen extends CoreMwwmWidget {

@@ -1,8 +1,149 @@
 import 'package:administration_app/di/di.dart';
+import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
-import 'package:flutter/material.dart' hide Action;
+import 'package:administration_app/model/vehicles/vehicles.dart';
+import 'package:administration_app/ui/router.dart';
 import 'package:relation/relation.dart';
 
 class WaybillFilterScreenWM extends WidgetModelStandard {
+  final vehiclesStreamedState = getIt<AnalysisLogisticManager>().vehiclesWaybillsStreamedState;
+  final analysisLogisticManager = getIt<AnalysisLogisticManager>();
 
+  final _appRouter = getIt<AppRouter>();
+
+  final loadingState = StreamedStateNS<bool>(false);
+
+  final onDisableAll = Action<void>();
+  final onEnableAll = Action<void>();
+  final onSave = Action<void>();
+  final onBack = Action<void>();
+  final onChangeTypeOfVehicle = Action<Vehicles>();
+  final onChangeVehicle = Action<Vehicles>();
+  final onShowRetired = Action<bool>();
+  final showRetiredState = StreamedStateNS<bool>(true);
+
+  List<Vehicles>? saveTypeOfVehicle = <Vehicles>[];
+
+  @override
+  void onInit() {
+    analysisLogisticManager.typeOfVehicle.data?.forEach((value) {
+      vehiclesStreamedState.value?.forEach((element) {
+        if ( value.type == element.vehicleName) {
+          final Set<bool> listSelected = {};
+          vehiclesStreamedState.value?.forEach((element2) {
+            if (element2.parentType == element.vehicleName) {
+              listSelected.add(element2.selected);
+            }
+          });
+          if (listSelected.contains(false)) {
+            element.selected = false;
+          } else
+            element.selected = true;
+        }
+      });
+    });
+    analysisLogisticManager.vehicles.data?.forEach((element) {
+      saveTypeOfVehicle?.add(Vehicles(
+          itsGroup: element.itsGroup,
+          parentType: element.parentType,
+          selected: element.selected,
+          dateRetired: element.dateRetired,
+          vehicleName: element.vehicleName));
+    });
+  }
+
+  @override
+  void onBind() {
+    subscribe(onShowRetired.stream, (value) {
+      showRetiredState.accept(value!);
+      vehiclesStreamedState.value?.forEach((element) {
+        if (element.dateRetired != 0) {
+          element.selected = value;
+        }
+      });
+      vehiclesStreamedState.reAccept();
+    });
+    subscribe(onBack.stream, (value) async {
+      _appRouter.pop();
+      vehiclesStreamedState.accept(saveTypeOfVehicle);
+    });
+    subscribe(onSave.stream, (value) {
+      loadingState.accept(true);
+      final data = <Map<String, dynamic>>[];
+      vehiclesStreamedState.value?.forEach((element) {
+        if (element.selected) {
+          data.add({'Наименование': element.vehicleName});
+        }
+      });
+      logger(data.length);
+      doFutureHandleError(analysisLogisticManager.getAnalysisLogistic(modeID: 2, data: data),
+          onValue: (_) {
+        _appRouter.pop();
+        loadingState.accept(false);
+      }, onError: (e, s) {
+        loadingState.accept(false);
+      });
+    });
+    subscribe(onChangeVehicle.stream, (value) {
+      vehiclesStreamedState.value?.forEach((element) {
+        if (value?.vehicleName == element.vehicleName) {
+          element.selected = !element.selected;
+        }
+      });
+      vehiclesStreamedState.value?.forEach((element) {
+        if (value!.parentType.isNotEmpty && value.parentType == element.vehicleName) {
+          final Set<bool> listSelected = {};
+          vehiclesStreamedState.value?.forEach((element2) {
+            if (element2.parentType == element.vehicleName) {
+              listSelected.add(element2.selected);
+            }
+          });
+          if (listSelected.contains(false)) {
+            element.selected = false;
+          } else
+            element.selected = true;
+        }
+      });
+      vehiclesStreamedState.reAccept();
+    });
+    subscribe(onChangeTypeOfVehicle.stream, (value) {
+      vehiclesStreamedState.value?.forEach((element) {
+        if (value?.vehicleName == element.parentType) {
+          element.selected = !value!.selected;
+        }
+      });
+      vehiclesStreamedState.value?.forEach((element) {
+        if (value?.vehicleName == element.vehicleName) {
+          element.selected = !value!.selected;
+        }
+      });
+      vehiclesStreamedState.reAccept();
+    });
+    subscribe(onDisableAll.stream, (value) {
+      final List<Vehicles> newListVehicles = [];
+      for (int i = 0; i < vehiclesStreamedState.value!.length; i++) {
+        newListVehicles.add(Vehicles(
+            itsGroup: vehiclesStreamedState.value![i].itsGroup,
+            parentType: vehiclesStreamedState.value![i].parentType,
+            selected: false,
+            dateRetired: vehiclesStreamedState.value![i].dateRetired,
+            vehicleName: vehiclesStreamedState.value![i].vehicleName));
+      }
+      vehiclesStreamedState.accept(newListVehicles);
+      // onInit();
+    });
+    subscribe(onEnableAll.stream, (value) {
+      final List<Vehicles> newListVehicles = [];
+      for (int i = 0; i < vehiclesStreamedState.value!.length; i++) {
+        newListVehicles.add(Vehicles(
+            itsGroup: vehiclesStreamedState.value![i].itsGroup,
+            parentType: vehiclesStreamedState.value![i].parentType,
+            selected: true,
+            dateRetired: vehiclesStreamedState.value![i].dateRetired,
+            vehicleName: vehiclesStreamedState.value![i].vehicleName));
+      }
+      vehiclesStreamedState.accept(newListVehicles);
+      // onInit();
+    });
+  }
 }

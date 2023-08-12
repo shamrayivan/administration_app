@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'vehicles.g.dart';
 
-@JsonSerializable(constructor: '_')
+@JsonSerializable()
 class Vehicles {
 
   @JsonKey(name: 'ЭтоГруппа')
@@ -17,11 +17,15 @@ class Vehicles {
   @JsonKey(name: 'ДатаВыбытия')
   final int dateRetired;
 
-  Vehicles._({
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool selected;
+
+  Vehicles({
     required this.itsGroup,
     required this.dateRetired,
     required this.vehicleName,
     required this.parentType,
+    this.selected = true,
   });
 
   factory Vehicles.fromJson(Map<String, dynamic> json) => _$VehiclesFromJson(json);

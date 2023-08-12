@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:relation/relation.dart';
 
 class App extends CoreMwwmWidget {
   App({

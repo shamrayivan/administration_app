@@ -6,7 +6,7 @@ part of 'vehicles.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Vehicles _$VehiclesFromJson(Map<String, dynamic> json) => Vehicles._(
+Vehicles _$VehiclesFromJson(Map<String, dynamic> json) => Vehicles(
       itsGroup: json['ЭтоГруппа'] as bool,
       dateRetired: json['ДатаВыбытия'] as int,
       vehicleName: json['ЭлементНаименование'] as String,
