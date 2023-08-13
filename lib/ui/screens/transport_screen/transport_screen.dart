@@ -25,12 +25,12 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
           backgroundColor: blackColor,
           title: Text(
             'транспорт'.toUpperCase(),
-            style: TextStyle(color: mainColor),
+            style: const TextStyle(color: mainColor),
           ),
           actions: [
             GestureDetector(
               onTap: wm.onFilter,
-              child: Padding(
+              child: const Padding(
                 padding: EdgeInsets.symmetric(vertical: 4, horizontal: 12.0),
                 child: Column(
                   children: [
@@ -42,38 +42,6 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
             )
           ],
         ): null,
-
-        // bottomNavigationBar:  StreamedStateBuilderNS(
-        //   streamedStateNS: wm.currentBottomBarIndexState,
-        //   builder: (context, currentIndex) {
-        //     return BottomNavigationBar(
-        //       backgroundColor: Colors.black,
-        //       selectedFontSize: 14,
-        //       selectedItemColor: Colors.amberAccent,
-        //       selectedIconTheme: const IconThemeData(
-        //           color: Colors.amberAccent, size: 26),
-        //       unselectedLabelStyle: const TextStyle(color: Colors.white),
-        //       unselectedItemColor: Colors.white,
-        //       elevation: 20,
-        //       currentIndex: currentIndex,
-        //       items: const [
-        //         BottomNavigationBarItem(
-        //             label: 'Анализ логистики',
-        //             icon: Icon(
-        //               Icons.query_stats,
-        //             )),
-        //         BottomNavigationBarItem(
-        //             label: 'Эффективность транспорта',
-        //             icon: Icon(
-        //               Icons.train,
-        //             ))
-        //       ],
-        //       onTap: (int index) {
-        //         wm.onChooseBottomBarIndex.accept(index);
-        //       },
-        //     );
-        //   }
-        // ),
         body: MediaQuery.of(context).orientation == Orientation.portrait ? AutoTabsScaffold(
           scaffoldKey: wm.scaffoldKey,
           routes: const [AnalyseLogisticsRoute(), EfficiencyTransportRoute()],
@@ -87,7 +55,7 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
               child: SafeArea(
                 bottom: false,
                 child: Padding(
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   child: Container(
                     decoration: BoxDecoration(boxShadow: [
                       BoxShadow(
@@ -133,6 +101,7 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
                       currentIndex: tabsRouter.activeIndex,
                       onTap: (int) {
                         tabsRouter.setActiveIndex(int);
+                        wm.onChooseBottomBarIndex.accept(int);
                       },
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_interactor.dart';
 import 'package:administration_app/model/analysis_logistic/analysis_logistic.dart';
+import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
 import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
 import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:relation/relation.dart';
@@ -17,10 +18,15 @@ class AnalysisLogisticManager {
   final typesOfVehicleOrdersStreamedState = StreamedState<List<TypeOfVehicle>>();
   final vehiclesWaybillsStreamedState = StreamedState<List<Vehicles>>();
   final vehiclesTasksStreamedState = StreamedState<List<Vehicles>>();
+  final vehiclesEfficiencyTransportStreamedState = StreamedState<List<Vehicles>>();
 
   final orderAnalisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
   final waybillAnalisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
   final taskAnalisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
+
+  final efficiencyTransportState = EntityStreamedState<List<EfficiencyTransport>>();
+  final dateBeginState = StreamedStateNS<DateTime>(DateTime(2021, 04, 01));
+  final dateEndState = StreamedStateNS<DateTime>(DateTime(2021, 04, 30));
 
 
   Future<void> getTypeOfVehicle() async {
@@ -35,6 +41,7 @@ class AnalysisLogisticManager {
       final res = await _interactor.getVehicle();
       vehiclesWaybillsStreamedState.accept(res);
       vehiclesTasksStreamedState.accept(res);
+      vehiclesEfficiencyTransportStreamedState.accept(res);
       vehicles.content(res);
   }
 
@@ -51,6 +58,12 @@ class AnalysisLogisticManager {
       case 2: waybillAnalisysLogistic.content(analisysLogisticLocal);
       case 3: taskAnalisysLogistic.content(analisysLogisticLocal);
     }
+  }
+
+  Future<void> getEfficiencyTransport({required List<Map<String, dynamic>> data, required DateTime dateBegin, required DateTime dateEnd}) async {
+    efficiencyTransportState.loading();
+    final efficiencyTransport = await _interactor.getEfficiencyTransport(data: data, dateBegin: dateBegin, dateEnd: dateEnd);
+    efficiencyTransportState.content(efficiencyTransport);
   }
 
 

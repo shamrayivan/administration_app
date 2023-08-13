@@ -22,7 +22,7 @@ class TaskFilterScreenWM extends WidgetModelStandard {
   final onShowRetired = Action<bool>();
   final showRetiredState = StreamedStateNS<bool>(true);
 
-  List<Vehicles>? saveTypeOfVehicle = <Vehicles>[];
+  List<Vehicles>? saveVehicles = <Vehicles>[];
 
   @override
   void onInit() {
@@ -44,7 +44,7 @@ class TaskFilterScreenWM extends WidgetModelStandard {
       });
     });
     analysisLogisticManager.vehicles.data?.forEach((element) {
-      saveTypeOfVehicle?.add(Vehicles(
+      saveVehicles?.add(Vehicles(
           itsGroup: element.itsGroup,
           parentType: element.parentType,
           selected: element.selected,
@@ -66,7 +66,7 @@ class TaskFilterScreenWM extends WidgetModelStandard {
     });
     subscribe(onBack.stream, (value) async {
       _appRouter.pop();
-      vehiclesStreamedState.accept(saveTypeOfVehicle);
+      vehiclesStreamedState.accept(saveVehicles);
     });
     subscribe(onSave.stream, (value) {
       loadingState.accept(true);

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/model/analysis_logistic/analysis_logistic.dart';
+import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
 import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
 import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/net/dio/dio_manager.dart';
@@ -43,6 +44,17 @@ class AnalysisLogisticRepository {
       listAnalysisLogistic.add(AnalysisLogistic.fromJson(element));
     });
     return listAnalysisLogistic;
+  }
+
+  Future<List<EfficiencyTransport>> getEfficiencyTransport({required List<Map<String, dynamic>> data, required DateTime dateBegin, required DateTime dateEnd}) async {
+    final response = await _dio.post<dynamic>(Urls.efficencyTransport(dateBegin: dateBegin.millisecondsSinceEpoch, dateEnd: dateEnd.millisecondsSinceEpoch), data: data);
+    logger(response.data);
+    final a = jsonDecode(response.data);
+    final List<EfficiencyTransport> listEfficiencyTransport = [];
+    a.forEach((element) {
+      listEfficiencyTransport.add(EfficiencyTransport.fromJson(element));
+    });
+    return listEfficiencyTransport;
   }
 
 }

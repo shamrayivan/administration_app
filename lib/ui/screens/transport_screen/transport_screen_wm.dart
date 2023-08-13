@@ -6,7 +6,6 @@ import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
 
 class TransportScreenWM extends WidgetModelStandard {
-
   final currentBottomBarIndexState = StreamedStateNS<int>(0);
   final onChooseBottomBarIndex = Action<int>();
   final scaffoldKey = getIt<GlobalKey<ScaffoldState>>();
@@ -16,30 +15,50 @@ class TransportScreenWM extends WidgetModelStandard {
   final onFilter = Action<void>();
 
   @override
-  void onInit(){
-    if (_analysisLogisticManager.typeOfVehicle.value.isContent){
+  void onInit() {
+    if (_analysisLogisticManager.typeOfVehicle.value.isContent) {
       final data = <Map<String, dynamic>>[];
-      _analysisLogisticManager.typeOfVehicle.data?.forEach((element) {data.add({'Наименование' : element.type});});
+      _analysisLogisticManager.typeOfVehicle.data?.forEach((element) {
+        data.add({'Наименование': element.type});
+      });
       doFutureHandleError(_analysisLogisticManager.getAnalysisLogistic(modeID: 1, data: data));
+    }
+    if (_analysisLogisticManager.vehicles.value.isContent) {
+      final data = <Map<String, dynamic>>[];
+      _analysisLogisticManager.vehicles.data?.forEach((element) {
+        data.add({'Наименование': element.vehicleName});
+      });
+      doFutureHandleError(
+        _analysisLogisticManager.getEfficiencyTransport(
+          data: data,
+          dateBegin: DateTime(2021, 04, 1),
+          dateEnd: DateTime(2021, 04, 30),
+        ),
+      );
     }
   }
 
   @override
-  void onBind(){
+  void onBind() {
     subscribe(onFilter.stream, (_) {
-      switch(_analysisLogisticManager.currentToggle.value){
-        case 0 :
+      if(currentBottomBarIndexState.value == 0) {
+        switch (_analysisLogisticManager.currentToggle.value) {
+        case 0:
           _appRouter.pushNamed(RouteScreen.filterOrderAnalysisLogistics);
-        case 1 :
+        case 1:
           _appRouter.pushNamed(RouteScreen.filterWaybillAnalysisLogistics);
-        case 2 :
+        case 2:
           _appRouter.pushNamed(RouteScreen.filterTaskAnalysisLogistics);
+      }
+      }
+      else if (currentBottomBarIndexState.value == 1){
+        _appRouter.pushNamed(RouteScreen.filterEfficiencyTransportAnalysisLogistics);
       }
     });
     //кнопка переключения Bottom Bara
     subscribe(onChooseBottomBarIndex.stream, (value) {
+      print(value);
       currentBottomBarIndexState.accept(value!);
     });
-
   }
 }

@@ -58,9 +58,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     WaybillFilterRoute.name: (routeData) {
+      final args = routeData.argsAs<WaybillFilterRouteArgs>(
+          orElse: () => const WaybillFilterRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: WaybillFilterScreen(),
+        child: WaybillFilterScreen(key: args.key),
       );
     },
     TaskFilterRoute.name: (routeData) {
@@ -73,6 +75,23 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: OrderFilterScreen(),
+      );
+    },
+    FullEfficiencyTransportRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<FullEfficiencyTransportRouteArgs>(
+          orElse: () => FullEfficiencyTransportRouteArgs(
+              fullEfficiencyTransport: pathParams.get('efficiencyTransport')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FullEfficiencyTransportScreen(
+            fullEfficiencyTransport: args.fullEfficiencyTransport),
+      );
+    },
+    EfficiencyTransportFilterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EfficiencyTransportFilterScreen(),
       );
     },
   };
@@ -178,16 +197,31 @@ class ChooseTreatmentRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [WaybillFilterScreen]
-class WaybillFilterRoute extends PageRouteInfo<void> {
-  const WaybillFilterRoute({List<PageRouteInfo>? children})
-      : super(
+class WaybillFilterRoute extends PageRouteInfo<WaybillFilterRouteArgs> {
+  WaybillFilterRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           WaybillFilterRoute.name,
+          args: WaybillFilterRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'WaybillFilterRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<WaybillFilterRouteArgs> page =
+      PageInfo<WaybillFilterRouteArgs>(name);
+}
+
+class WaybillFilterRouteArgs {
+  const WaybillFilterRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'WaybillFilterRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -214,6 +248,53 @@ class OrderFilterRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'OrderFilterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FullEfficiencyTransportScreen]
+class FullEfficiencyTransportRoute
+    extends PageRouteInfo<FullEfficiencyTransportRouteArgs> {
+  FullEfficiencyTransportRoute({
+    required dynamic fullEfficiencyTransport,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FullEfficiencyTransportRoute.name,
+          args: FullEfficiencyTransportRouteArgs(
+              fullEfficiencyTransport: fullEfficiencyTransport),
+          rawPathParams: {'efficiencyTransport': fullEfficiencyTransport},
+          initialChildren: children,
+        );
+
+  static const String name = 'FullEfficiencyTransportRoute';
+
+  static const PageInfo<FullEfficiencyTransportRouteArgs> page =
+      PageInfo<FullEfficiencyTransportRouteArgs>(name);
+}
+
+class FullEfficiencyTransportRouteArgs {
+  const FullEfficiencyTransportRouteArgs(
+      {required this.fullEfficiencyTransport});
+
+  final dynamic fullEfficiencyTransport;
+
+  @override
+  String toString() {
+    return 'FullEfficiencyTransportRouteArgs{fullEfficiencyTransport: $fullEfficiencyTransport}';
+  }
+}
+
+/// generated route for
+/// [EfficiencyTransportFilterScreen]
+class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
+  const EfficiencyTransportFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          EfficiencyTransportFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EfficiencyTransportFilterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
