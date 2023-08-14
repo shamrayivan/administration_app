@@ -1,19 +1,17 @@
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
+import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
 
 class AnalyseLogisticsScreenWM extends WidgetModelStandard {
-  final selectedToggle = StreamedStateNS<List<bool>>([true, false, false]);
+  final selectedToggle = getIt<AnalysisLogisticManager>().selectedToggle;
   final currentToggle = getIt<AnalysisLogisticManager>().currentToggle;
-  final List<Widget> toggleWidgets = [
-    Text(' По заказам '),
-    Text(' По путевым листам '),
-    Text(' По заданиям ')
-  ];
+  final List<Widget> toggleWidgets = getIt<AnalysisLogisticManager>().toggleWidgets;
   final onChangeToggle = Action<int>();
   final analysisLogisticManager = getIt<AnalysisLogisticManager>();
+  final mainManager = getIt<MainManager>();
 
   @override
   void onBind() {
@@ -32,7 +30,7 @@ class AnalyseLogisticsScreenWM extends WidgetModelStandard {
       case 1:
         if(analysisLogisticManager.orderAnalisysLogistic.data == null) {
           final data = <Map<String, dynamic>>[];
-          analysisLogisticManager.typeOfVehicle.data?.forEach((element) {
+          mainManager.typeOfVehicle.data?.forEach((element) {
             data.add({'Наименование': element.type});
           });
           doFutureHandleError(
@@ -41,7 +39,7 @@ class AnalyseLogisticsScreenWM extends WidgetModelStandard {
       case 2:
         if(analysisLogisticManager.waybillAnalisysLogistic.data == null) {
           final data = <Map<String, dynamic>>[];
-          analysisLogisticManager.vehicles.data?.forEach((element) {
+          mainManager.vehicles.data?.forEach((element) {
             if (!element.itsGroup) data.add({'Наименование': element.vehicleName});
           });
           doFutureHandleError(
@@ -50,7 +48,7 @@ class AnalyseLogisticsScreenWM extends WidgetModelStandard {
       case 3:
         if(analysisLogisticManager.taskAnalisysLogistic.data == null) {
           final data = <Map<String, dynamic>>[];
-          analysisLogisticManager.vehicles.data?.forEach((element) {
+          mainManager.vehicles.data?.forEach((element) {
             if (!element.itsGroup) data.add({'Наименование': element.vehicleName});
           });
           doFutureHandleError(

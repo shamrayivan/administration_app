@@ -42,7 +42,7 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
             )
           ],
         ): null,
-        body: MediaQuery.of(context).orientation == Orientation.portrait ? AutoTabsScaffold(
+        body: AutoTabsScaffold(
           scaffoldKey: wm.scaffoldKey,
           routes: const [AnalyseLogisticsRoute(), EfficiencyTransportRoute()],
           transitionBuilder: (context, child, animation) => FadeTransition(
@@ -50,7 +50,7 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
             child: child,
           ),
           bottomNavigationBuilder: (_, tabsRouter) {
-            return Container(
+            return MediaQuery.of(context).orientation == Orientation.portrait ? Container(
               color: blackColor,
               child: SafeArea(
                 bottom: false,
@@ -96,7 +96,7 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
                                   Icons.train,
                                   color: mainColor,
                                 )),
-                            label: 'Эффективность транспорта"'),
+                            label: 'Эффективность транспорта'),
                       ],
                       currentIndex: tabsRouter.activeIndex,
                       onTap: (int) {
@@ -107,8 +107,8 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
                   ),
                 ),
               ),
-            );
+            ) : SizedBox();
           },
-        ) : AnalyseLogisticsScreen());
+        ));
   }
 }

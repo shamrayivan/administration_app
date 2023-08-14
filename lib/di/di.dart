@@ -1,5 +1,6 @@
 import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
 import 'package:administration_app/interactor/auth/auth_manager.dart';
+import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/interactor/storage/storage_manager.dart';
 import 'package:administration_app/net/dio/dio_manager.dart';
 import 'package:administration_app/net/error/standart_error_handler.dart';
@@ -24,16 +25,16 @@ class DI {
       ..registerSingleton<GlobalKey<ScaffoldState>>(GlobalKey<ScaffoldState>())
       ..registerSingleton<GlobalKey<ScaffoldMessengerState>>(GlobalKey<ScaffoldMessengerState>())
       ..registerSingleton<WidgetModelDependencies>(
-        WidgetModelDependencies(errorHandler: StandardErrorHandler()),
+        WidgetModelDependencies(errorHandler: StandardErrorHandler())
       );
   }
 
   void _manager() {
     getIt
       ..registerSingleton<DioManager>(DioManager())
-      ..registerSingleton<StorageManager>(StorageManager())
-      ..registerSingleton<AuthManager>(AuthManager())
       ..registerSingleton<AnalysisLogisticManager>(AnalysisLogisticManager())
-    ;
+      ..registerSingleton<MainManager>(MainManager())
+      ..registerSingleton<StorageManager>(StorageManager())
+      ..registerSingleton<AuthManager>(AuthManager());
   }
 }

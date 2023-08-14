@@ -1,5 +1,6 @@
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
+import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
 import 'package:administration_app/ui/router.dart';
@@ -8,6 +9,7 @@ import 'package:relation/relation.dart';
 class OrderFilterScreenWM extends WidgetModelStandard {
   final analysisLogisticManager = getIt<AnalysisLogisticManager>();
   final typesOfVehicleStreamedState = getIt<AnalysisLogisticManager>().typesOfVehicleOrdersStreamedState;
+  final mainManager = getIt<MainManager>();
 
   final _appRouter = getIt<AppRouter>();
 
@@ -23,7 +25,7 @@ class OrderFilterScreenWM extends WidgetModelStandard {
 
   @override
   void onInit() {
-    analysisLogisticManager.typeOfVehicle.data?.forEach((element) {
+    mainManager.typeOfVehicle.data?.forEach((element) {
       saveTypeOfVehicle?.add(TypeOfVehicle(
           itsGroup: element.itsGroup,
           type: element.type,

@@ -1,5 +1,6 @@
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
+import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/ui/router.dart';
@@ -8,6 +9,7 @@ import 'package:relation/relation.dart';
 class TaskFilterScreenWM extends WidgetModelStandard {
   final vehiclesStreamedState = getIt<AnalysisLogisticManager>().vehiclesTasksStreamedState;
   final analysisLogisticManager = getIt<AnalysisLogisticManager>();
+  final mainManager = getIt<MainManager>();
 
   final _appRouter = getIt<AppRouter>();
 
@@ -27,7 +29,7 @@ class TaskFilterScreenWM extends WidgetModelStandard {
   @override
   void onInit() {
 
-    analysisLogisticManager.typeOfVehicle.data?.forEach((value) {
+    mainManager.typeOfVehicle.data?.forEach((value) {
       vehiclesStreamedState.value?.forEach((element) {
         if ( value.type == element.vehicleName) {
           final Set<bool> listSelected = {};
@@ -43,7 +45,7 @@ class TaskFilterScreenWM extends WidgetModelStandard {
         }
       });
     });
-    analysisLogisticManager.vehicles.data?.forEach((element) {
+    mainManager.vehicles.data?.forEach((element) {
       saveVehicles?.add(Vehicles(
           itsGroup: element.itsGroup,
           parentType: element.parentType,

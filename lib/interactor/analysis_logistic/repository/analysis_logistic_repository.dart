@@ -13,28 +13,6 @@ import 'package:dio/dio.dart';
 class AnalysisLogisticRepository {
   final Dio _dio = getIt<DioManager>().dio;
 
-  Future<List<TypeOfVehicle>> getTypeOfVehicle() async {
-    final response = await _dio.get<dynamic>(Urls.typesOfVehicle);
-    logger(jsonDecode(response.data ));
-    final a = jsonDecode(response.data);
-    final List<TypeOfVehicle> listTypeOfVehicle = [];
-    a.forEach((element) {
-      listTypeOfVehicle.add(TypeOfVehicle.fromJson(element));
-    });
-    return listTypeOfVehicle;
-  }
-
-  Future<List<Vehicles>> getVehicle() async {
-    final response = await _dio.get<dynamic>(Urls.vehicles);
-    logger(jsonDecode(response.data));
-    final a = jsonDecode(response.data);
-    final List<Vehicles> listVehicles = [];
-    a.forEach((element) {
-      listVehicles.add(Vehicles.fromJson(element));
-    });
-    return listVehicles;
-  }
-
   Future<List<AnalysisLogistic>> getAnalysisLogistic({required int modeID, required List<Map<String, dynamic>> data}) async {
     final response = await _dio.post<dynamic>(Urls.analysisLogisticWhithID(modeID: modeID), data: data);
     logger(jsonDecode(response.data ));

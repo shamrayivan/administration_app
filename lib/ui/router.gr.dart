@@ -94,6 +94,18 @@ abstract class _$AppRouter extends RootStackRouter {
         child: EfficiencyTransportFilterScreen(),
       );
     },
+    TableFuelConsumptionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: TableFuelConsumptionScreen(),
+      );
+    },
+    FuelConsumptionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FuelConsumptionScreen(),
+      );
+    },
   };
 }
 
@@ -295,6 +307,34 @@ class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'EfficiencyTransportFilterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [TableFuelConsumptionScreen]
+class TableFuelConsumptionRoute extends PageRouteInfo<void> {
+  const TableFuelConsumptionRoute({List<PageRouteInfo>? children})
+      : super(
+          TableFuelConsumptionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TableFuelConsumptionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FuelConsumptionScreen]
+class FuelConsumptionRoute extends PageRouteInfo<void> {
+  const FuelConsumptionRoute({List<PageRouteInfo>? children})
+      : super(
+          FuelConsumptionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FuelConsumptionRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

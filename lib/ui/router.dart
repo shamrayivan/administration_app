@@ -1,6 +1,8 @@
 import 'package:administration_app/ui/screens/auth_screen/auth_screen.dart';
 import 'package:administration_app/ui/screens/choose_treatment_screen/choose_treatment_screen.dart';
+import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/gsm_screen.dart';
+import 'package:administration_app/ui/screens/gsm_screen/table_fuel_consumption_screen/table_fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/splash_screen/splash_screen.dart';
 import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen.dart';
 import 'package:administration_app/ui/screens/transport_screen/efficiency_transport_screen/efficiency_transport_screen.dart';
@@ -24,8 +26,10 @@ abstract class RouteScreen {
   static const analyseLogistics = 'analyseLogistics';
   static const efficiencyTransport = 'efficiencyTransport';
 
-
   static const gsm = '/gsm';
+  static const fuelConsumption = 'fuelConsumption';
+  static const tableFuelConsumption = 'tableFuelConsumption';
+
   static const filterOrderAnalysisLogistics = '/filterOrderAnalysisLogistics';
   static const filterWaybillAnalysisLogistics = '/filterWaybillAnalysisLogistics';
   static const filterTaskAnalysisLogistics = '/filterTaskAnalysisLogistics';
@@ -57,5 +61,13 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: TaskFilterRoute.page, path: RouteScreen.filterTaskAnalysisLogistics),
     AutoRoute(page: FullEfficiencyTransportRoute.page, path: RouteScreen.fullEfficiencyTransport),
     AutoRoute(page: EfficiencyTransportFilterRoute.page, path: RouteScreen.filterEfficiencyTransportAnalysisLogistics),
+    AutoRoute(
+      page: GSMRoute.page,
+      path: RouteScreen.gsm,
+      children: [
+        AutoRoute(page: FuelConsumptionRoute.page, path: RouteScreen.fuelConsumption),
+        AutoRoute(page: TableFuelConsumptionRoute.page, path: RouteScreen.tableFuelConsumption),
+      ],
+    ),
       ];
 }

@@ -34,11 +34,11 @@ class _AnalyseLogisticsScreenState extends WidgetState<AnalyseLogisticsScreenWM>
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      _ToggleButton(
+                      MediaQuery.of(context).orientation == Orientation.portrait ?_ToggleButton(
                         selectedToggle: wm.selectedToggle,
                         toggleWidgets: wm.toggleWidgets,
                         onChangeToggle: wm.onChangeToggle,
-                      ),
+                      ) : SizedBox(),
                       Expanded(
                         child: SizedBox(
                           child: Chart(

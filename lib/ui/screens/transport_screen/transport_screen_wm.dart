@@ -1,5 +1,6 @@
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
+import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:flutter/material.dart' hide Action;
@@ -10,22 +11,23 @@ class TransportScreenWM extends WidgetModelStandard {
   final onChooseBottomBarIndex = Action<int>();
   final scaffoldKey = getIt<GlobalKey<ScaffoldState>>();
   final _analysisLogisticManager = getIt<AnalysisLogisticManager>();
+  final _mainManager = getIt<MainManager>();
   final _appRouter = getIt<AppRouter>();
 
   final onFilter = Action<void>();
 
   @override
   void onInit() {
-    if (_analysisLogisticManager.typeOfVehicle.value.isContent) {
+    if (_mainManager.typeOfVehicle.value.isContent) {
       final data = <Map<String, dynamic>>[];
-      _analysisLogisticManager.typeOfVehicle.data?.forEach((element) {
+      _mainManager.typeOfVehicle.data?.forEach((element) {
         data.add({'Наименование': element.type});
       });
       doFutureHandleError(_analysisLogisticManager.getAnalysisLogistic(modeID: 1, data: data));
     }
-    if (_analysisLogisticManager.vehicles.value.isContent) {
+    if (_mainManager.vehicles.value.isContent) {
       final data = <Map<String, dynamic>>[];
-      _analysisLogisticManager.vehicles.data?.forEach((element) {
+      _mainManager.vehicles.data?.forEach((element) {
         data.add({'Наименование': element.vehicleName});
       });
       doFutureHandleError(

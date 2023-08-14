@@ -8,12 +8,6 @@ import 'package:administration_app/model/vehicles/vehicles.dart';
 class AnalysisLogisticInteractor {
   final _repository = AnalysisLogisticRepository();
 
-  Future<List<TypeOfVehicle>> getTypeOfVehicle() =>
-      _repository.getTypeOfVehicle();
-
-  Future<List<Vehicles>> getVehicle() =>
-      _repository.getVehicle();
-
   Future<List<AnalysisLogistic>> getAnalysisLogistic({required int modeID, required List<Map<String, dynamic>> data}) =>
       _repository.getAnalysisLogistic(modeID: modeID, data: data);
 
