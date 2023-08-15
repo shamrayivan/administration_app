@@ -1,10 +1,15 @@
 import 'package:administration_app/ui/common/widgets/adaptive_scroll_view.dart';
 import 'package:administration_app/ui/common/widgets/chart/chart.dart';
+import 'package:administration_app/ui/common/widgets/choose_period_date.dart';
+import 'package:administration_app/ui/common/widgets/choose_vehicle_or_driver.dart';
+import 'package:administration_app/ui/common/widgets/toggle_button.dart';
+import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/fuel_consumption_screen_wm.dart';
 import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen_shimmer.dart';
 import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:intl/intl.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
@@ -22,42 +27,43 @@ class FuelConsumptionScreen extends CoreMwwmWidget {
 class _FuelConsumptionScreenState extends WidgetState<FuelConsumptionScreenWM> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
-
-class _ToggleButton extends StatelessWidget {
-  const _ToggleButton(
-      {Key? key,
-        required this.selectedToggle,
-        required this.toggleWidgets,
-        required this.onChangeToggle})
-      : super(key: key);
-
-  final StreamedStateNS<List<bool>> selectedToggle;
-  final List<Widget> toggleWidgets;
-  final Action<int> onChangeToggle;
-
-  @override
-  Widget build(BuildContext context) {
     return StreamedStateBuilderNS(
-        streamedStateNS: selectedToggle,
-        builder: (context, selectedToggle) {
-          return ToggleButtons(
-              onPressed: (index) {
-                onChangeToggle.accept(index);
-              },
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              selectedBorderColor: Colors.black,
-              selectedColor: Colors.amberAccent,
-              fillColor: Colors.black,
-              color: Colors.black,
-              constraints: const BoxConstraints(
-                minHeight: 30.0,
-                minWidth: 80.0,
-              ),
-              isSelected: selectedToggle,
-              children: toggleWidgets);
-        });
+      streamedStateNS: wm.currentToggle,
+      builder: (context, currentToggle) {
+        return Column(children: [
+          ToggleButton(selectedToggle: wm.selectedToggle, toggleWidgets: wm.toggleWidgets, onChangeToggle: wm.onChangeToggle),
+          currentToggle == 0 ? StreamedStateBuilder(
+            streamedState: wm.choosenVehicle,
+            builder: (context, choosenVehicle) {
+              return GestureDetector(
+                onTap: (){
+                  wm.onChooseVehicle();
+                },
+                  child: ChooseVehicleOrDriver(name: 'Машина', chooseData: choosenVehicle ?? 'Выберите ТС'));
+            }
+          ) : currentToggle == 1 ? StreamedStateBuilder(
+              streamedState: wm.choosenVehicle,
+              builder: (context, choosenVehicle) {
+                return GestureDetector(
+                    onTap: (){
+                      wm.onChooseVehicle();
+                    },
+                    child: ChooseVehicleOrDriver(name: 'Машина', chooseData: choosenVehicle ?? 'Выберите ТС'));
+              }
+          ) : StreamedStateBuilder(
+              streamedState: wm.choosenVehicle,
+              builder: (context, choosenVehicle) {
+                return GestureDetector(
+                    onTap: (){
+                      wm.onChooseVehicle();
+                    },
+                    child: ChooseVehicleOrDriver(name: 'Водитель', chooseData: choosenVehicle ?? 'Выберите Водителя'));
+              }
+          ),
+          ChoosePeriodDate(dateBeginState: wm.dateBeginState, dateEndState: wm.dateEndState, onDateBegin: wm.onDateBegin, onDateEnd: wm.onDateEnd)
+        ],);
+      }
+    );
   }
 }
+

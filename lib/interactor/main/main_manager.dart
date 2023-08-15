@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:administration_app/di/di.dart';
-import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_interactor.dart';
-import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
 import 'package:administration_app/interactor/main/main_interactor.dart';
+import 'package:administration_app/interactor/transport_treatment/transport_manager.dart';
 import 'package:administration_app/model/analysis_logistic/analysis_logistic.dart';
 import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
 import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
@@ -13,7 +12,7 @@ import 'package:relation/relation.dart';
 class MainManager {
   final _interactor = MainInteractor();
 
-  final _interactorAnalysisManager = getIt<AnalysisLogisticManager>();
+  final _interactorAnalysisManager = getIt<TransportManager>();
 
 
   final typeOfVehicle = EntityStreamedState<List<TypeOfVehicle>>();

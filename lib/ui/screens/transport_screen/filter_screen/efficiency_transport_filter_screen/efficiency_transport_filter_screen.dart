@@ -1,7 +1,7 @@
+import 'package:administration_app/ui/common/widgets/choose_period_date.dart';
 import 'package:administration_app/ui/common/widgets/circular_progress_bar.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
-import 'package:administration_app/ui/screens/transport_screen/filter_screen/efficiency_transport_screen/efficiency_transport_screen_wm.dart';
-import 'package:administration_app/ui/screens/transport_screen/filter_screen/order_filter_screen/order_filter_screen_wm.dart';
+import 'package:administration_app/ui/screens/transport_screen/filter_screen/efficiency_transport_filter_screen/efficiency_transport_filter_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -97,7 +97,7 @@ class _EfficiencyTransportFilterScreenState extends WidgetState<EfficiencyTransp
                                 ],
                               ),
                             ),
-                            SizedBox(width: 6,),
+                            const SizedBox(width: 6,),
                             GestureDetector(
                               onTap: () {
                                 wm.onEnableAll();
@@ -145,54 +145,14 @@ class _EfficiencyTransportFilterScreenState extends WidgetState<EfficiencyTransp
                               return Column(
                                 children: [
                                   Column(children: [
-                                    SizedBox(height: 12,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        StreamedStateBuilderNS(
-                                            streamedStateNS: wm.dateBeginState,
-                                            builder: (context, dateBegin) {
-                                          return GestureDetector(
-                                            onTap: (){
-                                              wm.onDateBegin.accept(dateBegin);
-                                            },
-                                            child: Container(
-                                              color: mainColor,
-                                              width: MediaQuery.of(context).size.width/3,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Center(child: Text(DateFormat('dd MMMM yyyy', 'ru').format(dateBegin))),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      ),
-                                      Text('-', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                                        StreamedStateBuilderNS(
-                                            streamedStateNS: wm.dateEndState,
-                                            builder: (context, dateEnd) {
-                                          return GestureDetector(
-                                            onTap: (){
-                                              wm.onDateEnd.accept(dateEnd);
-                                            },
-                                            child: Container(
-                                              color: mainColor,
-                                              width: MediaQuery.of(context).size.width/3,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
-                                                child: Center(child: Text(DateFormat('dd MMMM yyyy', 'ru').format(dateEnd))),
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                      ),
-                                    ],),
-                                    SizedBox(height: 12,),
+                                    const SizedBox(height: 12,),
+                                    ChoosePeriodDate(dateBeginState: wm.dateBeginState, dateEndState: wm.dateEndState, onDateBegin: wm.onDateBegin, onDateEnd: wm.onDateEnd),
+                                    const SizedBox(height: 12,),
                                     Container(
                                       width: MediaQuery.of(context).size.width,
                                       color: blackColor,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Center(child: Text('Группы и ТС', style: TextStyle(color: mainColor, fontSize: 18,),)),
                                       ),)
                                   ],),
@@ -275,7 +235,7 @@ class _EfficiencyTransportFilterScreenState extends WidgetState<EfficiencyTransp
                                                               )),
                                                         ],
                                                       ),
-                                                    ) : SizedBox(),
+                                                    ) : const SizedBox(),
                                               ],
                                             )
                                                 : const SizedBox(),

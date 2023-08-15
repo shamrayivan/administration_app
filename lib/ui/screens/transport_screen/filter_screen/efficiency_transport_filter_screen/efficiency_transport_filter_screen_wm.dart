@@ -1,6 +1,6 @@
 import 'package:administration_app/di/di.dart';
-import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
 import 'package:administration_app/interactor/main/main_manager.dart';
+import 'package:administration_app/interactor/transport_treatment/transport_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/ui/router.dart';
@@ -9,8 +9,8 @@ import 'package:relation/relation.dart';
 
 class EfficiencyTransportFilterScreenWM extends WidgetModelStandard {
   final vehiclesStreamedState =
-      getIt<AnalysisLogisticManager>().vehiclesEfficiencyTransportStreamedState;
-  final analysisLogisticManager = getIt<AnalysisLogisticManager>();
+      getIt<TransportManager>().vehiclesEfficiencyTransportStreamedState;
+  final analysisLogisticManager = getIt<TransportManager>();
   final mainManager = getIt<MainManager>();
 
   final _scaffoldKey = getIt<GlobalKey<ScaffoldState>>();
@@ -31,8 +31,8 @@ class EfficiencyTransportFilterScreenWM extends WidgetModelStandard {
   final onDateBegin = Action<DateTime>();
   final onDateEnd = Action<DateTime>();
 
-  final dateBeginState = getIt<AnalysisLogisticManager>().dateBeginState;
-  final dateEndState = getIt<AnalysisLogisticManager>().dateEndState;
+  final dateBeginState = getIt<TransportManager>().dateBeginState;
+  final dateEndState = getIt<TransportManager>().dateEndState;
 
   List<Vehicles>? saveVehicles = <Vehicles>[];
 

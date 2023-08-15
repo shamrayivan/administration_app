@@ -1,16 +1,16 @@
 import 'package:administration_app/di/di.dart';
-import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
+import 'package:administration_app/interactor/transport_treatment/transport_manager.dart';
 import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
 
 class AnalyseLogisticsScreenWM extends WidgetModelStandard {
-  final selectedToggle = getIt<AnalysisLogisticManager>().selectedToggle;
-  final currentToggle = getIt<AnalysisLogisticManager>().currentToggle;
-  final List<Widget> toggleWidgets = getIt<AnalysisLogisticManager>().toggleWidgets;
+  final selectedToggle = getIt<TransportManager>().selectedToggle;
+  final currentToggle = getIt<TransportManager>().currentToggle;
+  final List<Widget> toggleWidgets = getIt<TransportManager>().toggleWidgets;
   final onChangeToggle = Action<int>();
-  final analysisLogisticManager = getIt<AnalysisLogisticManager>();
+  final analysisLogisticManager = getIt<TransportManager>();
   final mainManager = getIt<MainManager>();
 
   @override

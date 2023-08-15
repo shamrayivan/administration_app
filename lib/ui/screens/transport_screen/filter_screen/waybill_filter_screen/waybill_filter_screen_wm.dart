@@ -1,14 +1,14 @@
 import 'package:administration_app/di/di.dart';
-import 'package:administration_app/interactor/analysis_logistic/analysis_logistic_manager.dart';
 import 'package:administration_app/interactor/main/main_manager.dart';
+import 'package:administration_app/interactor/transport_treatment/transport_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:relation/relation.dart';
 
 class WaybillFilterScreenWM extends WidgetModelStandard {
-  final vehiclesStreamedState = getIt<AnalysisLogisticManager>().vehiclesWaybillsStreamedState;
-  final analysisLogisticManager = getIt<AnalysisLogisticManager>();
+  final vehiclesStreamedState = getIt<TransportManager>().vehiclesWaybillsStreamedState;
+  final analysisLogisticManager = getIt<TransportManager>();
   final mainManager = getIt<MainManager>();
 
   final _appRouter = getIt<AppRouter>();

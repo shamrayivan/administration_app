@@ -57,13 +57,13 @@ class _GSMScreenState extends WidgetState<GSMScreenWM> {
                           icon: Padding(
                               padding: EdgeInsets.only(bottom: 8.0),
                               child: Icon(
-                                Icons.query_stats,
+                                Icons.oil_barrel,
                                 color: whiteColor,
                               )),
                           activeIcon: Padding(
                               padding: EdgeInsets.only(bottom: 8.0),
                               child: Icon(
-                                Icons.query_stats,
+                                Icons.oil_barrel,
                                 color: mainColor,
                               )),
                           label: 'Расход топлива',
@@ -72,13 +72,13 @@ class _GSMScreenState extends WidgetState<GSMScreenWM> {
                             icon: Padding(
                                 padding: EdgeInsets.only(bottom: 8.0),
                                 child: Icon(
-                                  Icons.train,
+                                  Icons.table_chart,
                                   color: whiteColor,
                                 )),
                             activeIcon: Padding(
                                 padding: EdgeInsets.only(bottom: 8.0),
                                 child: Icon(
-                                  Icons.train,
+                                  Icons.table_chart,
                                   color: mainColor,
                                 )),
                             label: 'Таблица расхода'),

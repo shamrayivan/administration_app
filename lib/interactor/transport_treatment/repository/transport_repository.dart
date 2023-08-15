@@ -10,7 +10,7 @@ import 'package:administration_app/ui/res/urls.dart';
 
 import 'package:dio/dio.dart';
 
-class AnalysisLogisticRepository {
+class TransportRepository {
   final Dio _dio = getIt<DioManager>().dio;
 
   Future<List<AnalysisLogistic>> getAnalysisLogistic({required int modeID, required List<Map<String, dynamic>> data}) async {
