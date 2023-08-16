@@ -23,4 +23,8 @@ class GSMManager {
   final dateBeginState = StreamedStateNS<DateTime>(DateTime(2021, 04, 14));
   final dateEndState = StreamedStateNS<DateTime>(DateTime(2021, 04, 30));
 
+  Future<void> getFuelGraph({required int mode, required String dateBegin, required String dateEnd, required String vehicle}) async {
+    final res = await _interactor.getFuelGraph(mode: mode, dateBegin: dateBegin, dateEnd: dateEnd, vehicle: vehicle);
+  }
+
 }

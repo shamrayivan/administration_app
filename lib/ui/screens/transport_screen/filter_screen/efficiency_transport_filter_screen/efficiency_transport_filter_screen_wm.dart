@@ -71,7 +71,7 @@ class EfficiencyTransportFilterScreenWM extends WidgetModelStandard {
           context: _scaffoldKey.currentContext!,
           initialDate: value!,
           firstDate: DateTime(2018),
-          lastDate: DateTime.now(),
+          lastDate: dateEndState.value,
         builder: (context, child) {
           return Theme(
             data: Theme.of(context).copyWith(
@@ -98,7 +98,7 @@ class EfficiencyTransportFilterScreenWM extends WidgetModelStandard {
       final newDateEnd = await showDatePicker(
         context: _scaffoldKey.currentContext!,
         initialDate: value!,
-        firstDate: DateTime(2018),
+        firstDate: dateBeginState.value,
         lastDate: DateTime.now(),
         builder: (context, child) {
           return Theme(

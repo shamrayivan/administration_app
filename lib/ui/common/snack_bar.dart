@@ -1,4 +1,5 @@
 import 'package:administration_app/di/di.dart';
+import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:flutter/material.dart';
 
 final _scaffoldMessengerKey = getIt<GlobalKey<ScaffoldMessengerState>>();
@@ -27,11 +28,11 @@ void showSnackBarError({required String error}) {
     ?..clearSnackBars()
     ..showSnackBar(
       SnackBar(
-        backgroundColor: Colors.black.withOpacity(0.9),
-        content: Text(error),
+        backgroundColor: Colors.white,
+        content: Text(error, style: TextStyle(color: blackColor, fontWeight: FontWeight.w600),),
         action: SnackBarAction(
           label: 'Закрыть',
-          textColor: Colors.amberAccent,
+          textColor: blackColor,
           onPressed: () {},
         ),
       ),

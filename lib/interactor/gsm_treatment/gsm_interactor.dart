@@ -1,10 +1,11 @@
 
 import 'package:administration_app/interactor/gsm_treatment/repository/gsm_repository.dart';
-import 'package:administration_app/interactor/transport_treatment/repository/transport_repository.dart';
-import 'package:administration_app/model/analysis_logistic/analysis_logistic.dart';
-import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
+import 'package:administration_app/model/gsm/gsm_drivers.dart';
 
 class GSMInteractor {
   final _repository = GSMRepository();
+
+  Future<GSMDrivers> getFuelGraph({required int mode, required String dateBegin, required String dateEnd, required String vehicle}) =>
+      _repository.getFuelGraph(mode: mode, dateBegin: dateBegin, dateEnd: dateEnd, vehicle: vehicle);
 
 }

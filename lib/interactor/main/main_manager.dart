@@ -3,6 +3,7 @@ import 'package:administration_app/di/di.dart';
 import 'package:administration_app/interactor/main/main_interactor.dart';
 import 'package:administration_app/interactor/transport_treatment/transport_manager.dart';
 import 'package:administration_app/model/analysis_logistic/analysis_logistic.dart';
+import 'package:administration_app/model/drivers/drivers.dart';
 import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
 import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
 import 'package:administration_app/model/vehicles/vehicles.dart';
@@ -17,6 +18,7 @@ class MainManager {
 
   final typeOfVehicle = EntityStreamedState<List<TypeOfVehicle>>();
   final vehicles = EntityStreamedState<List<Vehicles>>();
+  final drivers = EntityStreamedState<List<Drivers>>();
 
 
   Future<void> getTypeOfVehicle() async {
@@ -36,7 +38,9 @@ class MainManager {
   }
 
   Future<void> getDrivers() async {
+    drivers.loading();
     final res = await _interactor.getDrivers();
+    drivers.content(res);
   }
 
 

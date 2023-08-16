@@ -88,12 +88,6 @@ abstract class _$AppRouter extends RootStackRouter {
             fullEfficiencyTransport: args.fullEfficiencyTransport),
       );
     },
-    EfficiencyTransportFilterRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: EfficiencyTransportFilterScreen(),
-      );
-    },
     TableFuelConsumptionRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -104,6 +98,12 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: FuelConsumptionScreen(),
+      );
+    },
+    EfficiencyTransportFilterRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EfficiencyTransportFilterScreen(),
       );
     },
   };
@@ -298,20 +298,6 @@ class FullEfficiencyTransportRouteArgs {
 }
 
 /// generated route for
-/// [EfficiencyTransportFilterScreen]
-class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
-  const EfficiencyTransportFilterRoute({List<PageRouteInfo>? children})
-      : super(
-          EfficiencyTransportFilterRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'EfficiencyTransportFilterRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [TableFuelConsumptionScreen]
 class TableFuelConsumptionRoute extends PageRouteInfo<void> {
   const TableFuelConsumptionRoute({List<PageRouteInfo>? children})
@@ -335,6 +321,20 @@ class FuelConsumptionRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'FuelConsumptionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EfficiencyTransportFilterScreen]
+class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
+  const EfficiencyTransportFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          EfficiencyTransportFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EfficiencyTransportFilterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
