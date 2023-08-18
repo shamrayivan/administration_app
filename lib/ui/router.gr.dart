@@ -106,6 +106,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: EfficiencyTransportFilterScreen(),
       );
     },
+    GraphFuelConsumptionRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<GraphFuelConsumptionRouteArgs>(
+          orElse: () => GraphFuelConsumptionRouteArgs(
+              vehicle: pathParams.getBool('vehicle')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: GraphFuelConsumptionScreen(vehicle: args.vehicle),
+      );
+    },
   };
 }
 
@@ -337,4 +347,35 @@ class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
   static const String name = 'EfficiencyTransportFilterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [GraphFuelConsumptionScreen]
+class GraphFuelConsumptionRoute
+    extends PageRouteInfo<GraphFuelConsumptionRouteArgs> {
+  GraphFuelConsumptionRoute({
+    required bool vehicle,
+    List<PageRouteInfo>? children,
+  }) : super(
+          GraphFuelConsumptionRoute.name,
+          args: GraphFuelConsumptionRouteArgs(vehicle: vehicle),
+          rawPathParams: {'vehicle': vehicle},
+          initialChildren: children,
+        );
+
+  static const String name = 'GraphFuelConsumptionRoute';
+
+  static const PageInfo<GraphFuelConsumptionRouteArgs> page =
+      PageInfo<GraphFuelConsumptionRouteArgs>(name);
+}
+
+class GraphFuelConsumptionRouteArgs {
+  const GraphFuelConsumptionRouteArgs({required this.vehicle});
+
+  final bool vehicle;
+
+  @override
+  String toString() {
+    return 'GraphFuelConsumptionRouteArgs{vehicle: $vehicle}';
+  }
 }

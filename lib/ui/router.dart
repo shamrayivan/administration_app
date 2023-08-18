@@ -1,6 +1,7 @@
 import 'package:administration_app/ui/screens/auth_screen/auth_screen.dart';
 import 'package:administration_app/ui/screens/choose_treatment_screen/choose_treatment_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/fuel_consumption_screen.dart';
+import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/graph_fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/gsm_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/table_fuel_consumption_screen/table_fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/splash_screen/splash_screen.dart';
@@ -26,17 +27,21 @@ abstract class RouteScreen {
   static const analyseLogistics = 'analyseLogistics';
   static const efficiencyTransport = 'efficiencyTransport';
 
-  static const gsm = '/gsm';
-  static const fuelConsumption = 'fuelConsumption';
-  static const tableFuelConsumption = 'tableFuelConsumption';
-
   static const filterOrderAnalysisLogistics = '/filterOrderAnalysisLogistics';
   static const filterWaybillAnalysisLogistics = '/filterWaybillAnalysisLogistics';
   static const filterTaskAnalysisLogistics = '/filterTaskAnalysisLogistics';
   static const filterEfficiencyTransportAnalysisLogistics =
       '/filterEfficiencyTransportAnalysisLogistics';
-
   static const fullEfficiencyTransport = '/fullEfficiencyTransport';
+
+  static const gsm = '/gsm';
+  static const fuelConsumption = 'fuelConsumption';
+  static const tableFuelConsumption = 'tableFuelConsumption';
+
+  static const grapFuelConsumption = '/grapFuelConsumption';
+
+
+
 }
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
@@ -72,5 +77,6 @@ class AppRouter extends _$AppRouter {
             AutoRoute(page: TableFuelConsumptionRoute.page, path: RouteScreen.tableFuelConsumption),
           ],
         ),
+    AutoRoute(page: GraphFuelConsumptionRoute.page, path: RouteScreen.grapFuelConsumption),
       ];
 }

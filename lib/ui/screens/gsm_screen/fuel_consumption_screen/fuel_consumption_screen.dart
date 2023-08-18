@@ -2,6 +2,7 @@ import 'package:administration_app/ui/common/widgets/adaptive_scroll_view.dart';
 import 'package:administration_app/ui/common/widgets/chart/chart.dart';
 import 'package:administration_app/ui/common/widgets/choose_period_date.dart';
 import 'package:administration_app/ui/common/widgets/choose_vehicle_or_driver.dart';
+import 'package:administration_app/ui/common/widgets/circular_progress_bar.dart';
 import 'package:administration_app/ui/common/widgets/toggle_button.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/fuel_consumption_screen_wm.dart';
@@ -90,13 +91,18 @@ class _FuelConsumptionScreenState extends WidgetState<FuelConsumptionScreenWM> {
                         for(String vehicle in recentlyListVehicle)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(border: Border.all(), borderRadius: const BorderRadius.all(Radius.circular(15))),
-                              child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(vehicle, textAlign: TextAlign.center,),
-                            ),),
+                            child: GestureDetector(
+                              onTap: (){
+                                wm.onChooseRecently.accept(vehicle);
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(border: Border.all(), borderRadius: const BorderRadius.all(Radius.circular(15))),
+                                child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(vehicle, textAlign: TextAlign.center,),
+                              ),),
+                            ),
                           ),
                         const SizedBox(height: 60,)
                       ],) : const SizedBox();
@@ -115,13 +121,18 @@ class _FuelConsumptionScreenState extends WidgetState<FuelConsumptionScreenWM> {
                         for(String driver in recentlyListDriver)
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(border: Border.all(), borderRadius: const BorderRadius.all(Radius.circular(15))),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(driver, textAlign: TextAlign.center,),
-                              ),),
+                            child: GestureDetector(
+                              onTap: (){
+                                wm.onChooseRecently.accept(driver);
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(border: Border.all(), borderRadius: const BorderRadius.all(Radius.circular(15))),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(driver, textAlign: TextAlign.center,),
+                                ),),
+                            ),
                           ),
                         const SizedBox(height: 60,)
                       ],) : const SizedBox();
@@ -147,7 +158,10 @@ class _FuelConsumptionScreenState extends WidgetState<FuelConsumptionScreenWM> {
                           child: Center(child: Text('Запросить данные',style: TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.w600), textAlign: TextAlign.center,)),
                         ),),
                     ),
-                  ))
+                  )),
+              StreamedStateBuilderNS(streamedStateNS: wm.loadingState, builder: (context, loading){
+                return loading ? CircullarProgressBar() : SizedBox();
+              })
             ],
           );
         });

@@ -6,11 +6,14 @@ import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/ui/common/bottom_sheet_select/bottom_sheet_select.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
+import 'package:administration_app/ui/router.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
 
 class FuelConsumptionScreenWM extends WidgetModelStandard {
   final _scaffoldKey = getIt<GlobalKey<ScaffoldState>>();
+
+  final _appRouter = getIt<AppRouter>();
 
   final _gsmManager = getIt<GSMManager>();
 
@@ -39,28 +42,65 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
   final recentlyChoosenVehicle = StreamedStateNS<List<String>>([]);
   final recentlyChoosenDriver = StreamedStateNS<List<String>>([]);
 
+  final onChooseRecently = Action<String>();
+
+  final loadingState = StreamedStateNS<bool>(false);
+
   @override
   void onBind() {
+    subscribe(onChooseRecently.stream, (value) {
+      if(currentToggle.value==0){
+        choosenVehicleOrder.accept(value??'');
+      }else if (currentToggle.value==1){
+        choosenVehicleWaybill.accept(value??'');
+      }else if (currentToggle.value == 2){
+        choosenDriverTask.accept(value??'');
+      }
+    });
     subscribe(onGetData.stream, (value) {
-      if(currentToggle.value == 0){
-        if(choosenVehicleOrder.value == 'Выберите ТС') {
+      if (currentToggle.value == 0) {
+        if (choosenVehicleOrder.value == 'Выберите ТС') {
           showSnackBarError(error: 'Выберите ТС');
           return;
         }
-        doFutureHandleError(_gsmManager.getFuelGraph(mode: 1, dateBegin: dateBeginState.value.millisecondsSinceEpoch.toString(), dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(), vehicle: choosenVehicleOrder.value));
+        loadingState.accept(true);
+        doFutureHandleError(_gsmManager.getFuelGraphVehicle(
+            mode: 1,
+            dateBegin: dateBeginState.value.millisecondsSinceEpoch.toString(),
+            dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(),
+            vehicle: choosenVehicleOrder.value), onValue: (val){
+          loadingState.accept(false);
+          _appRouter.push(GraphFuelConsumptionRoute(vehicle: true));
+        });
       }
-      if(currentToggle.value == 1){
-        if(choosenVehicleWaybill.value == 'Выберите ТС') {
+      if (currentToggle.value == 1) {
+        if (choosenVehicleWaybill.value == 'Выберите ТС') {
           showSnackBarError(error: 'Выберите ТС');
           return;
         }
-        doFutureHandleError(_gsmManager.getFuelGraph(mode: 2, dateBegin: dateBeginState.value.millisecondsSinceEpoch.toString(), dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(), vehicle: choosenVehicleWaybill.value));
+        loadingState.accept(true);
+        doFutureHandleError(_gsmManager.getFuelGraphVehicle(
+            mode: 2,
+            dateBegin: dateBeginState.value.millisecondsSinceEpoch.toString(),
+            dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(),
+            vehicle: choosenVehicleWaybill.value), onValue: (val){
+          loadingState.accept(false);
+          _appRouter.push(GraphFuelConsumptionRoute(vehicle: true));
+        });
       }
-      if(currentToggle.value == 2){
-        if(choosenDriverTask.value == 'Выберите Водителя') {
+      if (currentToggle.value == 2) {
+        if (choosenDriverTask.value == 'Выберите Водителя') {
           showSnackBarError(error: 'Выберите Водителя');
           return;
         }
+        loadingState.accept(true);
+        doFutureHandleError(_gsmManager.getFuelGraphDriver(
+            dateBegin: dateBeginState.value.millisecondsSinceEpoch.toString(),
+            dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(),
+            driver: choosenDriverTask.value), onValue: (val){
+          loadingState.accept(false);
+          _appRouter.push(GraphFuelConsumptionRoute(vehicle: false));
+        });
       }
     });
     //Изменение кнопки переключения
@@ -71,9 +111,11 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
       selectedToggle.accept(listBool);
     });
     subscribe(onChooseVehicleOrder.stream, (value) async {
-      if(listVehicles.value.isContent) {
+      if (listVehicles.value.isContent) {
         List<String> newListVehicle = [];
-        listVehicles.data?.forEach((element) {if(!element.itsGroup) newListVehicle.add(element.vehicleName);});
+        listVehicles.data?.forEach((element) {
+          if (!element.itsGroup) newListVehicle.add(element.vehicleName);
+        });
         final a = await bottomSheetSelect(
             context: _scaffoldKey.currentContext!,
             title: 'Выберите транспортное средство',
@@ -83,15 +125,17 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             withoutConfirmation: true);
         if (a != null) {
           choosenVehicleOrder.accept(a.first);
-          recentlyChoosenVehicle.value.insert(0,a.first);
+          recentlyChoosenVehicle.value.insert(0, a.first);
           recentlyChoosenVehicle.reAccept();
         }
       }
     });
     subscribe(onChooseVehicleWaybill.stream, (value) async {
-      if(listVehicles.value.isContent) {
+      if (listVehicles.value.isContent) {
         List<String> newListVehicle = [];
-        listVehicles.data?.forEach((element) {if(!element.itsGroup) newListVehicle.add(element.vehicleName);});
+        listVehicles.data?.forEach((element) {
+          if (!element.itsGroup) newListVehicle.add(element.vehicleName);
+        });
         final a = await bottomSheetSelect(
             context: _scaffoldKey.currentContext!,
             title: 'Выберите транспортное средство',
@@ -101,15 +145,17 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             withoutConfirmation: true);
         if (a != null) {
           choosenVehicleWaybill.accept(a.first);
-          recentlyChoosenVehicle.value.insert(0,a.first);
+          recentlyChoosenVehicle.value.insert(0, a.first);
           recentlyChoosenVehicle.reAccept();
         }
       }
     });
     subscribe(onChooseDriverTask.stream, (value) async {
-      if(listDrivers.value.isContent) {
+      if (listDrivers.value.isContent) {
         List<String> newListDrivers = [];
-        listDrivers.data?.forEach((element) {newListDrivers.add(element.drivername);});
+        listDrivers.data?.forEach((element) {
+          newListDrivers.add(element.drivername);
+        });
         final a = await bottomSheetSelect(
             context: _scaffoldKey.currentContext!,
             title: 'Выберите транспортное средство',
@@ -119,7 +165,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             withoutConfirmation: true);
         if (a != null) {
           choosenDriverTask.accept(a.first);
-          recentlyChoosenDriver.value.insert(0,a.first);
+          recentlyChoosenDriver.value.insert(0, a.first);
           recentlyChoosenDriver.reAccept();
         }
       }
@@ -138,8 +184,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
                 onPrimary: Colors.black,
                 onSurface: Colors.black, // body text color
               ),
-              textButtonTheme:
-              TextButtonThemeData(
+              textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.amber, // button text color
                 ),
@@ -147,7 +192,8 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             ),
             child: child!,
           );
-        },);
+        },
+      );
       if (newDateBegin != null) {
         dateBeginState.accept(newDateBegin);
       }
@@ -166,8 +212,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
                 onPrimary: Colors.black,
                 onSurface: Colors.black, // body text color
               ),
-              textButtonTheme:
-              TextButtonThemeData(
+              textButtonTheme: TextButtonThemeData(
                 style: TextButton.styleFrom(
                   foregroundColor: Colors.amber, // button text color
                 ),
@@ -175,7 +220,8 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             ),
             child: child!,
           );
-        },);
+        },
+      );
       if (newDateEnd != null) {
         dateEndState.accept(newDateEnd);
       }
