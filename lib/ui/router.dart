@@ -1,6 +1,8 @@
 import 'package:administration_app/ui/screens/auth_screen/auth_screen.dart';
 import 'package:administration_app/ui/screens/choose_treatment_screen/choose_treatment_screen.dart';
+import 'package:administration_app/ui/screens/choose_treatment_screen/settings_screen/settings_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/fuel_consumption_screen.dart';
+import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/filter_graph_fuel_consumptions_screen/filter_graph_fuel_consumptions_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/graph_fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/gsm_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/table_fuel_consumption_screen/table_fuel_consumption_screen.dart';
@@ -22,6 +24,7 @@ abstract class RouteScreen {
   static const root = '/';
   static const auth = '/auth';
   static const chooseTreatment = '/chooseTreatment';
+  static const settings = '/settings';
 
   static const transport = '/transport';
   static const analyseLogistics = 'analyseLogistics';
@@ -39,8 +42,7 @@ abstract class RouteScreen {
   static const tableFuelConsumption = 'tableFuelConsumption';
 
   static const grapFuelConsumption = '/grapFuelConsumption';
-
-
+  static const filterGraphFuelConsumption = '/filterGraphFuelConsumption';
 
 }
 
@@ -78,5 +80,7 @@ class AppRouter extends _$AppRouter {
           ],
         ),
     AutoRoute(page: GraphFuelConsumptionRoute.page, path: RouteScreen.grapFuelConsumption),
+    AutoRoute(page: SettingsRoute.page, path: RouteScreen.settings),
+    AutoRoute(page: FilterGraphFuelConsumptionRoute.page, path: RouteScreen.filterGraphFuelConsumption),
       ];
 }

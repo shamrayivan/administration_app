@@ -2,10 +2,18 @@ import 'package:administration_app/model/gsm/gsm_fuel_graph.dart';
 import 'package:administration_app/model/gsm/gsm_graph_consumption.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GSMChart extends StatelessWidget {
-  const GSMChart({Key? key, required this.text, required this.dataSource, required this.xValueMapper, required this.yValueMapper, required this.gsmFuelGraph}) : super(key: key);
+  const GSMChart(
+      {Key? key,
+      required this.text,
+      required this.dataSource,
+      required this.xValueMapper,
+      required this.yValueMapper,
+      required this.gsmFuelGraph})
+      : super(key: key);
 
   final String text;
   final List<GSMGraphConsumption> dataSource;
@@ -15,95 +23,138 @@ class GSMChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: (){
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: Column(
-        children: [
-          if(gsmFuelGraph!=null) gsmFuelGraph?.sostoyanie == '' ? SizedBox() :Text('${gsmFuelGraph?.sostoyanie}'),
-          Expanded(
-            child: SfCartesianChart(
-                title: ChartTitle(
-                    text: text,
-                    textStyle: TextStyle(fontSize: 10, color: blackColor)),
-                primaryXAxis: CategoryAxis(
-                    interval: MediaQuery.of(context).orientation == Orientation.portrait
-                        ? null
-                        : dataSource.length > 6
-                        ? 2
-                        : 1,
-                    labelIntersectAction: AxisLabelIntersectAction.trim,
-                    maximumLabels: 5,
-                    // tickPosition: TickPosition.inside,
-                    labelPlacement:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? LabelPlacement.betweenTicks
-                        : dataSource.length > 5
-                        ? LabelPlacement.onTicks
-                        : LabelPlacement.betweenTicks,
-                    // Axis labels will be rotated to 90 degree
-                    labelRotation:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? 90
-                        : 0),
-                onDataLabelTapped: (DataLabelTapDetails args) {
-                  print(args.pointIndex);
-                },
-                zoomPanBehavior: ZoomPanBehavior(
-                    enableSelectionZooming: true,
-                    selectionRectBorderColor: Colors.red,
-                    selectionRectBorderWidth: 1,
-                    selectionRectColor: Colors.grey,
-                    enablePinching: true),
-                tooltipBehavior: TooltipBehavior(
-                    tooltipPosition: TooltipPosition.pointer,
-                    opacity: 0.8,
-                    duration: 10000,
-                    color: Colors.white,
-                    enable: true,
-                    builder: (data, dynamic point, dynamic series,
-                        int pointIndex, int seriesIndex) {
-                      return data is GSMGraphConsumption ? Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: blackColor)),
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: Text(
-                            '${data.date}\n\nНорма: ${num.parse(data.norm.toStringAsFixed(2))}\n\n${data.drivers}\n\n${data.vehicles}\n\n${data.waybills} \n\n'),
-                      ) : SizedBox();
-                    }),
-                series: <ChartSeries>[
-                  LineSeries<GSMGraphConsumption, dynamic>(
-                    selectionBehavior: SelectionBehavior(
-                      // Enables the selection
-                        enable: true),
-                    // trendlines: <Trendline>[
-                    // Trendline(type: TrendlineType.exponential,
-                    // enableTooltip: false,
-                    // color: Colors.black,
-
-                    // )
-                    // ],
-                    // widget.trendlines,
-                    // // zoomOrNot
-                    // //     ? []
-                    // //     :
-                    // [
-                    //         Trendline(
-                    //             type: TrendlineType.exponential, color: Colors.black),
-                    //       ],
-                    // trendlines: widget.trendlines,
-                    animationDuration: 30,
-                    color: blackColor,
-                    dataSource: dataSource,
-                    markerSettings: const MarkerSettings(isVisible: true),
-                    xValueMapper: xValueMapper,
-                    yValueMapper: yValueMapper,
+    return Column(
+      children: [
+        if (gsmFuelGraph != null)
+          gsmFuelGraph?.sostoyanie == ''
+              ? const SizedBox()
+              : Text(
+                  '${gsmFuelGraph?.sostoyanie}',
+                  style: const TextStyle(color: greyColor),
+                ),
+        Expanded(
+          child: SfCartesianChart(
+              title: ChartTitle(
+                  text: text, textStyle: const TextStyle(fontSize: 10, color: blackColor)),
+              primaryXAxis: CategoryAxis(
+                  interval: MediaQuery.of(context).orientation == Orientation.portrait
+                      ? null
+                      : dataSource.length > 6
+                          ? 2
+                          : 1,
+                  labelIntersectAction: AxisLabelIntersectAction.trim,
+                  maximumLabels: 5,
+                  // tickPosition: TickPosition.inside,
+                  labelPlacement: MediaQuery.of(context).orientation == Orientation.portrait
+                      ? LabelPlacement.betweenTicks
+                      : dataSource.length > 5
+                          ? LabelPlacement.onTicks
+                          : LabelPlacement.betweenTicks,
+                  // Axis labels will be rotated to 90 degree
+                  labelRotation:
+                      MediaQuery.of(context).orientation == Orientation.portrait ? 90 : 0),
+              zoomPanBehavior: ZoomPanBehavior(
+                  enableSelectionZooming: true,
+                  selectionRectBorderColor: Colors.red,
+                  selectionRectBorderWidth: 1,
+                  selectionRectColor: Colors.grey,
+                  enablePinching: true),
+              tooltipBehavior: TooltipBehavior(
+                  elevation: 20,
+                  enable: true,
+                  opacity: 0.9,
+                  duration: 10000,
+                  textAlignment: ChartAlignment.near,
+                  color: Colors.white,
+                  canShowMarker: false,
+                  textStyle: TextStyle(color: blackColor)),
+              // tooltipBehavior: TooltipBehavior(
+              //     tooltipPosition: TooltipPosition.pointer,
+              //     opacity: 0.8,
+              //     duration: 10000,
+              //     color: Colors.white,
+              //     enable: true,
+              //     builder: (data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {
+              //       return data is GSMGraphConsumption
+              //           ? Container(
+              //               decoration: BoxDecoration(border: Border.all(color: blackColor)),
+              //               width: MediaQuery.of(context).size.width / 1.75,
+              //               height: MediaQuery.of(context).size.width / 1.75,
+              //               child: SingleChildScrollView(
+              //                 child: Padding(
+              //                   padding: const EdgeInsets.all(2.0),
+              //                   child: Text(
+              //                       '${data.date}\n\nНорма: ${num.parse(data.norm.toStringAsFixed(2))}\n\n${data.drivers}\n\n${data.vehicles}\n\n${data.waybills} \n\n'),
+              //                 ),
+              //               ),
+              //             )
+              //           : const SizedBox();
+              //     }),
+              onTooltipRender: (TooltipArgs args) {
+                final List<String> listWaybills =  dataSource[args.pointIndex!.toInt()].waybills.split(',');
+                final List<String> listDrivers =  dataSource[args.pointIndex!.toInt()].drivers.split(',');
+                final List<String> listVehicles =  dataSource[args.pointIndex!.toInt()].vehicles.split(',');
+                args.locationX =0;
+                args.locationY = 0;
+                args.header = dataSource[args.pointIndex!.toInt()].date.toString();
+                print(args.locationX?.floor());
+                print(args.locationY?.floor());
+                // args.header = (args.dataPoints?[args.pointIndex!.toInt()] as CartesianChartPoint);
+                args.text = 'Норма: ' +
+                    dataSource[args.pointIndex!.toInt()].norm.toStringAsFixed(2) +
+                    '\n\n' +
+                    listDrivers.join('\n').trim() +
+                    '\n\n' +
+                    listVehicles.join('\n').trim()+
+                    '\n\n' +
+                    listWaybills.join('\n').trim();
+                // if (args.pointIndex == 0) {
+                //   //Tooltip without header
+                //   args.header = '123';
+                // }
+                // if (args.pointIndex == 1) {
+                //   //Tooltip with customized header
+                //   args.header = 'Sold';
+                // }
+                // if (args.pointIndex == 2) {
+                //   //Tooltip with X and Y positions of data points
+                //   args.header = 'x : y';
+                //   args.text = '${args.locationX!.floor()} : ${args.locationY!.floor()}';
+                // }
+                // if (args.pointIndex == 3) {
+                //   //Tooltip with formatted DateTime values
+                //   List<dynamic>? chartdata = args.dataPoints;
+                //   // args.header = DateFormat('d MMM yyyy').format(chartdata?[3]!.x);
+                //   args.text = '${chartdata?[3].x}';
+                // }
+              },
+              series: <ChartSeries>[
+                LineSeries<GSMGraphConsumption, dynamic>(
+                  selectionBehavior: SelectionBehavior(enable: true),
+                  trendlines: <Trendline>[
+                    Trendline(
+                      markerSettings: MarkerSettings(),
+                      type: TrendlineType.exponential,
+                      enableTooltip: false,
+                      color: Colors.black,
+                    )
+                  ],
+                  enableTooltip: true,
+                  dataLabelSettings: DataLabelSettings(isVisible: true),
+                  animationDuration: 30,
+                  color: blackColor,
+                  dataSource: dataSource,
+                  markerSettings: const MarkerSettings(
+                    isVisible: true,
+                    height: 12,
+                    width: 12,
                   ),
-                ]),
-          ),
-        ],
-      ),
+                  xValueMapper: xValueMapper,
+                  yValueMapper: yValueMapper,
+                ),
+              ]),
+        ),
+      ],
     );
   }
 }

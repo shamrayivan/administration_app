@@ -21,15 +21,15 @@ class GSMManager {
 
   final fuelGraphState = EntityStreamedState<GSMFuelGraph>();
 
-  Future<void> getFuelGraphVehicle({required int mode, required String dateBegin, required String dateEnd, required String vehicle}) async {
+  Future<void> getFuelGraphVehicle({Map<String, dynamic>? data, required int mode, required String dateBegin, required String dateEnd, required String vehicle}) async {
     fuelGraphState.loading();
-    final res = await _interactor.getFuelGraphVehicle(mode: mode, dateBegin: dateBegin, dateEnd: dateEnd, vehicle: vehicle);
+    final res = await _interactor.getFuelGraphVehicle(data: data, mode: mode, dateBegin: dateBegin, dateEnd: dateEnd, vehicle: vehicle);
     fuelGraphState.content(res);
   }
 
-  Future<void> getFuelGraphDriver({required String dateBegin, required String dateEnd, required String driver}) async {
+  Future<void> getFuelGraphDriver({Map<String, dynamic>? data, required String dateBegin, required String dateEnd, required String driver}) async {
     fuelGraphState.loading();
-    final res = await _interactor.getFuelGraphDriver(dateBegin: dateBegin, dateEnd: dateEnd, driver: driver);
+    final res = await _interactor.getFuelGraphDriver(data: data, dateBegin: dateBegin, dateEnd: dateEnd, driver: driver);
     fuelGraphState.content(res);
   }
 

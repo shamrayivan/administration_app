@@ -19,24 +19,28 @@ class TransportScreenWM extends WidgetModelStandard {
   @override
   void onInit() {
     if (_mainManager.typeOfVehicle.value.isContent) {
-      final data = <Map<String, dynamic>>[];
-      _mainManager.typeOfVehicle.data?.forEach((element) {
-        data.add({'Наименование': element.type});
-      });
-      doFutureHandleError(_analysisLogisticManager.getAnalysisLogistic(modeID: 1, data: data));
+      if (!_analysisLogisticManager.orderAnalisysLogistic.value.isContent) {
+        final data = <Map<String, dynamic>>[];
+        _mainManager.typeOfVehicle.data?.forEach((element) {
+          data.add({'Наименование': element.type});
+        });
+        doFutureHandleError(_analysisLogisticManager.getAnalysisLogistic(modeID: 1, data: data));
+      }
     }
     if (_mainManager.vehicles.value.isContent) {
-      final data = <Map<String, dynamic>>[];
-      _mainManager.vehicles.data?.forEach((element) {
-        data.add({'Наименование': element.vehicleName});
-      });
-      doFutureHandleError(
-        _analysisLogisticManager.getEfficiencyTransport(
-          data: data,
-          dateBegin: DateTime(2021, 04, 1),
-          dateEnd: DateTime(2021, 04, 30),
-        ),
-      );
+      if (!_analysisLogisticManager.efficiencyTransportState.value.isContent) {
+        final data = <Map<String, dynamic>>[];
+        _mainManager.vehicles.data?.forEach((element) {
+          data.add({'Наименование': element.vehicleName});
+        });
+        doFutureHandleError(
+          _analysisLogisticManager.getEfficiencyTransport(
+            data: data,
+            dateBegin: DateTime(2021, 04, 1),
+            dateEnd: DateTime(2021, 04, 30),
+          ),
+        );
+      }
     }
   }
 

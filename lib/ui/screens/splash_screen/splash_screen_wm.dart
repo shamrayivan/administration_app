@@ -12,6 +12,9 @@ class SplashScreenWm extends WidgetModelStandard {
   final _storageManager = getIt<StorageManager>();
   final _mainManager = getIt<MainManager>();
   final errorState = StreamedStateNS<bool>(false);
+  final vehiclesErrorState = StreamedState<bool>();
+  final typeOfVehiclesErrorState = StreamedState<bool>();
+  final driversErrorState = StreamedState<bool>();
 
   @override
   void onInit()async{
@@ -23,25 +26,61 @@ class SplashScreenWm extends WidgetModelStandard {
       _appRouter.replaceNamed(RouteScreen.auth);
     }
     else {
-      doFutureHandleError(_mainManager.getVehicle(), onError: (e,s){
+      doFutureHandleError(_mainManager.getVehicle(),
+          onValue: (val){
+        vehiclesErrorState.accept(false);
+          },
+          onError: (e,s){
         showSnackBarError(error: 'Ошибка получения транспортных средств');
+        vehiclesErrorState.accept(true);
         errorState.accept(true);
       });
-      doFutureHandleError(_mainManager.getTypeOfVehicle(), onValue: (_){
-        errorState.accept(false);
-        _appRouter.replaceNamed(RouteScreen.chooseTreatment);
-      }, onError: (e,s){
+      doFutureHandleError(_mainManager.getTypeOfVehicle(),
+          onValue: (val){
+            typeOfVehiclesErrorState.accept(false);
+          },
+          onError: (e,s){
         showSnackBarError(error: 'Ошибка получения типов транспортных средств');
+        typeOfVehiclesErrorState.accept(true);
         errorState.accept(true);
       });
-      doFutureHandleError(_mainManager.getDrivers(), onValue: (_){
-        errorState.accept(false);
-        _appRouter.replaceNamed(RouteScreen.chooseTreatment);
-      }, onError: (e,s){
+      doFutureHandleError(_mainManager.getDrivers(),
+          onValue: (val){
+            driversErrorState.accept(false);
+          },
+          onError: (e,s){
         showSnackBarError(error: 'Ошибка получения водителей');
+        driversErrorState.accept(true);
         errorState.accept(true);
       });
-
     }
+  }
+
+  @override
+  void onBind() {
+    subscribe(driversErrorState.stream, (value) {
+      if(driversErrorState.value !=null && vehiclesErrorState.value!=null && typeOfVehiclesErrorState.value!=null) {
+        if (!driversErrorState.value! && !vehiclesErrorState.value! &&
+            !typeOfVehiclesErrorState.value!) {
+          _appRouter.replaceNamed(RouteScreen.chooseTreatment);
+        }
+      }
+    });
+    subscribe(vehiclesErrorState.stream, (value) {
+      if(driversErrorState.value !=null && vehiclesErrorState.value!=null && typeOfVehiclesErrorState.value!=null) {
+        if (!driversErrorState.value! && !vehiclesErrorState.value! &&
+            !typeOfVehiclesErrorState.value!) {
+          _appRouter.replaceNamed(RouteScreen.chooseTreatment);
+        }
+      }
+    });
+    subscribe(typeOfVehiclesErrorState.stream, (value) {
+      if(driversErrorState.value !=null && vehiclesErrorState.value!=null && typeOfVehiclesErrorState.value!=null) {
+        if (!driversErrorState.value! && !vehiclesErrorState.value! &&
+            !typeOfVehiclesErrorState.value!) {
+          _appRouter.replaceNamed(RouteScreen.chooseTreatment);
+        }
+      }
+    });
   }
 }

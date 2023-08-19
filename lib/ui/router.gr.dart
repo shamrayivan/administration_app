@@ -110,10 +110,36 @@ abstract class _$AppRouter extends RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<GraphFuelConsumptionRouteArgs>(
           orElse: () => GraphFuelConsumptionRouteArgs(
-              vehicle: pathParams.getBool('vehicle')));
+                mode: pathParams.getInt('mode'),
+                data: pathParams.getString('data'),
+              ));
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: GraphFuelConsumptionScreen(vehicle: args.vehicle),
+        child: GraphFuelConsumptionScreen(
+          mode: args.mode,
+          data: args.data,
+        ),
+      );
+    },
+    SettingsRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: SettingsScreen(),
+      );
+    },
+    FilterGraphFuelConsumptionRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<FilterGraphFuelConsumptionRouteArgs>(
+          orElse: () => FilterGraphFuelConsumptionRouteArgs(
+                mode: pathParams.getInt('mode'),
+                data: pathParams.getString('data'),
+              ));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FilterGraphFuelConsumptionScreen(
+          mode: args.mode,
+          data: args.data,
+        ),
       );
     },
   };
@@ -354,12 +380,19 @@ class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
 class GraphFuelConsumptionRoute
     extends PageRouteInfo<GraphFuelConsumptionRouteArgs> {
   GraphFuelConsumptionRoute({
-    required bool vehicle,
+    required int mode,
+    required String data,
     List<PageRouteInfo>? children,
   }) : super(
           GraphFuelConsumptionRoute.name,
-          args: GraphFuelConsumptionRouteArgs(vehicle: vehicle),
-          rawPathParams: {'vehicle': vehicle},
+          args: GraphFuelConsumptionRouteArgs(
+            mode: mode,
+            data: data,
+          ),
+          rawPathParams: {
+            'mode': mode,
+            'data': data,
+          },
           initialChildren: children,
         );
 
@@ -370,12 +403,74 @@ class GraphFuelConsumptionRoute
 }
 
 class GraphFuelConsumptionRouteArgs {
-  const GraphFuelConsumptionRouteArgs({required this.vehicle});
+  const GraphFuelConsumptionRouteArgs({
+    required this.mode,
+    required this.data,
+  });
 
-  final bool vehicle;
+  final int mode;
+
+  final String data;
 
   @override
   String toString() {
-    return 'GraphFuelConsumptionRouteArgs{vehicle: $vehicle}';
+    return 'GraphFuelConsumptionRouteArgs{mode: $mode, data: $data}';
+  }
+}
+
+/// generated route for
+/// [SettingsScreen]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute({List<PageRouteInfo>? children})
+      : super(
+          SettingsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FilterGraphFuelConsumptionScreen]
+class FilterGraphFuelConsumptionRoute
+    extends PageRouteInfo<FilterGraphFuelConsumptionRouteArgs> {
+  FilterGraphFuelConsumptionRoute({
+    required int mode,
+    required String data,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FilterGraphFuelConsumptionRoute.name,
+          args: FilterGraphFuelConsumptionRouteArgs(
+            mode: mode,
+            data: data,
+          ),
+          rawPathParams: {
+            'mode': mode,
+            'data': data,
+          },
+          initialChildren: children,
+        );
+
+  static const String name = 'FilterGraphFuelConsumptionRoute';
+
+  static const PageInfo<FilterGraphFuelConsumptionRouteArgs> page =
+      PageInfo<FilterGraphFuelConsumptionRouteArgs>(name);
+}
+
+class FilterGraphFuelConsumptionRouteArgs {
+  const FilterGraphFuelConsumptionRouteArgs({
+    required this.mode,
+    required this.data,
+  });
+
+  final int mode;
+
+  final String data;
+
+  @override
+  String toString() {
+    return 'FilterGraphFuelConsumptionRouteArgs{mode: $mode, data: $data}';
   }
 }

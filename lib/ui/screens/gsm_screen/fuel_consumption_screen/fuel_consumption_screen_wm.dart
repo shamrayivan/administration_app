@@ -70,7 +70,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(),
             vehicle: choosenVehicleOrder.value), onValue: (val){
           loadingState.accept(false);
-          _appRouter.push(GraphFuelConsumptionRoute(vehicle: true));
+          _appRouter.push(GraphFuelConsumptionRoute(mode: 1, data: choosenVehicleOrder.value));
         });
       }
       if (currentToggle.value == 1) {
@@ -85,7 +85,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(),
             vehicle: choosenVehicleWaybill.value), onValue: (val){
           loadingState.accept(false);
-          _appRouter.push(GraphFuelConsumptionRoute(vehicle: true));
+          _appRouter.push(GraphFuelConsumptionRoute(mode: 2, data: choosenVehicleWaybill.value));
         });
       }
       if (currentToggle.value == 2) {
@@ -99,7 +99,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             dateEnd: dateEndState.value.millisecondsSinceEpoch.toString(),
             driver: choosenDriverTask.value), onValue: (val){
           loadingState.accept(false);
-          _appRouter.push(GraphFuelConsumptionRoute(vehicle: false));
+          _appRouter.push(GraphFuelConsumptionRoute(mode: 3, data: choosenDriverTask.value));
         });
       }
     });

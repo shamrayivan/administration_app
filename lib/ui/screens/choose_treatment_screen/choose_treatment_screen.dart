@@ -25,6 +25,17 @@ class _ChooseTreatmentScreenState extends WidgetState<ChooseTreatmentScreenWm> {
           'Инфинити групп'.toUpperCase(),
           style: const TextStyle(color: Colors.amberAccent),
         ),
+        actions: [
+          GestureDetector(
+            onTap: (){
+              wm.onGoToSettings();
+    },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.0),
+              child: Icon(Icons.settings),
+            ),
+          )
+        ],
         centerTitle: true,
         backgroundColor: Colors.black,
       ),

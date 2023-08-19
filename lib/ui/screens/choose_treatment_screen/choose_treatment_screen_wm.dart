@@ -7,10 +7,15 @@ class ChooseTreatmentScreenWm extends WidgetModelStandard {
 
   final onTransport = Action<void>();
   final onGSM = Action<void>();
+  final onGoToSettings = Action<void>();
   final _appRouter = getIt<AppRouter>();
+
 
   @override
   void onBind() {
+    subscribe(onGoToSettings.stream, (value) {
+      _appRouter.pushNamed(RouteScreen.settings);
+    });
     subscribe(onTransport.stream, (value) {
       _appRouter.pushNamed(RouteScreen.transport);
     });

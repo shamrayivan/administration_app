@@ -28,8 +28,8 @@ void showSnackBarError({required String error}) {
     ?..clearSnackBars()
     ..showSnackBar(
       SnackBar(
-        backgroundColor: Colors.white,
-        content: Text(error, style: TextStyle(color: blackColor, fontWeight: FontWeight.w600),),
+        backgroundColor: Colors.amberAccent,
+        content: Text(error, style: const TextStyle(color: blackColor, fontWeight: FontWeight.w600),),
         action: SnackBarAction(
           label: 'Закрыть',
           textColor: blackColor,
