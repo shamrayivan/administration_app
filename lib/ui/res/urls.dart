@@ -10,6 +10,7 @@ abstract class Urls {
 
   static String gsmVehicles ({required int mode, required String dateBegin, required String dateEnd, required String vehicle}) => 'GetResult?FunctionName=TransportFuelGraph&Mode=$mode&Vehicle=$vehicle&DateBegin=$dateBegin&DateEnd=$dateEnd&OnlyCalculated=true&OnlyPosted=true';
   static String gsmDriver ({required String dateBegin, required String dateEnd, required String driver}) => 'GetResult?FunctionName=TransportFuelGraph&Mode=3&Driver=$driver&DateBegin=$dateBegin&DateEnd=$dateEnd&OnlyCalculated=true&OnlyPosted=true';
+  static String gsmFuelTable ({String? dateBegin, String? dateEnd, required String period, required int mode, required bool hideRetired, String? year}) => 'GetResult?FunctionName=TransportFuelTable&Mode=$mode&${mode ==1 ? 'DateBegin=$dateBegin&DateEnd=$dateEnd' : 'Year=$year'}&OnlyCalculated=true&OnlyPosted=true&HideOutTS=$hideRetired&Period=$period';
   // static  analysisLogisticFirstMode = 'GetResult?FunctionName=AnalysisOfLogisticsWork&Company=Инфинити%20групп%20ООО&View=1';
   // static const analysisLogisticSecondMode = 'GetResult?FunctionName=AnalysisOfLogisticsWork&Company=Инфинити%20групп%20ООО&View=2';
   // static const analysisLogisticThirdMode = 'GetResult?FunctionName=AnalysisOfLogisticsWork&Company=Инфинити%20групп%20ООО&View=3';

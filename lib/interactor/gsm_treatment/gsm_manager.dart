@@ -14,6 +14,8 @@ class GSMManager {
     Text(' По заданиям ')
   ];
 
+  final hideRetiredState = StreamedStateNS<bool>(false);
+
   final currentToggle = StreamedStateNS<int>(0);
 
   final dateBeginState = StreamedStateNS<DateTime>(DateTime(2021, 04, 14));
@@ -31,6 +33,23 @@ class GSMManager {
     fuelGraphState.loading();
     final res = await _interactor.getFuelGraphDriver(data: data, dateBegin: dateBegin, dateEnd: dateEnd, driver: driver);
     fuelGraphState.content(res);
+  }
+
+  Future<void> getFuelTableData({required List<Map<String, dynamic>> data,
+    String? dateBegin,
+    String? dateEnd,
+    required String period,
+    required int mode,
+    required bool hideRetired,
+    String? year}) async {
+    final res = await _interactor.getFuelTableData(
+        data: data,
+        period: period,
+        mode: mode,
+        hideRetired: hideRetired,
+        dateBegin: dateBegin,
+        dateEnd: dateEnd,
+        year: year);
   }
 
 }

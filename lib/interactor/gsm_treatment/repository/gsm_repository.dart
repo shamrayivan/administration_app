@@ -24,4 +24,12 @@ class GSMRepository {
     return GSMFuelGraph.fromJson(jsonDecode(response.data));
   }
 
+
+  Future<void> getFuelTableData({required List<Map<String, dynamic>> data, String? dateBegin, String? dateEnd, required String period, required int mode, required bool hideRetired, String? year}) async {
+    print(period);
+    final response = await _dio.post<dynamic>(Urls.gsmFuelTable(period: period, mode: mode, hideRetired: hideRetired, dateEnd: dateEnd, dateBegin: dateBegin, year: year), data: data);
+    logger(response.data);
+    // return GSMFuelGraph.fromJson(jsonDecode(response.data));
+  }
+
 }

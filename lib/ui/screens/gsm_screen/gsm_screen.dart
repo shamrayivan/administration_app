@@ -3,8 +3,10 @@ import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:administration_app/ui/screens/gsm_screen/gsm_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
+import 'package:relation/relation.dart';
 
 @RoutePage()
 class GSMScreen extends CoreMwwmWidget {
@@ -20,8 +22,35 @@ class _GSMScreenState extends WidgetState<GSMScreenWM> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: MediaQuery.of(context).orientation == Orientation.portrait ? AppBar(
           backgroundColor: blackColor,
+          actions: [
+            StreamedStateBuilderNS(streamedStateNS: wm.currentBottomBarIndexState, builder: (context, index){
+              return index == 1 ? Column(
+                children: [
+                  StreamedStateBuilderNS(
+                    streamedStateNS: wm.hideRetiredState,
+                    builder: (context, hideRetired) {
+                      return Transform.scale(
+                        scale: 0.75,
+                        child: CupertinoSwitch(
+                            trackColor: Colors.grey,
+                            activeColor: CupertinoColors.activeGreen,
+                            value: hideRetired,
+                            onChanged: (value) {
+                                wm.hideRetiredState.accept(value);
+                            }),
+                      );
+                    }
+                  ),
+                  Text(
+                    "скрыть выбывшие",
+                    style: TextStyle(fontSize: 12),
+                  ),
+                ],
+              ) : SizedBox();})
+            ],
           title: Text(
             'гсм'.toUpperCase(),
             style: const TextStyle(color: mainColor),
