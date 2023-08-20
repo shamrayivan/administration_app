@@ -2,7 +2,6 @@ import 'package:administration_app/model/gsm/gsm_fuel_graph.dart';
 import 'package:administration_app/model/gsm/gsm_graph_consumption.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GSMChart extends StatelessWidget {
@@ -67,7 +66,7 @@ class GSMChart extends StatelessWidget {
                   textAlignment: ChartAlignment.near,
                   color: Colors.white,
                   canShowMarker: false,
-                  textStyle: TextStyle(color: blackColor)),
+                  textStyle: const TextStyle(color: blackColor)),
               // tooltipBehavior: TooltipBehavior(
               //     tooltipPosition: TooltipPosition.pointer,
               //     opacity: 0.8,
@@ -75,6 +74,7 @@ class GSMChart extends StatelessWidget {
               //     color: Colors.white,
               //     enable: true,
               //     builder: (data, dynamic point, dynamic series, int pointIndex, int seriesIndex) {
+              //       if(pointIndex ==data.length) return SizedBox();
               //       return data is GSMGraphConsumption
               //           ? Container(
               //               decoration: BoxDecoration(border: Border.all(color: blackColor)),
@@ -91,23 +91,15 @@ class GSMChart extends StatelessWidget {
               //           : const SizedBox();
               //     }),
               onTooltipRender: (TooltipArgs args) {
-                final List<String> listWaybills =  dataSource[args.pointIndex!.toInt()].waybills.split(',');
-                final List<String> listDrivers =  dataSource[args.pointIndex!.toInt()].drivers.split(',');
-                final List<String> listVehicles =  dataSource[args.pointIndex!.toInt()].vehicles.split(',');
-                args.locationX =0;
-                args.locationY = 0;
+                  final List<String> listWaybills =
+                    dataSource[args.pointIndex!.toInt()].waybills.split(',');
+                final List<String> listDrivers =
+                    dataSource[args.pointIndex!.toInt()].drivers.split(',');
+                final List<String> listVehicles =
+                    dataSource[args.pointIndex!.toInt()].vehicles.split(',');
                 args.header = dataSource[args.pointIndex!.toInt()].date.toString();
-                print(args.locationX?.floor());
-                print(args.locationY?.floor());
-                // args.header = (args.dataPoints?[args.pointIndex!.toInt()] as CartesianChartPoint);
-                args.text = 'Норма: ' +
-                    dataSource[args.pointIndex!.toInt()].norm.toStringAsFixed(2) +
-                    '\n\n' +
-                    listDrivers.join('\n').trim() +
-                    '\n\n' +
-                    listVehicles.join('\n').trim()+
-                    '\n\n' +
-                    listWaybills.join('\n').trim();
+                args.text =
+                    'Норма: ${dataSource[args.pointIndex!.toInt()].norm.toStringAsFixed(2)}\n\n${listDrivers.join('\n').trim()}\n\n${listVehicles.join('\n').trim()}\n\n${listWaybills.join('\n').trim()}';
                 // if (args.pointIndex == 0) {
                 //   //Tooltip without header
                 //   args.header = '123';
@@ -130,17 +122,18 @@ class GSMChart extends StatelessWidget {
               },
               series: <ChartSeries>[
                 LineSeries<GSMGraphConsumption, dynamic>(
-                  selectionBehavior: SelectionBehavior(enable: true),
-                  trendlines: <Trendline>[
-                    Trendline(
-                      markerSettings: MarkerSettings(),
-                      type: TrendlineType.exponential,
-                      enableTooltip: false,
-                      color: Colors.black,
-                    )
-                  ],
+                  // selectionBehavior: SelectionBehavior(enable: true),
+                  trendlines: dataSource.length < 2
+                      ? null
+                      : <Trendline>[
+                          Trendline(
+                            width: 1,
+                            type: TrendlineType.exponential,
+                            color: Colors.black,
+                          )
+                        ],
                   enableTooltip: true,
-                  dataLabelSettings: DataLabelSettings(isVisible: true),
+                  dataLabelSettings: const DataLabelSettings(isVisible: true, textStyle: TextStyle(fontSize: 11)),
                   animationDuration: 30,
                   color: blackColor,
                   dataSource: dataSource,

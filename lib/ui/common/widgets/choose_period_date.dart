@@ -35,7 +35,7 @@ class ChoosePeriodDate extends StatelessWidget {
               );
             }
         ),
-        Text('-', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+        const Text('-', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
         StreamedStateBuilderNS(
             streamedStateNS: dateEndState,
             builder: (context, dateEnd) {

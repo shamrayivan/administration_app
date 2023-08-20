@@ -15,13 +15,14 @@ class SplashScreenWm extends WidgetModelStandard {
   final vehiclesErrorState = StreamedState<bool>();
   final typeOfVehiclesErrorState = StreamedState<bool>();
   final driversErrorState = StreamedState<bool>();
+  final loadingState = StreamedStateNS<bool>(false);
+
+  final onRestart = Action<void>();
 
   @override
   void onInit()async{
     final login = await _storageManager.getString(key: 'login');
-    print(login);
     final password = await _storageManager.getString(key: 'password');
-    print(password);
     if(login == null &&password == null) {
       _appRouter.replaceNamed(RouteScreen.auth);
     }
@@ -58,6 +59,10 @@ class SplashScreenWm extends WidgetModelStandard {
 
   @override
   void onBind() {
+    subscribe(onRestart.stream, (value) async {
+      driversErrorState.accept(false);
+      onInit();
+    });
     subscribe(driversErrorState.stream, (value) {
       if(driversErrorState.value !=null && vehiclesErrorState.value!=null && typeOfVehiclesErrorState.value!=null) {
         if (!driversErrorState.value! && !vehiclesErrorState.value! &&

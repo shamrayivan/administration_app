@@ -96,7 +96,7 @@ class _WaybillFilterScreenState extends WidgetState<WaybillFilterScreenWM> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 6,),
+                              const SizedBox(width: 6,),
                               GestureDetector(
                                 onTap: () {
                                   wm.onEnableAll();
@@ -219,7 +219,7 @@ class _WaybillFilterScreenState extends WidgetState<WaybillFilterScreenWM> {
                                                           )),
                                                         ],
                                                       ),
-                                                    ) : SizedBox(),
+                                                    ) : const SizedBox(),
                                               ],
                                             )
                                           : const SizedBox(),

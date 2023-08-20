@@ -5,6 +5,7 @@ import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/filter_graph_fuel_consumptions_screen/filter_graph_fuel_consumptions_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/graph_fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/gsm_screen.dart';
+import 'package:administration_app/ui/screens/gsm_screen/table_fuel_consumption_screen/full_table_fuel_consumption_screen/full_table_fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/table_fuel_consumption_screen/table_fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/splash_screen/splash_screen.dart';
 import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen.dart';
@@ -43,6 +44,7 @@ abstract class RouteScreen {
 
   static const grapFuelConsumption = '/grapFuelConsumption';
   static const filterGraphFuelConsumption = '/filterGraphFuelConsumption';
+  static const fullTableFuelConsumption = '/fullTableFuelConsumption';
 
 }
 
@@ -82,5 +84,6 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: GraphFuelConsumptionRoute.page, path: RouteScreen.grapFuelConsumption),
     AutoRoute(page: SettingsRoute.page, path: RouteScreen.settings),
     AutoRoute(page: FilterGraphFuelConsumptionRoute.page, path: RouteScreen.filterGraphFuelConsumption),
+    AutoRoute(page: FullTableFuelConsumptionRoute.page, path: RouteScreen.fullTableFuelConsumption),
       ];
 }

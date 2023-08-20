@@ -95,7 +95,7 @@ class _TaskFilterScreenState extends WidgetState<TaskFilterScreenWM> {
                                   ],
                                 ),
                               ),
-                              SizedBox(width: 6,),
+                              const SizedBox(width: 6,),
                               GestureDetector(
                                 onTap: () {
                                   wm.onEnableAll();
@@ -218,7 +218,7 @@ class _TaskFilterScreenState extends WidgetState<TaskFilterScreenWM> {
                                                           )),
                                                     ],
                                                   ),
-                                                ) : SizedBox(),
+                                                ) : const SizedBox(),
                                           ],
                                         )
                                             : const SizedBox(),

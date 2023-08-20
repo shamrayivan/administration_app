@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 final _scaffoldMessengerKey = getIt<GlobalKey<ScaffoldMessengerState>>();
 
 void showSnackBarListError({required String stringError}) {
-  // final listError = mapError.values.map((dynamic e) => e as List<dynamic>).toList();
-  final buf = StringBuffer();
 
 
   _scaffoldMessengerKey.currentState

@@ -3,10 +3,10 @@ import 'package:administration_app/interactor/gsm_treatment/gsm_manager.dart';
 import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
-import 'package:administration_app/ui/common/bottom_sheet_select/bottom_sheet_select.dart';
 import 'package:administration_app/ui/common/bottom_sheet_select_standart/bottom_sheet_select_standart.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
+import 'package:administration_app/ui/router.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
 
@@ -15,6 +15,7 @@ class TableFuelConsumptionScreenWM extends WidgetModelStandard {
   final _mainManager = getIt<MainManager>();
   final hideRetired = getIt<GSMManager>().hideRetiredState;
   final _gsmManager = getIt<GSMManager>();
+  final _appRouter = getIt<AppRouter>();
 
   final typeOfVehicleState = StreamedStateNS<List<TypeOfVehicle>>([]);
 
@@ -29,6 +30,8 @@ class TableFuelConsumptionScreenWM extends WidgetModelStandard {
   final dateEndState = StreamedStateNS<DateTime>(DateTime(2021, 04, 30));
   final onDateBegin = Action<DateTime>();
   final onDateEnd = Action<DateTime>();
+
+  final loadingState = StreamedStateNS<bool>(false);
 
   final List<String> listPeriod = ['Неделя', 'Месяц'];
 
@@ -68,24 +71,42 @@ class TableFuelConsumptionScreenWM extends WidgetModelStandard {
           showSnackBarError(error: 'Выберите корректный год');
           return;
         }
-        final List<Map<String,dynamic>> data = [];
+        final List<Map<String, dynamic>> data = [];
         typeOfVehicleState.value.forEach((element) {
-          data.add({
-            'Показывать': element.selected,
-            'Наименование': element.type
-          });
+          data.add({'Показывать': element.selected, 'Наименование': element.type});
         });
-        doFutureHandleError(_gsmManager.getFuelTableData(data: data, period: periodicState.value, mode: 2, hideRetired: hideRetired.value, year: yearController.text));
-      }
-      else {
-        final List<Map<String,dynamic>> data = [];
+        loadingState.accept(true);
+        doFutureHandleError(
+            _gsmManager.getFuelTableData(
+                data: data,
+                period: periodicState.value,
+                mode: 2,
+                hideRetired: hideRetired.value,
+                year: yearController.text), onValue: (val) {
+          loadingState.accept(false);
+          _appRouter.pushNamed(RouteScreen.fullTableFuelConsumption);
+        }, onError: (e, s) {
+          loadingState.accept(false);
+        });
+      } else {
+        final List<Map<String, dynamic>> data = [];
         typeOfVehicleState.value.forEach((element) {
-          data.add({
-            'Показывать': element.selected,
-            'Наименование': element.type
-          });
+          data.add({'Показывать': element.selected, 'Наименование': element.type});
         });
-        doFutureHandleError(_gsmManager.getFuelTableData(data: data, period: periodicState.value, mode: 1, hideRetired: hideRetired.value, dateBegin: dateBeginState.value.millisecondsSinceEpoch.toString(), dateEnd: dateEndState.value.millisecondsSinceEpoch.toString()));
+        loadingState.accept(true);
+        doFutureHandleError(_gsmManager.getFuelTableData(
+            data: data,
+            period: periodicState.value,
+            mode: 1,
+            hideRetired: hideRetired.value,
+            dateBegin: dateBeginState.value.millisecondsSinceEpoch.toString(),
+            dateEnd: dateEndState.value.millisecondsSinceEpoch.toString()),
+            onValue: (val) {
+              loadingState.accept(false);
+              _appRouter.pushNamed(RouteScreen.fullTableFuelConsumption);
+            }, onError: (e, s) {
+              loadingState.accept(false);
+            });
       }
     });
     subscribe(onPeriod.stream, (value) async {

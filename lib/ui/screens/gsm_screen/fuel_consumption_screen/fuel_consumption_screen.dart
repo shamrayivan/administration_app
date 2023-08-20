@@ -1,22 +1,16 @@
-import 'package:administration_app/ui/common/widgets/adaptive_scroll_view.dart';
-import 'package:administration_app/ui/common/widgets/chart/chart.dart';
 import 'package:administration_app/ui/common/widgets/choose_period_date.dart';
 import 'package:administration_app/ui/common/widgets/choose_vehicle_or_driver.dart';
 import 'package:administration_app/ui/common/widgets/circular_progress_bar.dart';
 import 'package:administration_app/ui/common/widgets/toggle_button.dart';
-import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/fuel_consumption_screen_wm.dart';
-import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen_shimmer.dart';
-import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:intl/intl.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
 @RoutePage()
 class FuelConsumptionScreen extends CoreMwwmWidget {
-  FuelConsumptionScreen()
+  FuelConsumptionScreen({super.key})
       : super(
           widgetModelBuilder: (_) => FuelConsumptionScreenWM(),
         );
@@ -160,7 +154,7 @@ class _FuelConsumptionScreenState extends WidgetState<FuelConsumptionScreenWM> {
                     ),
                   )),
               StreamedStateBuilderNS(streamedStateNS: wm.loadingState, builder: (context, loading){
-                return loading ? CircullarProgressBar() : SizedBox();
+                return loading ? const CircullarProgressBar() : const SizedBox();
               })
             ],
           );

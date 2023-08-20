@@ -6,7 +6,7 @@ class AuthManager {
 
 
   Future<void> auth() async {
-    final res = await _interactor.auth();
+    await _interactor.auth();
   }
 
 

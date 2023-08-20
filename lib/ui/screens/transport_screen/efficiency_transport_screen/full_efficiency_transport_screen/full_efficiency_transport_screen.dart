@@ -1,11 +1,9 @@
 import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
-import 'package:administration_app/ui/screens/transport_screen/efficiency_transport_screen/efficiency_transport_screen_wm.dart';
 import 'package:administration_app/ui/screens/transport_screen/efficiency_transport_screen/full_efficiency_transport_screen/full_efficiency_transport_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
-import 'package:relation/relation.dart';
 
 @RoutePage()
 class FullEfficiencyTransportScreen extends CoreMwwmWidget {
@@ -110,7 +108,7 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               ),
                               Text(
                                 wm.listEfficiencyTransport[index].customer,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w700, color: mainColor),
                               ),
                             ],
@@ -271,7 +269,7 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               Expanded(
                                 child: Text(
                                   '${wm.listEfficiencyTransport[index].refueling}',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ],
@@ -292,7 +290,7 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               Expanded(
                                 child: Text(
                                   '${wm.listEfficiencyTransport[index].sumOilWithNDS}',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ],
@@ -313,7 +311,7 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               Expanded(
                                 child: Text(
                                   '${wm.listEfficiencyTransport[index].sumOilWithoutNDS}',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ],
@@ -334,7 +332,7 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               Expanded(
                                 child: Text(
                                   '${wm.listEfficiencyTransport[index].costSparePart}',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ],
@@ -355,7 +353,7 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               Expanded(
                                 child: Text(
                                   '${wm.listEfficiencyTransport[index].sumWithoutNDS}',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ],
@@ -376,7 +374,7 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               Expanded(
                                 child: Text(
                                   '${wm.listEfficiencyTransport[index].costRepair} руб',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ],
@@ -397,13 +395,13 @@ class _FullEfficiencyTransportScreenState extends WidgetState<FullEfficiencyTran
                               Expanded(
                                 child: Text(
                                   '${wm.listEfficiencyTransport[index].balance} руб',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                  style: const TextStyle(fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         )
                       ],
@@ -443,7 +441,7 @@ class _TableFullEfficiencyTransport extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black)),
               child: Text(
-                '${fullEfficiencyTransport.vehicleName}',
+                fullEfficiencyTransport.vehicleName,
                 style: const TextStyle(
                     fontSize: 14,
                     color: Colors.black,
@@ -759,7 +757,7 @@ class _TableFullEfficiencyTransport extends StatelessWidget {
                       DataCell(Container(
                           alignment: Alignment.centerRight,
                           child: Text(
-                              '${listEfficiencyTransport[index].customer}'))),
+                              listEfficiencyTransport[index].customer))),
                     ],
                   ),
                 )),

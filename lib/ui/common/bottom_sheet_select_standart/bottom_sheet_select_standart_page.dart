@@ -56,7 +56,7 @@ class _BottomSheetSelectPageState<T> extends WidgetState<BottomSheetSelectStanda
             appBar: AppBar(
               backgroundColor: blackColor,
               automaticallyImplyLeading: false,
-              title: Text(wm.title, style: TextStyle(color: mainColor),),
+              title: Text(wm.title, style: const TextStyle(color: mainColor),),
               actions: [
                 CircleButton<void>(
                   iconSize: 24,
@@ -106,7 +106,7 @@ class _BottomSheetSelectPageState<T> extends WidgetState<BottomSheetSelectStanda
                                     : blackColor,
                               ),
                             if (dataList.contains(wm.data[index]))
-                              Icon(Icons.check,
+                              const Icon(Icons.check,
                                   color: blackColor),
                           ],
                         ),

@@ -1,9 +1,7 @@
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/interactor/gsm_treatment/gsm_manager.dart';
 import 'package:administration_app/interactor/main/main_manager.dart';
-import 'package:administration_app/interactor/transport_treatment/transport_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
-import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/ui/common/bottom_sheet_select/bottom_sheet_select.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
 import 'package:administration_app/ui/router.dart';
@@ -120,7 +118,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             context: _scaffoldKey.currentContext!,
             title: 'Выберите транспортное средство',
             data: newListVehicle,
-            currentListData: [choosenVehicleOrder.value ?? ''],
+            currentListData: [choosenVehicleOrder.value],
             isSeveral: false,
             withoutConfirmation: true);
         if (a != null) {
@@ -140,7 +138,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             context: _scaffoldKey.currentContext!,
             title: 'Выберите транспортное средство',
             data: newListVehicle,
-            currentListData: [choosenVehicleWaybill.value ?? ''],
+            currentListData: [choosenVehicleWaybill.value],
             isSeveral: false,
             withoutConfirmation: true);
         if (a != null) {
@@ -160,7 +158,7 @@ class FuelConsumptionScreenWM extends WidgetModelStandard {
             context: _scaffoldKey.currentContext!,
             title: 'Выберите транспортное средство',
             data: newListDrivers,
-            currentListData: [choosenDriverTask.value ?? ''],
+            currentListData: [choosenDriverTask.value],
             isSeveral: false,
             withoutConfirmation: true);
         if (a != null) {

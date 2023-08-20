@@ -12,9 +12,9 @@ class TransportManager {
 
   final selectedToggle = StreamedStateNS<List<bool>>([true, false, false]);
   final List<Widget> toggleWidgets = [
-    Text(' По заказам '),
-    Text(' По путевым листам '),
-    Text(' По заданиям ')
+    const Text(' По заказам '),
+    const Text(' По путевым листам '),
+    const Text(' По заданиям ')
   ];
 
   final currentToggle = StreamedStateNS<int>(0);

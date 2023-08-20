@@ -4,7 +4,6 @@ import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/graph_fuel_consumption_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:intl/intl.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
@@ -27,14 +26,14 @@ class _GraphFuelConsumptionScreenState extends WidgetState<GraphFuelConsumptionS
     return Scaffold(
       appBar: MediaQuery.of(context).orientation == Orientation.portrait ? AppBar(
         backgroundColor: blackColor,
-        title: Text(wm.mode == 1 ? 'По заказам' : wm.mode==2 ? 'По путевым листам' : 'По заданиям', style: TextStyle(color: mainColor),
+        title: Text(wm.mode == 1 ? 'По заказам' : wm.mode==2 ? 'По путевым листам' : 'По заданиям', style: const TextStyle(color: mainColor),
         ),
         actions: [GestureDetector(
           onTap: (){
             wm.onGoToFilter();
           },
-          child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          child: const Padding(
+          padding: EdgeInsets.all(12.0),
           child: Icon(Icons.filter_list_alt),
         ),)],
       ) : null,

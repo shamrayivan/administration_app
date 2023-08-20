@@ -47,21 +47,13 @@ class AuthScreenWm extends WidgetModelStandard {
       await _storageManager.saveString(key: 'login', text: loginController.text);
       await _storageManager.saveString(key: 'password', text: passController.text);
       await _storageManager.saveString(key: 'baseUrl', text: urlController.text);
-      String? saveLogin = await _storageManager.getString(key: 'login');
-      String? savePassword = await _storageManager.getString(key: 'password');
-      String? baseUrl = await _storageManager.getString(key: 'baseUrl');
-      print('${saveLogin}' + ' ' + '${savePassword}' + ' ' + '${baseUrl}');
-      _dioManager.updateBaseUrl = '${httpsState.value ? 'https' : 'http'}://' + urlController.text + '/' +baseNameController.text +subDomen;
+      _dioManager.updateBaseUrl = '${httpsState.value ? 'https' : 'http'}://${urlController.text}/${baseNameController.text}$subDomen';
       doFutureHandleError(_authManager.auth(), onValue: (e){
         loadingState.accept(false);
-        _appRouter.replaceNamed(RouteScreen.chooseTreatment);
+        _appRouter.replaceNamed(RouteScreen.root);
       }, onError: (e,s) async {
         loadingState.accept(false);
         await _storageManager.allCleanData();
-        String? saveLogin = await _storageManager.getString(key: 'login');
-        String? savePassword = await _storageManager.getString(key: 'password');
-        String? baseUrl = await _storageManager.getString(key: 'baseUrl');
-        print('${saveLogin}' + ' ' + '${savePassword}' + ' ' +'${baseUrl}');
       });
     });
   }

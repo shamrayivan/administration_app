@@ -1,6 +1,5 @@
 import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/router.dart';
-import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen.dart';
 import 'package:administration_app/ui/screens/transport_screen/transport_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +106,7 @@ class _TransportScreenState extends WidgetState<TransportScreenWM> {
                   ),
                 ),
               ),
-            ) : SizedBox();
+            ) : const SizedBox();
           },
         ));
   }

@@ -1,5 +1,4 @@
 import 'package:administration_app/interactor/gsm_treatment/repository/gsm_repository.dart';
-import 'package:administration_app/model/gsm/gsm_drivers.dart';
 import 'package:administration_app/model/gsm/gsm_fuel_graph.dart';
 
 class GSMInteractor {
@@ -22,7 +21,7 @@ class GSMInteractor {
       _repository.getFuelGraphDriver(
           data: data, dateBegin: dateBegin, dateEnd: dateEnd, driver: driver);
 
-  Future<void> getFuelTableData(
+  Future<List<Map<String, dynamic>>> getFuelTableData(
           {required List<Map<String, dynamic>> data,
           String? dateBegin,
           String? dateEnd,

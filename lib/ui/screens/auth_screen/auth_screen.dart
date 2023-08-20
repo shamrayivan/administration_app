@@ -1,5 +1,6 @@
 import 'package:administration_app/ui/common/widgets/circular_progress_bar.dart';
 import 'package:administration_app/ui/common/widgets/custom_text_input.dart';
+import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/auth_screen/auth_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
@@ -65,6 +66,7 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                       enabled: true,
                       // height: 51,
                       hintText: 'Введите логин',
+                      hintStyle: const TextStyle(fontSize: 14, color: greyColor, fontWeight: FontWeight.w500,),
                       hintColor: Colors.grey,
                       borderColor: Colors.black,
                     )),
@@ -87,7 +89,7 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                             controller: wm.passController,
                             enabled: true,
                             hintText: 'Введите пароль',
-                            hintColor: Colors.grey,
+                            hintStyle: const TextStyle(fontSize: 14, color: greyColor, fontWeight: FontWeight.w500,),
                             borderColor: Colors.black,
                             obscure: obscure,
                             suffixIcon: IconButton(
@@ -119,8 +121,8 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                     controller: wm.baseNameController,
                     enabled: true,
                     // height: 51,
-                    hintText: 'Введите адрес сервера',
-                    hintColor: Colors.grey,
+                    hintText: 'Введите название базы',
+                    hintStyle: const TextStyle(fontSize: 14, color: greyColor, fontWeight: FontWeight.w500,),
                     borderColor: Colors.black,
                   ),
                 ),
@@ -142,8 +144,8 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                     controller: wm.urlController,
                     enabled: true,
                     // height: 51,
-                    hintText: 'Введите адрес сервера без http и / ',
-                    hintColor: Colors.grey,
+                    hintText: 'Введите адрес сервера без http. Например, 192.168.0.1',
+                    hintStyle: const TextStyle(fontSize: 12, color: greyColor, fontWeight: FontWeight.w500,),
                     borderColor: Colors.black,
                   ),
                 ),
@@ -153,15 +155,16 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                     return Row(children: [
                       IconButton(onPressed: (){
                         wm.onHttps();
-                      }, icon: http ? Icon(Icons.check_box_outlined) :Icon(Icons.check_box_outline_blank)),
-                      Text('https'),
+                      }, icon: http ? const Icon(Icons.check_box_outlined) :const Icon(Icons.check_box_outline_blank)),
+                      const Text('https'),
                     ],);
                   }
-                )
+                ),
+                const SizedBox(height: 75,)
               ],
             ),
           ),
-          StreamedStateBuilderNS(streamedStateNS: wm.loadingState, builder: (context, loading){return loading ? CircullarProgressBar(): SizedBox();})
+          StreamedStateBuilderNS(streamedStateNS: wm.loadingState, builder: (context, loading){return loading ? const CircullarProgressBar(): const SizedBox();}),
         ],
       ),
     );

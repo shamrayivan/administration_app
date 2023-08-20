@@ -54,7 +54,7 @@ class _OrderFilterScreenState extends WidgetState<OrderFilterScreenWM> {
                       onTap: (){
                         wm.onBack();
                       },
-                        child: Icon(Icons.arrow_back_ios)),
+                        child: const Icon(Icons.arrow_back_ios)),
                     centerTitle: false,
                     actions: [
                       Row(
@@ -204,7 +204,7 @@ class _OrderFilterScreenState extends WidgetState<OrderFilterScreenWM> {
                                             ) : const SizedBox()
                                         ],
                                       ) : const SizedBox(),
-                                  if(index + 1 == typesOfVehicle.length) SizedBox(height: 50,)
+                                  if(index + 1 == typesOfVehicle.length) const SizedBox(height: 50,)
                                 ],
                               );
                             },
@@ -212,7 +212,7 @@ class _OrderFilterScreenState extends WidgetState<OrderFilterScreenWM> {
                       }),
                 ),
               ),
-              loading ? CircullarProgressBar() : SizedBox()
+              loading ? const CircullarProgressBar() : const SizedBox()
             ],
           );
         }

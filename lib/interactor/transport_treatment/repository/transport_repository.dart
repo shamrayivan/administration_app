@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/model/analysis_logistic/analysis_logistic.dart';
 import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
-import 'package:administration_app/model/type_of_vehicle/type_of_vehicle.dart';
-import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/net/dio/dio_manager.dart';
 import 'package:administration_app/ui/res/urls.dart';
 

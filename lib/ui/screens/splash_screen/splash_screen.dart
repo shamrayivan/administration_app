@@ -7,7 +7,7 @@ import 'package:relation/relation.dart';
 
 @RoutePage()
 class SplashScreen extends CoreMwwmWidget {
-  SplashScreen() : super(
+  SplashScreen({super.key}) : super(
     widgetModelBuilder: (_) => SplashScreenWm(),
   );
 
@@ -28,13 +28,13 @@ class _SplashScreenState extends WidgetState<SplashScreenWm> {
               height: 200,
               width: 200,
             ),
-            SizedBox(height: 24,),
+            const SizedBox(height: 24,),
             StreamedStateBuilderNS(
               streamedStateNS: wm.errorState,
               builder: (context, error) {
                 return error ? GestureDetector(onTap: (){
-                  wm.onInit();
-                },child: Text('Попробовать снова', style: TextStyle(fontWeight: FontWeight.w600),)) : SizedBox();
+                  wm.onRestart();
+                },child: const Text('Попробовать снова', style: TextStyle(fontWeight: FontWeight.w600),)) : const SizedBox();
               }
             )
           ],

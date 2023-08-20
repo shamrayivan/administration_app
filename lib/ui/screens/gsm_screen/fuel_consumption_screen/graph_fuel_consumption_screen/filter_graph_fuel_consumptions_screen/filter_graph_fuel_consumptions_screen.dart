@@ -1,20 +1,15 @@
-import 'package:administration_app/model/gsm/gsm_drivers.dart';
-import 'package:administration_app/model/gsm/gsm_graph_consumption.dart';
-import 'package:administration_app/ui/common/widgets/chart/gsm_chart.dart';
 import 'package:administration_app/ui/common/widgets/circular_progress_bar.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/filter_graph_fuel_consumptions_screen/filter_graph_fuel_consumptions_screen_wm.dart';
-import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/graph_fuel_consumption_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' hide Action;
-import 'package:intl/intl.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
 @RoutePage()
 class FilterGraphFuelConsumptionScreen extends CoreMwwmWidget {
-  FilterGraphFuelConsumptionScreen({
+  FilterGraphFuelConsumptionScreen({super.key,
     @PathParam('mode') required int mode,
     @PathParam('data') required String data,
   }) : super(
@@ -88,7 +83,7 @@ class _FilterGraphFuelConsumptionScreenState
                   }
                 ))),
         StreamedStateBuilderNS(streamedStateNS: wm.loadingState, builder: (context, loading){
-          return loading ? CircullarProgressBar() : SizedBox();
+          return loading ? const CircullarProgressBar() : const SizedBox();
         })
       ],
     );

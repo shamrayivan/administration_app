@@ -28,27 +28,29 @@ class _AnalyseLogisticsScreenState extends WidgetState<AnalyseLogisticsScreenWM>
         builder: (context, currentToggle) {
           return EntityStateBuilder(
               streamedState: currentToggle == 0 ? wm.analysisLogisticManager.orderAnalisysLogistic : currentToggle == 1 ? wm.analysisLogisticManager.waybillAnalisysLogistic : wm.analysisLogisticManager.taskAnalisysLogistic,
-              loadingChild: AnalyseLogisticsShimmer(),
+              loadingChild: const AnalyseLogisticsShimmer(),
               builder: (context, analisysLogistic) {
-                return Container(
-                  height: MediaQuery.of(context).size.height / 100,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      MediaQuery.of(context).orientation == Orientation.portrait ? ToggleButton(
-                        selectedToggle: wm.selectedToggle,
-                        toggleWidgets: wm.toggleWidgets,
-                        onChangeToggle: wm.onChangeToggle,
-                      ) : SizedBox(),
-                      Expanded(
-                        child: SizedBox(
-                          child: Chart(
-                            title: currentToggle == 0 ? 'По заказам' : currentToggle == 1 ? 'По путевым листам' : 'По заданиям',
-                            datasource: analisysLogistic ?? [],
+                return SafeArea(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height / 100,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        MediaQuery.of(context).orientation == Orientation.portrait ? ToggleButton(
+                          selectedToggle: wm.selectedToggle,
+                          toggleWidgets: wm.toggleWidgets,
+                          onChangeToggle: wm.onChangeToggle,
+                        ) : const SizedBox(),
+                        Expanded(
+                          child: SizedBox(
+                            child: Chart(
+                              title: currentToggle == 0 ? 'По заказам' : currentToggle == 1 ? 'По путевым листам' : 'По заданиям',
+                              datasource: analisysLogistic ?? [],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 );
               });

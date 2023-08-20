@@ -1,5 +1,3 @@
-import 'package:administration_app/model/gsm/gsm_drivers.dart';
-import 'package:administration_app/model/gsm/gsm_vehicles.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'gsm_graph_consumption.g.dart';

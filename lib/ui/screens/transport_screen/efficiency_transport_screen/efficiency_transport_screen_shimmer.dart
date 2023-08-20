@@ -14,7 +14,7 @@ class EfficiencyTransportShimmer extends StatelessWidget {
           for(int i = 0; i< 20; i++)
           Container(
             decoration: BoxDecoration(border: Border.all(width: 0.1, color: greyColor)),
-              child: ShimmerWidget(height: 60, radius: 16)),
+              child: const ShimmerWidget(height: 60, radius: 16)),
         ],
       ),
     );

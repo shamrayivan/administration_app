@@ -1,8 +1,6 @@
-import 'dart:math';
 
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
-import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
@@ -54,11 +52,9 @@ class BottomSheetSelectWM extends WidgetModelStandard {
     subscribe(onChangeController.stream, (value) async {
       dataState.value.clear();
       await dataState.accept(dataState.value);
-      // saveData.forEach((element) {data.add(element);});
       dataState.value.addAll(saveData.where(
                 (element) {
                   return element.trim().toLowerCase().contains('${value?.toLowerCase()}');}));
-        print(data);
     });
     subscribe<void>(onOk.stream, (_) => _appRouter.pop(dataListState.value));
     subscribe<void>(onBack.stream, (_) => _appRouter.pop());

@@ -40,8 +40,9 @@ class TaskFilterScreenWM extends WidgetModelStandard {
           });
           if (listSelected.contains(false)) {
             element.selected = false;
-          } else
+          } else {
             element.selected = true;
+          }
         }
       });
     });
@@ -103,8 +104,9 @@ class TaskFilterScreenWM extends WidgetModelStandard {
           });
           if (listSelected.contains(false)) {
             element.selected = false;
-          } else
+          } else {
             element.selected = true;
+          }
         }
       });
       vehiclesStreamedState.reAccept();

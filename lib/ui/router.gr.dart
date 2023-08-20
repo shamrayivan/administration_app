@@ -40,9 +40,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     SplashRoute.name: (routeData) {
+      final args = routeData.argsAs<SplashRouteArgs>(
+          orElse: () => const SplashRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: SplashScreen(),
+        child: SplashScreen(key: args.key),
       );
     },
     AuthRoute.name: (routeData) {
@@ -52,9 +54,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     ChooseTreatmentRoute.name: (routeData) {
+      final args = routeData.argsAs<ChooseTreatmentRouteArgs>(
+          orElse: () => const ChooseTreatmentRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: ChooseTreatmentScreen(),
+        child: ChooseTreatmentScreen(key: args.key),
       );
     },
     WaybillFilterRoute.name: (routeData) {
@@ -95,9 +99,11 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     FuelConsumptionRoute.name: (routeData) {
+      final args = routeData.argsAs<FuelConsumptionRouteArgs>(
+          orElse: () => const FuelConsumptionRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: FuelConsumptionScreen(),
+        child: FuelConsumptionScreen(key: args.key),
       );
     },
     EfficiencyTransportFilterRoute.name: (routeData) {
@@ -137,9 +143,16 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: FilterGraphFuelConsumptionScreen(
+          key: args.key,
           mode: args.mode,
           data: args.data,
         ),
+      );
+    },
+    FullTableFuelConsumptionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FullTableFuelConsumptionScreen(),
       );
     },
   };
@@ -203,16 +216,30 @@ class TransportRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [SplashScreen]
-class SplashRoute extends PageRouteInfo<void> {
-  const SplashRoute({List<PageRouteInfo>? children})
-      : super(
+class SplashRoute extends PageRouteInfo<SplashRouteArgs> {
+  SplashRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           SplashRoute.name,
+          args: SplashRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'SplashRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<SplashRouteArgs> page = PageInfo<SplashRouteArgs>(name);
+}
+
+class SplashRouteArgs {
+  const SplashRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'SplashRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -231,16 +258,31 @@ class AuthRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ChooseTreatmentScreen]
-class ChooseTreatmentRoute extends PageRouteInfo<void> {
-  const ChooseTreatmentRoute({List<PageRouteInfo>? children})
-      : super(
+class ChooseTreatmentRoute extends PageRouteInfo<ChooseTreatmentRouteArgs> {
+  ChooseTreatmentRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           ChooseTreatmentRoute.name,
+          args: ChooseTreatmentRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'ChooseTreatmentRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<ChooseTreatmentRouteArgs> page =
+      PageInfo<ChooseTreatmentRouteArgs>(name);
+}
+
+class ChooseTreatmentRouteArgs {
+  const ChooseTreatmentRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'ChooseTreatmentRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -349,16 +391,31 @@ class TableFuelConsumptionRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [FuelConsumptionScreen]
-class FuelConsumptionRoute extends PageRouteInfo<void> {
-  const FuelConsumptionRoute({List<PageRouteInfo>? children})
-      : super(
+class FuelConsumptionRoute extends PageRouteInfo<FuelConsumptionRouteArgs> {
+  FuelConsumptionRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
           FuelConsumptionRoute.name,
+          args: FuelConsumptionRouteArgs(key: key),
           initialChildren: children,
         );
 
   static const String name = 'FuelConsumptionRoute';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<FuelConsumptionRouteArgs> page =
+      PageInfo<FuelConsumptionRouteArgs>(name);
+}
+
+class FuelConsumptionRouteArgs {
+  const FuelConsumptionRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'FuelConsumptionRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -437,12 +494,14 @@ class SettingsRoute extends PageRouteInfo<void> {
 class FilterGraphFuelConsumptionRoute
     extends PageRouteInfo<FilterGraphFuelConsumptionRouteArgs> {
   FilterGraphFuelConsumptionRoute({
+    Key? key,
     required int mode,
     required String data,
     List<PageRouteInfo>? children,
   }) : super(
           FilterGraphFuelConsumptionRoute.name,
           args: FilterGraphFuelConsumptionRouteArgs(
+            key: key,
             mode: mode,
             data: data,
           ),
@@ -461,9 +520,12 @@ class FilterGraphFuelConsumptionRoute
 
 class FilterGraphFuelConsumptionRouteArgs {
   const FilterGraphFuelConsumptionRouteArgs({
+    this.key,
     required this.mode,
     required this.data,
   });
+
+  final Key? key;
 
   final int mode;
 
@@ -471,6 +533,20 @@ class FilterGraphFuelConsumptionRouteArgs {
 
   @override
   String toString() {
-    return 'FilterGraphFuelConsumptionRouteArgs{mode: $mode, data: $data}';
+    return 'FilterGraphFuelConsumptionRouteArgs{key: $key, mode: $mode, data: $data}';
   }
+}
+
+/// generated route for
+/// [FullTableFuelConsumptionScreen]
+class FullTableFuelConsumptionRoute extends PageRouteInfo<void> {
+  const FullTableFuelConsumptionRoute({List<PageRouteInfo>? children})
+      : super(
+          FullTableFuelConsumptionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FullTableFuelConsumptionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

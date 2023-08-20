@@ -1,4 +1,3 @@
-import 'package:administration_app/ui/res/assets.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:administration_app/ui/screens/gsm_screen/gsm_screen_wm.dart';
@@ -44,12 +43,12 @@ class _GSMScreenState extends WidgetState<GSMScreenWM> {
                       );
                     }
                   ),
-                  Text(
+                  const Text(
                     "скрыть выбывшие",
                     style: TextStyle(fontSize: 12),
                   ),
                 ],
-              ) : SizedBox();})
+              ) : const SizedBox();})
             ],
           title: Text(
             'гсм'.toUpperCase(),
@@ -58,7 +57,7 @@ class _GSMScreenState extends WidgetState<GSMScreenWM> {
         ): null,
         body: AutoTabsScaffold(
           scaffoldKey: wm.scaffoldKey,
-          routes: const [FuelConsumptionRoute(), TableFuelConsumptionRoute()],
+          routes:  [FuelConsumptionRoute(), TableFuelConsumptionRoute()],
           transitionBuilder: (context, child, animation) => FadeTransition(
             opacity: animation,
             child: child,
@@ -121,7 +120,7 @@ class _GSMScreenState extends WidgetState<GSMScreenWM> {
                   ),
                 ),
               ),
-            ) : SizedBox();
+            ) : const SizedBox();
           },
         ));
   }

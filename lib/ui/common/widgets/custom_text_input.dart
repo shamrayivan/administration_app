@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
   final String? fontFamily;
   final bool? obscure;
 
-  CustomTextField({
+  const CustomTextField({
   required this.controller,
   required this.enabled,
   this.expands = false,
@@ -134,7 +134,7 @@ Widget build(BuildContext context) {
       suffixIcon: suffixIcon,
       hintText: hintText,
       hintStyle:
-      hintStyle ?? Theme.of(context).textTheme.labelLarge?.copyWith(color: hintColor),
+      hintStyle ?? TextStyle(color: hintColor),
       disabledBorder: externalBorder ?? border,
       errorBorder: externalErrorBorder ?? errorBorder,
       focusedBorder: externalBorder ?? border,

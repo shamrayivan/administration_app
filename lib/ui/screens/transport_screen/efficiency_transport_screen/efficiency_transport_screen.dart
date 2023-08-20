@@ -1,8 +1,4 @@
-import 'dart:math';
-
-import 'package:administration_app/model/efficeincy_transport/efficiency_transport.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
-import 'package:administration_app/ui/screens/transport_screen/analyse_logistics_screen/analyse_logistics_screen_shimmer.dart';
 import 'package:administration_app/ui/screens/transport_screen/efficiency_transport_screen/efficiency_transport_screen_shimmer.dart';
 import 'package:administration_app/ui/screens/transport_screen/efficiency_transport_screen/efficiency_transport_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
@@ -56,7 +52,7 @@ class _EfficiencyTransportScreenState extends WidgetState<EfficiencyTransportScr
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      efficiencyTransport![index].vehicleName.isNotEmpty?? false ?  Text('ТС: ' + '${efficiencyTransport[index].vehicleName}', style: const TextStyle(fontSize: 15),) : const Text('Всего', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
+                                      efficiencyTransport![index].vehicleName.isNotEmpty ?  Text('ТС: ${efficiencyTransport[index].vehicleName}', style: const TextStyle(fontSize: 15),) : const Text('Всего', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
                                       Text('Остаток: ' + '${efficiencyTransport[index].balance} руб', style: const TextStyle(color: greyColor),)
                                     ],
                                   ),
@@ -69,7 +65,7 @@ class _EfficiencyTransportScreenState extends WidgetState<EfficiencyTransportScr
                     ),
                     if(index + 1 == efficiencyTransport.length) const SizedBox(height: 25,),
                   ],
-                ) : SizedBox();
+                ) : const SizedBox();
               },
               itemCount: efficiencyTransport?.length);
         });

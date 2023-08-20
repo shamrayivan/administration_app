@@ -1,4 +1,3 @@
-import 'package:administration_app/model/vehicles/vehicles.dart';
 import 'package:administration_app/ui/common/bottom_sheet_select/bottom_sheet_select_wm.dart';
 import 'package:administration_app/ui/common/widgets/circle_button.dart';
 import 'package:administration_app/ui/common/widgets/custom_text_input.dart';
@@ -58,7 +57,7 @@ class _BottomSheetSelectPageState<T> extends WidgetState<BottomSheetSelectWM> {
             appBar: AppBar(
               backgroundColor: blackColor,
               automaticallyImplyLeading: false,
-              title: Text(wm.title, style: TextStyle(color: mainColor, fontSize: 16)),
+              title: Text(wm.title, style: const TextStyle(color: mainColor, fontSize: 16)),
               actions: [
                 Flexible(
                   child: Padding(

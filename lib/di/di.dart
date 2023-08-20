@@ -7,6 +7,7 @@ import 'package:administration_app/net/dio/dio_manager.dart';
 import 'package:administration_app/net/error/standart_error_handler.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_printer/flutter_printer.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mwwm/mwwm.dart';

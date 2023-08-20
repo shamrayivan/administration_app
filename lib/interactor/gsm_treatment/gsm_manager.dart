@@ -9,9 +9,9 @@ class GSMManager {
 
   final selectedToggle = StreamedStateNS<List<bool>>([true, false, false]);
   final List<Widget> toggleWidgets = [
-    Text(' По заказам '),
-    Text(' По путевым листам '),
-    Text(' По заданиям ')
+    const Text(' По заказам '),
+    const Text(' По путевым листам '),
+    const Text(' По заданиям ')
   ];
 
   final hideRetiredState = StreamedStateNS<bool>(false);
@@ -22,6 +22,7 @@ class GSMManager {
   final dateEndState = StreamedStateNS<DateTime>(DateTime(2021, 04, 30));
 
   final fuelGraphState = EntityStreamedState<GSMFuelGraph>();
+  final fuelTableState = EntityStreamedState<List<Map<String, dynamic>>>();
 
   Future<void> getFuelGraphVehicle({Map<String, dynamic>? data, required int mode, required String dateBegin, required String dateEnd, required String vehicle}) async {
     fuelGraphState.loading();
@@ -42,6 +43,7 @@ class GSMManager {
     required int mode,
     required bool hideRetired,
     String? year}) async {
+    fuelTableState.loading();
     final res = await _interactor.getFuelTableData(
         data: data,
         period: period,
@@ -50,6 +52,6 @@ class GSMManager {
         dateBegin: dateBegin,
         dateEnd: dateEnd,
         year: year);
+    fuelTableState.content(res);
   }
-
 }

@@ -65,6 +65,8 @@ dependencies:
   #Иконки
   flutter_svg: ^2.0.7
 
+  data_table_2: ^2.5.6
+
   #Графики
   syncfusion_flutter_charts: ^22.2.9
 

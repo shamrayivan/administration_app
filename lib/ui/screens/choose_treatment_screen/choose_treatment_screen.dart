@@ -1,12 +1,11 @@
 import 'package:administration_app/ui/screens/choose_treatment_screen/choose_treatment_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mwwm/mwwm.dart';
 
 @RoutePage()
 class ChooseTreatmentScreen extends CoreMwwmWidget {
-  ChooseTreatmentScreen()
+  ChooseTreatmentScreen({super.key})
       : super(
           widgetModelBuilder: (_) => ChooseTreatmentScreenWm(),
         );
@@ -18,7 +17,7 @@ class ChooseTreatmentScreen extends CoreMwwmWidget {
 class _ChooseTreatmentScreenState extends WidgetState<ChooseTreatmentScreenWm> {
   @override
   Widget build(BuildContext context) {
-    final mediaQuerry = MediaQuery.of(context).size;
+    final mediaQuerry = MediaQuery.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -58,8 +57,8 @@ class _ChooseTreatmentScreenState extends WidgetState<ChooseTreatmentScreenWm> {
                     wm.onGSM();
                   },
                   child: Container(
-                    height: mediaQuerry.width / 3,
-                    width: mediaQuerry.width / 3,
+                    height:  mediaQuerry.orientation==Orientation.portrait ?  mediaQuerry.size.width / 3 : mediaQuerry.size.height / 3,
+                    width: mediaQuerry.orientation==Orientation.portrait ?  mediaQuerry.size.width / 3 : mediaQuerry.size.height / 3,
                     decoration: const BoxDecoration(
                         color: Colors.black, borderRadius: BorderRadius.all(Radius.circular(15))),
                     child: const Column(
@@ -84,8 +83,8 @@ class _ChooseTreatmentScreenState extends WidgetState<ChooseTreatmentScreenWm> {
                     wm.onTransport();
                   },
                   child: Container(
-                    height: mediaQuerry.width / 3,
-                    width: mediaQuerry.width / 3,
+                    height: mediaQuerry.orientation==Orientation.portrait ?  mediaQuerry.size.width / 3 : mediaQuerry.size.height / 3,
+                    width: mediaQuerry.orientation==Orientation.portrait ?  mediaQuerry.size.width / 3 : mediaQuerry.size.height / 3,
                     decoration: const BoxDecoration(
                         color: Colors.black, borderRadius: BorderRadius.all(Radius.circular(15))),
                     child: const Column(
