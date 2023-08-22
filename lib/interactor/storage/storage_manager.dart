@@ -13,9 +13,6 @@ class StorageManager {
     return raw;
   }
 
-  Future<void> deleteToken() async {
-    await _interactor.setData(key: StorageKey.auth, value: '');
-  }
 
   Future<void> allCleanData() async {
     await _interactor.allCleanData();

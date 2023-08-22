@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GSMChart extends StatelessWidget {
-  const GSMChart(
+  GSMChart(
       {Key? key,
       required this.text,
       required this.dataSource,
@@ -53,11 +53,9 @@ class GSMChart extends StatelessWidget {
                   labelRotation:
                       MediaQuery.of(context).orientation == Orientation.portrait ? 90 : 0),
               zoomPanBehavior: ZoomPanBehavior(
-                  enableSelectionZooming: true,
-                  selectionRectBorderColor: Colors.red,
-                  selectionRectBorderWidth: 1,
-                  selectionRectColor: Colors.grey,
-                  enablePinching: true),
+                enablePanning: true,
+                enablePinching: true
+              ),
               tooltipBehavior: TooltipBehavior(
                   elevation: 20,
                   enable: true,
@@ -100,29 +98,10 @@ class GSMChart extends StatelessWidget {
                 args.header = dataSource[args.pointIndex!.toInt()].date.toString();
                 args.text =
                     'Норма: ${dataSource[args.pointIndex!.toInt()].norm.toStringAsFixed(2)}\n\n${listDrivers.join('\n').trim()}\n\n${listVehicles.join('\n').trim()}\n\n${listWaybills.join('\n').trim()}';
-                // if (args.pointIndex == 0) {
-                //   //Tooltip without header
-                //   args.header = '123';
-                // }
-                // if (args.pointIndex == 1) {
-                //   //Tooltip with customized header
-                //   args.header = 'Sold';
-                // }
-                // if (args.pointIndex == 2) {
-                //   //Tooltip with X and Y positions of data points
-                //   args.header = 'x : y';
-                //   args.text = '${args.locationX!.floor()} : ${args.locationY!.floor()}';
-                // }
-                // if (args.pointIndex == 3) {
-                //   //Tooltip with formatted DateTime values
-                //   List<dynamic>? chartdata = args.dataPoints;
-                //   // args.header = DateFormat('d MMM yyyy').format(chartdata?[3]!.x);
-                //   args.text = '${chartdata?[3].x}';
-                // }
               },
               series: <ChartSeries>[
                 LineSeries<GSMGraphConsumption, dynamic>(
-                  // selectionBehavior: SelectionBehavior(enable: true),
+                  selectionBehavior: SelectionBehavior(enable: true),
                   trendlines: dataSource.length < 2
                       ? null
                       : <Trendline>[

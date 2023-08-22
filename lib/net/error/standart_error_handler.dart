@@ -2,10 +2,14 @@ import 'dart:io';
 
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
+import 'package:administration_app/ui/router.dart';
 import 'package:dio/dio.dart';
 import 'package:mwwm/mwwm.dart';
 
 class StandardErrorHandler implements ErrorHandler {
+
+
+  final _appRouter = getIt<AppRouter>();
   @override
   bool handleError(Object e, dynamic s) {
     if (e is DioException) {
@@ -45,8 +49,7 @@ class StandardErrorHandler implements ErrorHandler {
         // _appRouter
         //   ..removeUntil((route) => false)
         //   ..replace(
-        //     ErrorNetRouter(
-        //         error: '${e.error.runtimeType}: ${e.response?.realUri}'),
+        //     EmptyInternetErrorRoute(),
         //   );
         return true;
       }

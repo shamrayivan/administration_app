@@ -14,7 +14,7 @@ class DioManager {
 
   set updateBaseUrl(String baseUrl) => dio.options.baseUrl = baseUrl;
 
-  Future<void> updateBaseUrlFunc({required int id, required String url}) async {
+  Future<void> updateBaseUrlFunc({required String url}) async {
     updateBaseUrl = url;
   }
 

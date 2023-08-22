@@ -48,6 +48,7 @@ class AuthScreenWm extends WidgetModelStandard {
       await _storageManager.saveString(key: 'password', text: passController.text);
       await _storageManager.saveString(key: 'baseUrl', text: urlController.text);
       _dioManager.updateBaseUrl = '${httpsState.value ? 'https' : 'http'}://${urlController.text}/${baseNameController.text}$subDomen';
+      await _storageManager.saveString(key: 'baseUrl', text: _dioManager.dio.options.baseUrl);
       doFutureHandleError(_authManager.auth(), onValue: (e){
         loadingState.accept(false);
         _appRouter.replaceNamed(RouteScreen.root);

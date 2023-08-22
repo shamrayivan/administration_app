@@ -15,10 +15,69 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    EmptyInternetErrorRoute.name: (routeData) {
+      final args = routeData.argsAs<EmptyInternetErrorRouteArgs>(
+          orElse: () => const EmptyInternetErrorRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EmptyInternetErrorScreen(key: args.key),
+      );
+    },
+    TableFuelConsumptionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: TableFuelConsumptionScreen(),
+      );
+    },
+    FullTableFuelConsumptionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FullTableFuelConsumptionScreen(),
+      );
+    },
     GSMRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: GSMScreen(),
+      );
+    },
+    FuelConsumptionRoute.name: (routeData) {
+      final args = routeData.argsAs<FuelConsumptionRouteArgs>(
+          orElse: () => const FuelConsumptionRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FuelConsumptionScreen(key: args.key),
+      );
+    },
+    FilterGraphFuelConsumptionRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<FilterGraphFuelConsumptionRouteArgs>(
+          orElse: () => FilterGraphFuelConsumptionRouteArgs(
+                mode: pathParams.getInt('mode'),
+                data: pathParams.getString('data'),
+              ));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FilterGraphFuelConsumptionScreen(
+          key: args.key,
+          mode: args.mode,
+          data: args.data,
+        ),
+      );
+    },
+    GraphFuelConsumptionRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<GraphFuelConsumptionRouteArgs>(
+          orElse: () => GraphFuelConsumptionRouteArgs(
+                mode: pathParams.getInt('mode'),
+                data: pathParams.getString('data'),
+              ));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: GraphFuelConsumptionScreen(
+          mode: args.mode,
+          data: args.data,
+        ),
       );
     },
     EfficiencyTransportRoute.name: (routeData) {
@@ -27,38 +86,27 @@ abstract class _$AppRouter extends RootStackRouter {
         child: EfficiencyTransportScreen(),
       );
     },
+    FullEfficiencyTransportRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<FullEfficiencyTransportRouteArgs>(
+          orElse: () => FullEfficiencyTransportRouteArgs(
+              fullEfficiencyTransport: pathParams.get('efficiencyTransport')));
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: FullEfficiencyTransportScreen(
+            fullEfficiencyTransport: args.fullEfficiencyTransport),
+      );
+    },
     AnalyseLogisticsRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: AnalyseLogisticsScreen(),
       );
     },
-    TransportRoute.name: (routeData) {
+    EfficiencyTransportFilterRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: TransportScreen(),
-      );
-    },
-    SplashRoute.name: (routeData) {
-      final args = routeData.argsAs<SplashRouteArgs>(
-          orElse: () => const SplashRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: SplashScreen(key: args.key),
-      );
-    },
-    AuthRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: AuthScreen(),
-      );
-    },
-    ChooseTreatmentRoute.name: (routeData) {
-      final args = routeData.argsAs<ChooseTreatmentRouteArgs>(
-          orElse: () => const ChooseTreatmentRouteArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: ChooseTreatmentScreen(key: args.key),
+        child: EfficiencyTransportFilterScreen(),
       );
     },
     WaybillFilterRoute.name: (routeData) {
@@ -81,50 +129,24 @@ abstract class _$AppRouter extends RootStackRouter {
         child: OrderFilterScreen(),
       );
     },
-    FullEfficiencyTransportRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<FullEfficiencyTransportRouteArgs>(
-          orElse: () => FullEfficiencyTransportRouteArgs(
-              fullEfficiencyTransport: pathParams.get('efficiencyTransport')));
+    TransportRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: FullEfficiencyTransportScreen(
-            fullEfficiencyTransport: args.fullEfficiencyTransport),
+        child: TransportScreen(),
       );
     },
-    TableFuelConsumptionRoute.name: (routeData) {
+    SplashRoute.name: (routeData) {
+      final args = routeData.argsAs<SplashRouteArgs>(
+          orElse: () => const SplashRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: TableFuelConsumptionScreen(),
+        child: SplashScreen(key: args.key),
       );
     },
-    FuelConsumptionRoute.name: (routeData) {
-      final args = routeData.argsAs<FuelConsumptionRouteArgs>(
-          orElse: () => const FuelConsumptionRouteArgs());
+    AuthRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: FuelConsumptionScreen(key: args.key),
-      );
-    },
-    EfficiencyTransportFilterRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: EfficiencyTransportFilterScreen(),
-      );
-    },
-    GraphFuelConsumptionRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<GraphFuelConsumptionRouteArgs>(
-          orElse: () => GraphFuelConsumptionRouteArgs(
-                mode: pathParams.getInt('mode'),
-                data: pathParams.getString('data'),
-              ));
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: GraphFuelConsumptionScreen(
-          mode: args.mode,
-          data: args.data,
-        ),
+        child: AuthScreen(),
       );
     },
     SettingsRoute.name: (routeData) {
@@ -133,29 +155,73 @@ abstract class _$AppRouter extends RootStackRouter {
         child: SettingsScreen(),
       );
     },
-    FilterGraphFuelConsumptionRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<FilterGraphFuelConsumptionRouteArgs>(
-          orElse: () => FilterGraphFuelConsumptionRouteArgs(
-                mode: pathParams.getInt('mode'),
-                data: pathParams.getString('data'),
-              ));
+    ChooseTreatmentRoute.name: (routeData) {
+      final args = routeData.argsAs<ChooseTreatmentRouteArgs>(
+          orElse: () => const ChooseTreatmentRouteArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: FilterGraphFuelConsumptionScreen(
-          key: args.key,
-          mode: args.mode,
-          data: args.data,
-        ),
-      );
-    },
-    FullTableFuelConsumptionRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: FullTableFuelConsumptionScreen(),
+        child: ChooseTreatmentScreen(key: args.key),
       );
     },
   };
+}
+
+/// generated route for
+/// [EmptyInternetErrorScreen]
+class EmptyInternetErrorRoute
+    extends PageRouteInfo<EmptyInternetErrorRouteArgs> {
+  EmptyInternetErrorRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          EmptyInternetErrorRoute.name,
+          args: EmptyInternetErrorRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'EmptyInternetErrorRoute';
+
+  static const PageInfo<EmptyInternetErrorRouteArgs> page =
+      PageInfo<EmptyInternetErrorRouteArgs>(name);
+}
+
+class EmptyInternetErrorRouteArgs {
+  const EmptyInternetErrorRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'EmptyInternetErrorRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [TableFuelConsumptionScreen]
+class TableFuelConsumptionRoute extends PageRouteInfo<void> {
+  const TableFuelConsumptionRoute({List<PageRouteInfo>? children})
+      : super(
+          TableFuelConsumptionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TableFuelConsumptionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [FullTableFuelConsumptionScreen]
+class FullTableFuelConsumptionRoute extends PageRouteInfo<void> {
+  const FullTableFuelConsumptionRoute({List<PageRouteInfo>? children})
+      : super(
+          FullTableFuelConsumptionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FullTableFuelConsumptionRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -173,6 +239,126 @@ class GSMRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FuelConsumptionScreen]
+class FuelConsumptionRoute extends PageRouteInfo<FuelConsumptionRouteArgs> {
+  FuelConsumptionRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FuelConsumptionRoute.name,
+          args: FuelConsumptionRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'FuelConsumptionRoute';
+
+  static const PageInfo<FuelConsumptionRouteArgs> page =
+      PageInfo<FuelConsumptionRouteArgs>(name);
+}
+
+class FuelConsumptionRouteArgs {
+  const FuelConsumptionRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'FuelConsumptionRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [FilterGraphFuelConsumptionScreen]
+class FilterGraphFuelConsumptionRoute
+    extends PageRouteInfo<FilterGraphFuelConsumptionRouteArgs> {
+  FilterGraphFuelConsumptionRoute({
+    Key? key,
+    required int mode,
+    required String data,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FilterGraphFuelConsumptionRoute.name,
+          args: FilterGraphFuelConsumptionRouteArgs(
+            key: key,
+            mode: mode,
+            data: data,
+          ),
+          rawPathParams: {
+            'mode': mode,
+            'data': data,
+          },
+          initialChildren: children,
+        );
+
+  static const String name = 'FilterGraphFuelConsumptionRoute';
+
+  static const PageInfo<FilterGraphFuelConsumptionRouteArgs> page =
+      PageInfo<FilterGraphFuelConsumptionRouteArgs>(name);
+}
+
+class FilterGraphFuelConsumptionRouteArgs {
+  const FilterGraphFuelConsumptionRouteArgs({
+    this.key,
+    required this.mode,
+    required this.data,
+  });
+
+  final Key? key;
+
+  final int mode;
+
+  final String data;
+
+  @override
+  String toString() {
+    return 'FilterGraphFuelConsumptionRouteArgs{key: $key, mode: $mode, data: $data}';
+  }
+}
+
+/// generated route for
+/// [GraphFuelConsumptionScreen]
+class GraphFuelConsumptionRoute
+    extends PageRouteInfo<GraphFuelConsumptionRouteArgs> {
+  GraphFuelConsumptionRoute({
+    required int mode,
+    required String data,
+    List<PageRouteInfo>? children,
+  }) : super(
+          GraphFuelConsumptionRoute.name,
+          args: GraphFuelConsumptionRouteArgs(
+            mode: mode,
+            data: data,
+          ),
+          rawPathParams: {
+            'mode': mode,
+            'data': data,
+          },
+          initialChildren: children,
+        );
+
+  static const String name = 'GraphFuelConsumptionRoute';
+
+  static const PageInfo<GraphFuelConsumptionRouteArgs> page =
+      PageInfo<GraphFuelConsumptionRouteArgs>(name);
+}
+
+class GraphFuelConsumptionRouteArgs {
+  const GraphFuelConsumptionRouteArgs({
+    required this.mode,
+    required this.data,
+  });
+
+  final int mode;
+
+  final String data;
+
+  @override
+  String toString() {
+    return 'GraphFuelConsumptionRouteArgs{mode: $mode, data: $data}';
+  }
+}
+
+/// generated route for
 /// [EfficiencyTransportScreen]
 class EfficiencyTransportRoute extends PageRouteInfo<void> {
   const EfficiencyTransportRoute({List<PageRouteInfo>? children})
@@ -187,6 +373,39 @@ class EfficiencyTransportRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [FullEfficiencyTransportScreen]
+class FullEfficiencyTransportRoute
+    extends PageRouteInfo<FullEfficiencyTransportRouteArgs> {
+  FullEfficiencyTransportRoute({
+    required dynamic fullEfficiencyTransport,
+    List<PageRouteInfo>? children,
+  }) : super(
+          FullEfficiencyTransportRoute.name,
+          args: FullEfficiencyTransportRouteArgs(
+              fullEfficiencyTransport: fullEfficiencyTransport),
+          rawPathParams: {'efficiencyTransport': fullEfficiencyTransport},
+          initialChildren: children,
+        );
+
+  static const String name = 'FullEfficiencyTransportRoute';
+
+  static const PageInfo<FullEfficiencyTransportRouteArgs> page =
+      PageInfo<FullEfficiencyTransportRouteArgs>(name);
+}
+
+class FullEfficiencyTransportRouteArgs {
+  const FullEfficiencyTransportRouteArgs(
+      {required this.fullEfficiencyTransport});
+
+  final dynamic fullEfficiencyTransport;
+
+  @override
+  String toString() {
+    return 'FullEfficiencyTransportRouteArgs{fullEfficiencyTransport: $fullEfficiencyTransport}';
+  }
+}
+
+/// generated route for
 /// [AnalyseLogisticsScreen]
 class AnalyseLogisticsRoute extends PageRouteInfo<void> {
   const AnalyseLogisticsRoute({List<PageRouteInfo>? children})
@@ -196,6 +415,77 @@ class AnalyseLogisticsRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AnalyseLogisticsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EfficiencyTransportFilterScreen]
+class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
+  const EfficiencyTransportFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          EfficiencyTransportFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EfficiencyTransportFilterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WaybillFilterScreen]
+class WaybillFilterRoute extends PageRouteInfo<WaybillFilterRouteArgs> {
+  WaybillFilterRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          WaybillFilterRoute.name,
+          args: WaybillFilterRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'WaybillFilterRoute';
+
+  static const PageInfo<WaybillFilterRouteArgs> page =
+      PageInfo<WaybillFilterRouteArgs>(name);
+}
+
+class WaybillFilterRouteArgs {
+  const WaybillFilterRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'WaybillFilterRouteArgs{key: $key}';
+  }
+}
+
+/// generated route for
+/// [TaskFilterScreen]
+class TaskFilterRoute extends PageRouteInfo<void> {
+  const TaskFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          TaskFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TaskFilterRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [OrderFilterScreen]
+class OrderFilterRoute extends PageRouteInfo<void> {
+  const OrderFilterRoute({List<PageRouteInfo>? children})
+      : super(
+          OrderFilterRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'OrderFilterRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -257,6 +547,20 @@ class AuthRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [SettingsScreen]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute({List<PageRouteInfo>? children})
+      : super(
+          SettingsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SettingsRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [ChooseTreatmentScreen]
 class ChooseTreatmentRoute extends PageRouteInfo<ChooseTreatmentRouteArgs> {
   ChooseTreatmentRoute({
@@ -283,270 +587,4 @@ class ChooseTreatmentRouteArgs {
   String toString() {
     return 'ChooseTreatmentRouteArgs{key: $key}';
   }
-}
-
-/// generated route for
-/// [WaybillFilterScreen]
-class WaybillFilterRoute extends PageRouteInfo<WaybillFilterRouteArgs> {
-  WaybillFilterRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          WaybillFilterRoute.name,
-          args: WaybillFilterRouteArgs(key: key),
-          initialChildren: children,
-        );
-
-  static const String name = 'WaybillFilterRoute';
-
-  static const PageInfo<WaybillFilterRouteArgs> page =
-      PageInfo<WaybillFilterRouteArgs>(name);
-}
-
-class WaybillFilterRouteArgs {
-  const WaybillFilterRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'WaybillFilterRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
-/// [TaskFilterScreen]
-class TaskFilterRoute extends PageRouteInfo<void> {
-  const TaskFilterRoute({List<PageRouteInfo>? children})
-      : super(
-          TaskFilterRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'TaskFilterRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [OrderFilterScreen]
-class OrderFilterRoute extends PageRouteInfo<void> {
-  const OrderFilterRoute({List<PageRouteInfo>? children})
-      : super(
-          OrderFilterRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'OrderFilterRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [FullEfficiencyTransportScreen]
-class FullEfficiencyTransportRoute
-    extends PageRouteInfo<FullEfficiencyTransportRouteArgs> {
-  FullEfficiencyTransportRoute({
-    required dynamic fullEfficiencyTransport,
-    List<PageRouteInfo>? children,
-  }) : super(
-          FullEfficiencyTransportRoute.name,
-          args: FullEfficiencyTransportRouteArgs(
-              fullEfficiencyTransport: fullEfficiencyTransport),
-          rawPathParams: {'efficiencyTransport': fullEfficiencyTransport},
-          initialChildren: children,
-        );
-
-  static const String name = 'FullEfficiencyTransportRoute';
-
-  static const PageInfo<FullEfficiencyTransportRouteArgs> page =
-      PageInfo<FullEfficiencyTransportRouteArgs>(name);
-}
-
-class FullEfficiencyTransportRouteArgs {
-  const FullEfficiencyTransportRouteArgs(
-      {required this.fullEfficiencyTransport});
-
-  final dynamic fullEfficiencyTransport;
-
-  @override
-  String toString() {
-    return 'FullEfficiencyTransportRouteArgs{fullEfficiencyTransport: $fullEfficiencyTransport}';
-  }
-}
-
-/// generated route for
-/// [TableFuelConsumptionScreen]
-class TableFuelConsumptionRoute extends PageRouteInfo<void> {
-  const TableFuelConsumptionRoute({List<PageRouteInfo>? children})
-      : super(
-          TableFuelConsumptionRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'TableFuelConsumptionRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [FuelConsumptionScreen]
-class FuelConsumptionRoute extends PageRouteInfo<FuelConsumptionRouteArgs> {
-  FuelConsumptionRoute({
-    Key? key,
-    List<PageRouteInfo>? children,
-  }) : super(
-          FuelConsumptionRoute.name,
-          args: FuelConsumptionRouteArgs(key: key),
-          initialChildren: children,
-        );
-
-  static const String name = 'FuelConsumptionRoute';
-
-  static const PageInfo<FuelConsumptionRouteArgs> page =
-      PageInfo<FuelConsumptionRouteArgs>(name);
-}
-
-class FuelConsumptionRouteArgs {
-  const FuelConsumptionRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'FuelConsumptionRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for
-/// [EfficiencyTransportFilterScreen]
-class EfficiencyTransportFilterRoute extends PageRouteInfo<void> {
-  const EfficiencyTransportFilterRoute({List<PageRouteInfo>? children})
-      : super(
-          EfficiencyTransportFilterRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'EfficiencyTransportFilterRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [GraphFuelConsumptionScreen]
-class GraphFuelConsumptionRoute
-    extends PageRouteInfo<GraphFuelConsumptionRouteArgs> {
-  GraphFuelConsumptionRoute({
-    required int mode,
-    required String data,
-    List<PageRouteInfo>? children,
-  }) : super(
-          GraphFuelConsumptionRoute.name,
-          args: GraphFuelConsumptionRouteArgs(
-            mode: mode,
-            data: data,
-          ),
-          rawPathParams: {
-            'mode': mode,
-            'data': data,
-          },
-          initialChildren: children,
-        );
-
-  static const String name = 'GraphFuelConsumptionRoute';
-
-  static const PageInfo<GraphFuelConsumptionRouteArgs> page =
-      PageInfo<GraphFuelConsumptionRouteArgs>(name);
-}
-
-class GraphFuelConsumptionRouteArgs {
-  const GraphFuelConsumptionRouteArgs({
-    required this.mode,
-    required this.data,
-  });
-
-  final int mode;
-
-  final String data;
-
-  @override
-  String toString() {
-    return 'GraphFuelConsumptionRouteArgs{mode: $mode, data: $data}';
-  }
-}
-
-/// generated route for
-/// [SettingsScreen]
-class SettingsRoute extends PageRouteInfo<void> {
-  const SettingsRoute({List<PageRouteInfo>? children})
-      : super(
-          SettingsRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'SettingsRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [FilterGraphFuelConsumptionScreen]
-class FilterGraphFuelConsumptionRoute
-    extends PageRouteInfo<FilterGraphFuelConsumptionRouteArgs> {
-  FilterGraphFuelConsumptionRoute({
-    Key? key,
-    required int mode,
-    required String data,
-    List<PageRouteInfo>? children,
-  }) : super(
-          FilterGraphFuelConsumptionRoute.name,
-          args: FilterGraphFuelConsumptionRouteArgs(
-            key: key,
-            mode: mode,
-            data: data,
-          ),
-          rawPathParams: {
-            'mode': mode,
-            'data': data,
-          },
-          initialChildren: children,
-        );
-
-  static const String name = 'FilterGraphFuelConsumptionRoute';
-
-  static const PageInfo<FilterGraphFuelConsumptionRouteArgs> page =
-      PageInfo<FilterGraphFuelConsumptionRouteArgs>(name);
-}
-
-class FilterGraphFuelConsumptionRouteArgs {
-  const FilterGraphFuelConsumptionRouteArgs({
-    this.key,
-    required this.mode,
-    required this.data,
-  });
-
-  final Key? key;
-
-  final int mode;
-
-  final String data;
-
-  @override
-  String toString() {
-    return 'FilterGraphFuelConsumptionRouteArgs{key: $key, mode: $mode, data: $data}';
-  }
-}
-
-/// generated route for
-/// [FullTableFuelConsumptionScreen]
-class FullTableFuelConsumptionRoute extends PageRouteInfo<void> {
-  const FullTableFuelConsumptionRoute({List<PageRouteInfo>? children})
-      : super(
-          FullTableFuelConsumptionRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'FullTableFuelConsumptionRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }

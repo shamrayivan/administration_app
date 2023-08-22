@@ -2,8 +2,8 @@
 // ignore_for_file: comment_references
 
 abstract class StorageKey {
-  /// Авторизован или нет
-  static const auth = 'auth';
+
+  static const url = 'baseUrl';
 
   //Сохранение логина
   static const login = 'login';

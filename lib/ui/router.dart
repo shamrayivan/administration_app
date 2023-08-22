@@ -1,6 +1,7 @@
 import 'package:administration_app/ui/screens/auth_screen/auth_screen.dart';
 import 'package:administration_app/ui/screens/choose_treatment_screen/choose_treatment_screen.dart';
 import 'package:administration_app/ui/screens/choose_treatment_screen/settings_screen/settings_screen.dart';
+import 'package:administration_app/ui/screens/dummies_screen/empty_interner_error_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/fuel_consumption_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/filter_graph_fuel_consumptions_screen/filter_graph_fuel_consumptions_screen.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/graph_fuel_consumption_screen.dart';
@@ -46,6 +47,9 @@ abstract class RouteScreen {
   static const filterGraphFuelConsumption = '/filterGraphFuelConsumption';
   static const fullTableFuelConsumption = '/fullTableFuelConsumption';
 
+  static const emptyInternetError = '/emptyInternetError';
+
+
 }
 
 @AutoRouterConfig(replaceInRouteName: 'Screen,Route')
@@ -85,5 +89,6 @@ class AppRouter extends _$AppRouter {
     AutoRoute(page: SettingsRoute.page, path: RouteScreen.settings),
     AutoRoute(page: FilterGraphFuelConsumptionRoute.page, path: RouteScreen.filterGraphFuelConsumption),
     AutoRoute(page: FullTableFuelConsumptionRoute.page, path: RouteScreen.fullTableFuelConsumption),
+    AutoRoute(page: EmptyInternetErrorRoute.page, path: RouteScreen.fullTableFuelConsumption),
       ];
 }

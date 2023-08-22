@@ -441,7 +441,7 @@ class _TableFullEfficiencyTransport extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.black)),
               child: Text(
-                fullEfficiencyTransport.vehicleName,
+                fullEfficiencyTransport.vehicleName.isNotEmpty ? fullEfficiencyTransport.vehicleName : 'Всего',
                 style: const TextStyle(
                     fontSize: 14,
                     color: Colors.black,

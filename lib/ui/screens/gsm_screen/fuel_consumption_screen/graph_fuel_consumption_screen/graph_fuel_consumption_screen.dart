@@ -4,6 +4,7 @@ import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/gsm_screen/fuel_consumption_screen/graph_fuel_consumption_screen/graph_fuel_consumption_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart' hide Action;
+import 'package:intl/intl.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
@@ -44,8 +45,8 @@ class _GraphFuelConsumptionScreenState extends WidgetState<GraphFuelConsumptionS
               return GSMChart(
                   text: wm.mode == 1 || wm.mode == 0 ? 'Водители' : 'Машины',
                   dataSource: fuelGraphState?.table.where((element) => element.norm !=0 && element.show).toList() ?? [],
-                  xValueMapper: (GSMGraphConsumption graph, _) => graph.date.toString(),
-                  yValueMapper: (GSMGraphConsumption graph, _) => graph.norm.toDouble(), gsmFuelGraph: fuelGraphState);
+                  xValueMapper: (GSMGraphConsumption graph, _) => DateFormat('dd.MM.yy HH:mm').format(graph.date),
+                  yValueMapper: (GSMGraphConsumption graph, _) => double.parse(graph.norm.toStringAsFixed(2)), gsmFuelGraph: fuelGraphState);
             }
           ),
         ));

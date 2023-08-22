@@ -2,6 +2,7 @@ import 'package:administration_app/di/di.dart';
 import 'package:administration_app/interactor/main/main_manager.dart';
 import 'package:administration_app/interactor/storage/storage_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
+import 'package:administration_app/net/dio/dio_manager.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:relation/relation.dart';
@@ -11,6 +12,7 @@ class SplashScreenWm extends WidgetModelStandard {
   final _appRouter = getIt<AppRouter>();
   final _storageManager = getIt<StorageManager>();
   final _mainManager = getIt<MainManager>();
+  final _dioManager = getIt<DioManager>();
   final errorState = StreamedStateNS<bool>(false);
   final vehiclesErrorState = StreamedState<bool>();
   final typeOfVehiclesErrorState = StreamedState<bool>();
@@ -23,10 +25,12 @@ class SplashScreenWm extends WidgetModelStandard {
   void onInit()async{
     final login = await _storageManager.getString(key: 'login');
     final password = await _storageManager.getString(key: 'password');
-    if(login == null &&password == null) {
+    final url = await _storageManager.getString(key: 'baseUrl');
+    if(login == null || password == null || url ==null) {
       _appRouter.replaceNamed(RouteScreen.auth);
     }
     else {
+      await _dioManager.updateBaseUrlFunc(url: '$url');
       doFutureHandleError(_mainManager.getVehicle(),
           onValue: (val){
         vehiclesErrorState.accept(false);
