@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:administration_app/di/di.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
 import 'package:dio/dio.dart';
@@ -9,6 +11,7 @@ class StandardErrorHandler implements ErrorHandler {
     if (e is DioException) {
       final statusCode = e.response?.statusCode;
       if (statusCode != null) {
+        showSnackBarError(error: e.response?.statusMessage ?? 'Ошибка');
         switch (statusCode) {
         case 401:
           // _authManager.userState.content(null);
@@ -19,10 +22,10 @@ class StandardErrorHandler implements ErrorHandler {
           case 403:
             showSnackBarError(error: e.response?.data['message'].toString() as String);
             return true;
-        //   case 422:
-        //     showSnackBarListError(
-        //         mapError: e.response?.data['errors'] as Map<String, dynamic>);
-        //     return true;
+          case 404:
+            showSnackBarError(
+                error: 'Ошибка на стороне сервера (404)');
+            return true;
         //   case 410:
         //     showSnackBarError(error: e.response?.data['message'] as String);
         //     return true;
@@ -36,16 +39,17 @@ class StandardErrorHandler implements ErrorHandler {
         //   return true;
         }
       }
-      // if (e.error is NoInternetConnectionException ||
-      //     e.error is SocketException) {
-      //   _appRouter
-      //     ..removeUntil((route) => false)
-      //     ..replace(
-      //       ErrorNetRouter(
-      //           error: '${e.error.runtimeType}: ${e.response?.realUri}'),
-      //     );
-      //   return true;
-      // }
+      if (
+          e.error is SocketException) {
+        showSnackBarError(error: e.error.toString());
+        // _appRouter
+        //   ..removeUntil((route) => false)
+        //   ..replace(
+        //     ErrorNetRouter(
+        //         error: '${e.error.runtimeType}: ${e.response?.realUri}'),
+        //   );
+        return true;
+      }
 
       // if (e.error is CommonServerExceptions) {
       //   final error = e.error as CommonServerExceptions;

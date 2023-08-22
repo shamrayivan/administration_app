@@ -1,4 +1,5 @@
-String mainUrl = 'http://10.243.57.138/UAT20220420/hs/RMR/';
+// String mainUrl = 'http://10.243.57.138/UAT20220420/hs/RMR/';
+String mainUrl = '';
 String subDomen = '/hs/RMR/';
 
 abstract class Urls {
