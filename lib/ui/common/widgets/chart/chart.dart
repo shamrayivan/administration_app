@@ -1,5 +1,6 @@
 import 'package:administration_app/model/analysis_logistic/analysis_logistic.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Chart extends StatelessWidget {
@@ -36,14 +37,14 @@ class Chart extends StatelessWidget {
             name: 'Прошлый год',
             color: const Color.fromRGBO(251, 96, 127, 100),
             dataSource: datasource,
-            xValueMapper: (AnalysisLogistic ch, _) => ch.lastMonth,
+            xValueMapper: (AnalysisLogistic ch, _) => DateFormat('MMM', 'ru').format(DateFormat('MM').parse(ch.lastMonth.toString().padLeft(2,'0'))).replaceAll('.', ''),
             yValueMapper: (AnalysisLogistic ch, _) => ch.lastYear),
         BarSeries<AnalysisLogistic, dynamic>(
           //selectionBehavior: _selectionBehavior,
             name: 'Текущий год',
             color: Colors.deepPurpleAccent,
             dataSource: datasource,
-            xValueMapper: (AnalysisLogistic ch, _) => ch.currentMonth,
+            xValueMapper: (AnalysisLogistic ch, _) => DateFormat('MMM', 'ru').format(DateFormat('MM').parse(ch.currentMonth.toString().padLeft(2,'0'))).replaceAll('.', ''),
             yValueMapper: (AnalysisLogistic ch, _) => ch.currentYear),
       ],
     );

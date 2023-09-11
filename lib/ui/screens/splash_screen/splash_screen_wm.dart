@@ -23,6 +23,7 @@ class SplashScreenWm extends WidgetModelStandard {
 
   @override
   void onInit()async{
+    // _storageManager.allCleanData();
     final login = await _storageManager.getString(key: 'login');
     final password = await _storageManager.getString(key: 'password');
     final url = await _storageManager.getString(key: 'baseUrl');

@@ -3,10 +3,12 @@ import 'package:administration_app/interactor/auth/auth_manager.dart';
 import 'package:administration_app/interactor/storage/storage_manager.dart';
 import 'package:administration_app/model/common/widget_model_standart.dart';
 import 'package:administration_app/net/dio/dio_manager.dart';
+import 'package:administration_app/ui/common/bottom_sheet_select_standart/bottom_sheet_select_standart.dart';
 import 'package:administration_app/ui/common/snack_bar.dart';
 import 'package:administration_app/ui/res/urls.dart';
 import 'package:administration_app/ui/router.dart';
 import 'package:flutter/cupertino.dart' hide Action;
+import 'package:flutter/material.dart' hide Action;
 import 'package:relation/relation.dart';
 
 class AuthScreenWm extends WidgetModelStandard {
@@ -19,10 +21,12 @@ class AuthScreenWm extends WidgetModelStandard {
   final _storageManager = getIt<StorageManager>();
   final _dioManager = getIt<DioManager>();
   final _appRouter = getIt<AppRouter>();
+  final _scaffoldKey = getIt<GlobalKey<ScaffoldState>>();
 
   final onEnter = Action<void>();
   final showObscure = Action<void>();
   final onHttps = Action<void>();
+  final onChooseUrl = Action<BuildContext>();
 
   final obscureState = StreamedStateNS<bool>(true);
   final httpsState = StreamedStateNS<bool>(false);
@@ -31,6 +35,12 @@ class AuthScreenWm extends WidgetModelStandard {
 
   @override
   void onBind() {
+    subscribe(onChooseUrl.stream, (value) async {
+      final url = await bottomSheetSelectStandart(context: _scaffoldKey.currentContext ?? value!, title: 'Выберите url', data: listUrl, currentListData: [urlController.text], isSeveral: false, withoutConfirmation: true);
+      if(url != null){
+        urlController.text= url.first;
+      }
+    });
     subscribe(onHttps.stream, (_) {
       httpsState.accept(!httpsState.value);
     });

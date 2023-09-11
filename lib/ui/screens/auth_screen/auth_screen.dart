@@ -1,10 +1,13 @@
+import 'package:administration_app/ui/common/widgets/circle_button.dart';
 import 'package:administration_app/ui/common/widgets/circular_progress_bar.dart';
 import 'package:administration_app/ui/common/widgets/custom_text_input.dart';
+import 'package:administration_app/ui/res/assets.dart';
 import 'package:administration_app/ui/res/const_colors.dart';
 import 'package:administration_app/ui/screens/auth_screen/auth_screen_wm.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mwwm/mwwm.dart';
 import 'package:relation/relation.dart';
 
@@ -23,9 +26,9 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
-    },
+      },
       child: Scaffold(
         floatingActionButton: Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
@@ -34,7 +37,8 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
           child: FloatingActionButton.extended(
             label: const Text(
               'Войти',
-              style: TextStyle(color: Colors.amberAccent, fontSize: 16, fontWeight: FontWeight.w600),
+              style:
+                  TextStyle(color: Colors.amberAccent, fontSize: 16, fontWeight: FontWeight.w600),
             ),
             backgroundColor: Colors.black,
             onPressed: wm.onEnter,
@@ -70,7 +74,11 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                         enabled: true,
                         // height: 51,
                         hintText: 'Введите логин',
-                        hintStyle: const TextStyle(fontSize: 14, color: greyColor, fontWeight: FontWeight.w500,),
+                        hintStyle: const TextStyle(
+                          fontSize: 14,
+                          color: greyColor,
+                          fontWeight: FontWeight.w500,
+                        ),
                         hintColor: Colors.grey,
                         borderColor: Colors.black,
                       )),
@@ -93,7 +101,11 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                               controller: wm.passController,
                               enabled: true,
                               hintText: 'Введите пароль',
-                              hintStyle: const TextStyle(fontSize: 14, color: greyColor, fontWeight: FontWeight.w500,),
+                              hintStyle: const TextStyle(
+                                fontSize: 14,
+                                color: greyColor,
+                                fontWeight: FontWeight.w500,
+                              ),
                               borderColor: Colors.black,
                               obscure: obscure,
                               suffixIcon: IconButton(
@@ -126,7 +138,11 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                       enabled: true,
                       // height: 51,
                       hintText: 'Введите название базы',
-                      hintStyle: const TextStyle(fontSize: 14, color: greyColor, fontWeight: FontWeight.w500,),
+                      hintStyle: const TextStyle(
+                        fontSize: 14,
+                        color: greyColor,
+                        fontWeight: FontWeight.w500,
+                      ),
                       borderColor: Colors.black,
                     ),
                   ),
@@ -144,31 +160,64 @@ class _AuthScreenState extends WidgetState<AuthScreenWm> {
                     padding: const EdgeInsets.fromLTRB(10, 5, 10, 0),
                     //width: MediaQuery.of(context).copyWith().size.width / 1.5,
                     child: CustomTextField(
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          // wm.onChooseUrl.accept(context);
+                        },
+                        child: CircleButton(
+                          data: context,
+                          onPressed: wm.onChooseUrl,
+                          iconWidget: SizedBox(
+                            width: 32,
+                            height: 32,
+                            child: SvgPicture.asset(
+                              Assets.ic_add,
+                              width: 32,
+                              height: 32,
+                            ),
+                          ),
+                        ),
+                      ),
                       textInputAction: TextInputAction.done,
                       controller: wm.urlController,
                       enabled: true,
                       // height: 51,
                       hintText: 'Введите адрес сервера без http. Например, 192.168.0.1',
-                      hintStyle: const TextStyle(fontSize: 12, color: greyColor, fontWeight: FontWeight.w500,),
+                      hintStyle: const TextStyle(
+                        fontSize: 12,
+                        color: greyColor,
+                        fontWeight: FontWeight.w500,
+                      ),
                       borderColor: Colors.black,
                     ),
                   ),
                   StreamedStateBuilderNS(
-                    streamedStateNS: wm.httpsState,
-                    builder: (context, http) {
-                      return Row(children: [
-                        IconButton(onPressed: (){
-                          wm.onHttps();
-                        }, icon: http ? const Icon(Icons.check_box_outlined) :const Icon(Icons.check_box_outline_blank)),
-                        const Text('https'),
-                      ],);
-                    }
-                  ),
-                  const SizedBox(height: 75,)
+                      streamedStateNS: wm.httpsState,
+                      builder: (context, http) {
+                        return Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  wm.onHttps();
+                                },
+                                icon: http
+                                    ? const Icon(Icons.check_box_outlined)
+                                    : const Icon(Icons.check_box_outline_blank)),
+                            const Text('https'),
+                          ],
+                        );
+                      }),
+                  const SizedBox(
+                    height: 75,
+                  )
                 ],
               ),
             ),
-            StreamedStateBuilderNS(streamedStateNS: wm.loadingState, builder: (context, loading){return loading ? const CircullarProgressBar(): const SizedBox();}),
+            StreamedStateBuilderNS(
+                streamedStateNS: wm.loadingState,
+                builder: (context, loading) {
+                  return loading ? const CircullarProgressBar() : const SizedBox();
+                }),
           ],
         ),
       ),

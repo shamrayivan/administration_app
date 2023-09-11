@@ -2,6 +2,8 @@
 String mainUrl = '';
 String subDomen = '/hs/RMR/';
 
+const List<String> listUrl = ['1c.infiniti48.ru', 'test.infiniti48.ru'];
+
 abstract class Urls {
   static const typesOfVehicle = 'GetReference?ReferenceName=TypesOfVehicle';
   static String analysisLogisticWhithID ({required int modeID}) => 'GetResult?FunctionName=AnalysisOfLogisticsWork&Company=Инфинити%20групп%20ООО&View=$modeID';

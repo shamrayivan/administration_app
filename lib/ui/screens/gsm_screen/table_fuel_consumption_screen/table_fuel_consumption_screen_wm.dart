@@ -26,8 +26,8 @@ class TableFuelConsumptionScreenWM extends WidgetModelStandard {
   final onPeriod = Action<void>();
   final onGetData = Action<void>();
 
-  final dateBeginState = StreamedStateNS<DateTime>(DateTime(2021, 04, 14));
-  final dateEndState = StreamedStateNS<DateTime>(DateTime(2021, 04, 30));
+  final dateBeginState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 7));
+  final dateEndState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
   final onDateBegin = Action<DateTime>();
   final onDateEnd = Action<DateTime>();
 
