@@ -18,8 +18,8 @@ class GSMManager {
 
   final currentToggle = StreamedStateNS<int>(0);
 
-  final dateBeginState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day - 7));
-  final dateEndState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
+  final dateBeginState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month-1, 1));
+  final dateEndState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month, 0));
 
   final fuelGraphState = EntityStreamedState<GSMFuelGraph>();
   final fuelTableState = EntityStreamedState<List<Map<String, dynamic>>>();

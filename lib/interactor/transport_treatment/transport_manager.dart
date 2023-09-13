@@ -31,8 +31,8 @@ class TransportManager {
   final taskAnalisysLogistic = EntityStreamedState<List<AnalysisLogistic>>();
 
   final efficiencyTransportState = EntityStreamedState<List<EfficiencyTransport>>();
-  final dateBeginState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month-1, DateTime.now().day));
-  final dateEndState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day));
+  final dateBeginState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month-1, 1));
+  final dateEndState = StreamedStateNS<DateTime>(DateTime(DateTime.now().year, DateTime.now().month, 0));
 
 
   Future<void> getAnalysisLogistic({required int modeID, required List<Map<String, dynamic>> data}) async {
